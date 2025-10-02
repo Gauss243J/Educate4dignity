@@ -67,9 +67,9 @@ const LandingPage: React.FC = () => {
   <section className="relative px-4 sm:px-6 lg:px-8 pt-10 pb-14 min-h-[640px] flex items-center overflow-hidden" >
           <div className="absolute inset-0 z-0">
             <img src="/photos/banniere.png" alt="Hero background" className="w-full h-full object-cover" />
-            {/* Overlay: reduced white, added gradient & vignette shadow */}
+            {/* Darker overlay tending toward black for stronger focus */}
             <div className="absolute inset-0" style={{
-              background: 'linear-gradient(180deg, rgba(255,245,247,0.70) 0%, rgba(255,245,247,0.60) 35%, rgba(255,245,247,0.50) 60%, rgba(255,245,247,0.55) 100%), radial-gradient(circle at center, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.25) 100%)',
+              background: 'linear-gradient(180deg, rgba(0,0,0,0.24) 0%, rgba(0,0,0,0.22) 35%, rgba(0,0,0,0.20) 60%, rgba(0,0,0,0.24) 100%), radial-gradient(circle at center, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.38) 100%)',
               mixBlendMode: 'normal'
             }} />
             {/* Subtle inner shadow for depth */}
@@ -117,7 +117,7 @@ const LandingPage: React.FC = () => {
         <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12 mt-14" id="why">
           <div className="max-w-7xl mx-auto">
             <RotatingQualities
-              lead={t('landing.ourImpact','Why Educate for Dignity')}
+              lead={t('landing.whyTitle','We turn periods into possibility')}
               items={[
                 { label:'dignified', description:'Reusable kits that protect privacy.' },
                 { label:'transparent', description:'Open costs and public evidence (see transparency).' },
@@ -130,7 +130,7 @@ const LandingPage: React.FC = () => {
         {/* STORIES */}
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="stories" delay={80}>
           <div className="max-w-7xl mx-auto">
-            <h2 className="font-extrabold mb-6" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>Stories & Testimonials</h2>
+            <h2 className="font-extrabold mb-6" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.storiesTitle','Real voices, real change')}</h2>
             <div className="grid gap-4 md:grid-cols-3" data-stagger-group>
               {/*
                 Amina — Burundi
@@ -157,8 +157,7 @@ const LandingPage: React.FC = () => {
         {/* PROJECTS */}
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="projects" delay={120}>
           <div className="max-w-7xl mx-auto">
-            <h2 className="font-extrabold mb-2" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.featuredProjects','Projects')}</h2>
-            <p className="text-sm mb-6" style={{color:'var(--color-text-secondary)'}}>Choose a project to fund.</p>
+            <h2 className="font-extrabold mb-6" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.featuredProjectsTitle','Pick a project and move it forward today')}</h2>
             <div className="grid gap-4 md:grid-cols-3" data-stagger-group>
               {activeProjects.map((p)=>(
                 <div key={p.id} className="card-fade card-hover-lift">
@@ -174,7 +173,7 @@ const LandingPage: React.FC = () => {
         {/* FIELD MOMENTS GALLERY */}
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="field-moments" delay={240}>
           <div className="max-w-7xl mx-auto">
-            <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>Moments</h2>
+            <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.momentsTitle','Small field moments that show big change')}</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger-group>
               {[
                 {src:'/photos/jeune-adulte-deprime-a-la-maison (1).jpg', alt:'Young woman seated indoors reflective pose'},
@@ -187,13 +186,13 @@ const LandingPage: React.FC = () => {
                 </div>
               ))}
             </div>
-            <div className="text-[12px] mt-3" style={{color:'var(--slate-500)'}}>All images for prototype illustration only.</div>
+            <div className="text-[12px] mt-3" style={{color:'var(--slate-500)'}}>{t('landing.imagesDisclaimer','Images shown are illustrative placeholders for the prototype.')}</div>
           </div>
   </Reveal>
         {/* HOW IT WORKS (Workflow Diagram) */}
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="how" delay={280}>
           <div className="max-w-7xl mx-auto">
-            <h2 className="font-extrabold mb-8" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.learnMore','How')}</h2>
+            <h2 className="font-extrabold mb-8" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.howTitle','A simple model that keeps girls in school')}</h2>
             <div className="rounded-xl p-6 md:p-10 border" style={{borderColor:'var(--rose-200)',background:'var(--rose-50)'}}>
               {/* New visual workflow */}
               <WorkflowDiagram />
@@ -204,7 +203,7 @@ const LandingPage: React.FC = () => {
         <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="partners" delay={300}>
           <div className="max-w-7xl mx-auto space-y-8">
             <div>
-              <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>Our Partners</h2>
+              <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.partnersTitle','We go further by working together')}</h2>
               <div className="flex gap-3 overflow-x-auto py-2">
                 {partners.map((pt,i)=>(<div key={i} className="partner-tile whitespace-nowrap">{pt}</div>))}
               </div>
@@ -217,7 +216,7 @@ const LandingPage: React.FC = () => {
         {/* RELOCATED MAP */}
         <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="map" delay={320}>
           <div className="max-w-7xl mx-auto">
-            <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.countriesReached','Where we work')}</h2>
+            <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.countriesTitle','Where your impact is already growing')}</h2>
             <div className="bg-white border rounded-2xl p-2 sm:p-4 md:p-6" style={{borderColor:'var(--rose-200)'}}>
               <InteractiveWorldMap mode="global" />
             </div>
