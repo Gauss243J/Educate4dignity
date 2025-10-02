@@ -1,0 +1,13 @@
+:root {
+  --admin-bg: #FFF7FA;
+  --panel-sidebar: #FCECF2;
+  --card-bg: #FFFFFF;
+  --text-primary: #503246;
+  --muted-color: #8B6678;
+  --primary-accent: #C23D74;
+  --border-color: #E9AABB;
+  --chip-bg: #FFEAF1;
+}
+
+.admin-scrollbar::-webkit-scrollbar { width: 8px; }
+.admin-scrollbar::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
