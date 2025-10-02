@@ -13,7 +13,6 @@ import PublicNav from '../components/layout/PublicNav';
 import { impactMetrics } from '../data/metrics';
 import CountUp from '../components/ui/CountUp';
 import Reveal from '../components/ui/Reveal';
-import RotatingQualities from '../components/ui/RotatingQualities';
 import WorkflowDiagram from '../components/ui/WorkflowDiagram';
 
 const LandingPage: React.FC = () => {
@@ -22,10 +21,11 @@ const LandingPage: React.FC = () => {
   useEffect(()=> { let mounted=true; listActivePublicProjects().then(p=> { if(mounted) {
     // Replace any svg placeholder thumbnails with real photos pool for landing feature cards
     const photoPool = [
-      '/photos/jeune-adulte-deprime-a-la-maison.jpg',
-      '/photos/photo-d-une-femme-afro-americaine-ravie-tient-un-tampon-et-une-serviette-hygienique-vetue-d-un-t-shirt-blanc-isole-sur-un-mur-rose-femmes-pms.jpg',
-      '/photos/tir-isole-de-l-heureuse-jeune-femme-afro-tient-un-tampon-de-coton-menstuation-et-une-serviette-hygienique.jpg',
-      '/photos/portrait-de-femme-afro-americaine-triste.jpg'
+      '/photos/Dossier/1.png',
+      '/photos/Dossier/48e1c9d3-6c82-469f-9b0a-f4fd7875090c (1).jpg',
+      '/photos/Dossier/Generated Image October 02, 2025 - 8_39AM.png',
+      '/photos/Dossier/Generated Image October 02, 2025 - 8_50AM (1).png',
+      '/photos/Dossier/Generated Image October 02, 2025 - 9_21AM.png'
     ];
     let idx = 0;
     const mapped = p.slice(0,3).map(pr => {
@@ -77,10 +77,11 @@ const LandingPage: React.FC = () => {
           </div>
           <div className="relative z-10 max-w-7xl mx-auto w-full">
             <div className="max-w-2xl space-y-6 bg-white/55 backdrop-blur-md rounded-xl px-8 py-8 shadow-sm ring-1 ring-white/40">
-              <h1 className="font-extrabold" style={{fontSize:'52px',lineHeight:'56px',color:'var(--color-text-primary)'}}>{t('landing.title','From Taboo to Dignity')}</h1>
-              <p className="text-lg font-medium" style={{color:'var(--color-text-secondary)'}}>{t('landing.subtitle','Keep girls in school with reusable, dignified menstrual kits.')}</p>
+              <h1 className="font-extrabold" style={{fontSize:'52px',lineHeight:'56px',color:'var(--color-text-primary)'}}>{t('landing.title','Transform menstrual health education in East Africa')}</h1>
+              <p className="text-lg font-medium" style={{color:'var(--color-text-secondary)'}}>{t('landing.subtitle','We break taboos, educate communities, and provide sustainable solutions so every girl can manage her period with dignity.')}</p>
+              <p className="text-sm font-semibold" style={{color:'var(--rose-700)'}}>{t('landing.valueProp','Because no girl should miss school because of her period')}</p>
               <div className="flex gap-3 flex-wrap pt-2">
-                <Link to="/donate" className="btn-rose" data-analytics-id="donate_now">{t('landing.makeDonation','Donate Now')}</Link>
+                <Link to="/donate" className="btn-donate" data-analytics-id="donate_now">{t('landing.makeDonation','Donate Now')}</Link>
                 <Link to="/projects" className="btn-outline-rose" data-analytics-id="see_projects">{t('landing.exploreProjects','See Active Projects')}</Link>
               </div>
             </div>
@@ -113,18 +114,72 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </section>
-        {/* WHY (Rotating qualities) */}
-        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12 mt-14" id="why">
+        {/* AUDIENCE COMBINED 3-COLUMN SECTION */}
+        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-16 mt-6" id="audiences" delay={40}>
           <div className="max-w-7xl mx-auto">
-            <RotatingQualities
-              lead={t('landing.whyTitle','We turn periods into possibility')}
-              items={[
-                { label:'dignified', description:'Reusable kits that protect privacy.' },
-                { label:'transparent', description:'Open costs and public evidence (see transparency).' },
-                { label:'community-led', description:'Local women groups make & deliver.' },
-                { label:'educational', description:'Menstrual health and hygiene lessons.' }
-              ]}
-            />
+            <h2 className="font-extrabold mb-8" style={{fontSize:'30px',color:'var(--color-text-primary)'}}>{t('audience.overview.title', 'Paths, impact and collaboration')}</h2>
+            <div className="grid md:grid-cols-3 gap-8" data-stagger-group>
+              {/* Column 1: Beneficiaries */}
+              <div className="card-fade">
+                <h3 className="font-bold mb-4" style={{color:'var(--color-text-primary)',fontSize:'20px'}}>{t('audience.beneficiaries.sectionTitle')}</h3>
+                <ul className="space-y-3 text-sm" style={{color:'var(--color-text-secondary)'}}>
+                  {[t('audience.beneficiaries.p1'),t('audience.beneficiaries.p2'),t('audience.beneficiaries.p3'),t('audience.beneficiaries.p4')].map((txt,i)=>(
+                    <li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-600)] leading-snug">{txt}</li>
+                  ))}
+                </ul>
+              </div>
+              {/* Column 2: Donors */}
+              <div className="card-fade">
+                <h3 className="font-bold mb-4" style={{color:'var(--color-text-primary)',fontSize:'20px'}}>{t('audience.donors.sectionTitle')}</h3>
+                <ul className="space-y-3 text-sm font-medium" style={{color:'var(--color-text-secondary)'}}>
+                  {[t('audience.donors.i1'),t('audience.donors.i2'),t('audience.donors.i3')].map((txt,i)=>(
+                    <li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-600)] leading-snug">{txt}</li>
+                  ))}
+                </ul>
+                <div className="text-[12px] mt-3 font-semibold" style={{color:'var(--rose-700)'}}>{t('audience.donors.transparency')}</div>
+              </div>
+              {/* Column 3: Partners */}
+              <div className="card-fade">
+                <h3 className="font-bold mb-4" style={{color:'var(--color-text-primary)',fontSize:'20px'}}>{t('audience.partners.sectionTitle')}</h3>
+                <ul className="space-y-3 text-sm font-medium" style={{color:'var(--color-text-secondary)'}}>
+                  {[t('audience.partners.i1'),t('audience.partners.i2'),t('audience.partners.i3')].map((txt,i)=>(
+                    <li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-600)] leading-snug">{txt}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+        {/* EDUCATION SECTION (image left, text right) */}
+        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-20 mt-14" id="education" delay={60}>
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+            <div className="rounded-2xl overflow-hidden border" style={{borderColor:'var(--rose-200)'}}>
+              <ImageWithFallback src="/photos/Project/Generated Image October 02, 2025 - 9_15AM.png" alt={t('education.title','Menstrual health education')} className="w-full h-full object-cover md:h-[420px]" />
+            </div>
+            <div>
+              <h2 className="font-extrabold mb-4" style={{fontSize:'34px',lineHeight:'1.15',color:'var(--color-text-primary)'}}>{t('education.title','Why menstrual health education matters')}</h2>
+              <p className="text-base font-medium mb-4" style={{color:'var(--color-text-secondary)'}}>{t('education.lead','Knowledge + dignity keeps girls learning consistently.')}</p>
+              <p className="text-sm mb-3" style={{color:'var(--color-text-secondary)'}}>{t('education.p1')}</p>
+              <p className="text-sm mb-6" style={{color:'var(--color-text-secondary)'}}>{t('education.p2')}</p>
+              <Link to="/blog" className="btn-outline-rose text-sm">{t('education.cta','Read more on our learning approach')}</Link>
+            </div>
+          </div>
+        </Reveal>
+        {/* PEDAGOGY & MENSTRUAL HEALTH QUICK LISTS */}
+        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="pedagogy" delay={70}>
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10">
+            <div>
+              <h3 className="font-bold mb-3" style={{fontSize:'22px',color:'var(--color-text-primary)'}}>{t('audience.pedagogy.sectionTitle','Our learning approach')}</h3>
+              <ul className="space-y-2 text-sm" style={{color:'var(--color-text-secondary)'}}>
+                {[t('audience.pedagogy.i1'),t('audience.pedagogy.i2'),t('audience.pedagogy.i3')].map((l,i)=>(<li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-600)]">{l}</li>))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-bold mb-3" style={{fontSize:'22px',color:'var(--color-text-primary)'}}>{t('audience.menstrualHealth.sectionTitle','Clear, practical menstrual health')}</h3>
+              <ul className="space-y-2 text-sm" style={{color:'var(--color-text-secondary)'}}>
+                {[t('audience.menstrualHealth.i1'),t('audience.menstrualHealth.i2'),t('audience.menstrualHealth.i3')].map((l,i)=>(<li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-600)]">{l}</li>))}
+              </ul>
+            </div>
           </div>
         </Reveal>
         {/* STORIES */}
@@ -138,9 +193,9 @@ const LandingPage: React.FC = () => {
                 Esperance — DRC
               */}
               { [
-                { key:'story_amima', n:'Amina — Burundi', q:'“I stopped missing school.”', d:'$25 keeps a girl learning all year.', img: '/photos/photo-d-une-femme-afro-americaine-ravie-tient-un-tampon-et-une-serviette-hygienique-vetue-d-un-t-shirt-blanc-isole-sur-un-mur-rose-femmes-pms.jpg', alt:'Smiling young woman holding menstrual hygiene products' },
-                { key:'story_grace', n:'Grace — Rwanda', q:'“My daughter now has confidence.”', d:'Reusable kits + teacher talks.', img: '/photos/tir-isole-de-l-heureuse-jeune-femme-afro-tient-un-tampon-de-coton-menstuation-et-une-serviette-hygienique.jpg', alt:'Happy woman holding cotton tampon and pad' },
-                { key:'story_esperance', n:'Esperance — DRC', q:'“No more stigma. Just dignity.”', d:'Parents & boys included in sessions.', img: '/photos/portrait-de-femme-afro-americaine-triste.jpg', alt:'Thoughtful woman portrait addressing stigma' }
+                { key:'story_amima', n:'Amina — Burundi', q:'“I stopped missing school.”', d:'$25 keeps a girl learning all year.', img: '/photos/Dossier/1.png', alt:'Impact story 1' },
+                { key:'story_grace', n:'Grace — Rwanda', q:'“My daughter now has confidence.”', d:'Reusable kits + teacher talks.', img: '/photos/Dossier/Generated Image October 02, 2025 - 8_39AM.png', alt:'Impact story 2' },
+                { key:'story_esperance', n:'Esperance — DRC', q:'“No more stigma. Just dignity.”', d:'Parents & boys included in sessions.', img: '/photos/Dossier/Generated Image October 02, 2025 - 8_50AM (1).png', alt:'Impact story 3' }
               ].map((s)=>(
                 <div key={s.key} className="p-4 rounded-lg border flex flex-col card-fade card-hover-lift" style={{borderColor:'var(--color-border)',background:'var(--color-primary-light)'}}>
                   <div className="h-40 mb-3 rounded-md border overflow-hidden" style={{borderColor:'var(--rose-200)'}}>
@@ -176,10 +231,10 @@ const LandingPage: React.FC = () => {
             <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.momentsTitle','Small field moments that show big change')}</h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger-group>
               {[
-                {src:'/photos/jeune-adulte-deprime-a-la-maison (1).jpg', alt:'Young woman seated indoors reflective pose'},
-                {src:'/photos/une-femme-europeenne-heureuse-choisit-entre-un-tampon-et-une-serviette-hygienique-annonce-des-produits-d-hygiene-pour-la-menstruation-porte-un-masque-de-sommeil-et-un-pyjama-applique-des-patchs-de-beaute-isoles-sur.jpg', alt:'Woman deciding between menstrual products smiling'},
-                {src:'/photos/variete-de-l-hygiene-menstruelle-feminine-vue-de-dessus.jpg', alt:'Top view assortment of menstrual hygiene products'},
-                {src:'/photos/jeune-adulte-deprime-a-la-maison.jpg', alt:'Young woman at home looking down thoughtful'}
+                {src:'/photos/Project/92038f75-aeef-42a1-a6f0-a4a014771f14.png', alt:'Project field photo 1'},
+                {src:'/photos/Project/Generated Image October 02, 2025 - 8_34AM.png', alt:'Project field photo 2'},
+                {src:'/photos/Project/Generated Image October 02, 2025 - 9_01AM.png', alt:'Project field photo 3'},
+                {src:'/photos/Project/Generated Image October 02, 2025 - 9_11AM.png', alt:'Project field photo 4'}
               ].map((g,i)=>(
                 <div key={i} className="rounded-lg overflow-hidden border card-fade" style={{borderColor:'var(--color-border)'}}>
                   <ImageWithFallback src={g.src} alt={g.alt} className="w-full h-48 object-cover" />
@@ -228,7 +283,7 @@ const LandingPage: React.FC = () => {
             <div className="rounded-xl border p-10 text-center" style={{borderColor:'var(--rose-200)',background:'var(--rose-100)'}}>
               <h3 className="font-bold mb-3" style={{color:'var(--color-text-primary)',fontSize:'22px'}}>{t('landing.makeDonation','Help a girl stay in school')}</h3>
               <div className="text-sm mb-4 font-medium" style={{color:'var(--color-text-primary)'}}>$25 supports one girl for a year.</div>
-              <Link to="/donate" className="btn-rose mb-2" data-analytics-id="donate_banner_btn">{t('nav.donate','Donate $25')}</Link>
+              <Link to="/donate" className="btn-donate mb-2" data-analytics-id="donate_banner_btn">{t('nav.donate','Donate $25')}</Link>
               <div className="text-[12px] mt-2" style={{color:'var(--color-text-tertiary)'}}><a href="/transparency" className="underline hover:text-[var(--color-primary)]">Open costs & public evidence</a>.</div>
             </div>
           </div>

@@ -9,12 +9,13 @@ import LanguageSwitcher from '../ui/LanguageSwitcher';
 export const PublicNav: React.FC = () => {
   const { t } = useTranslation();
   const location = useLocation();
+  // Order: About, Projects, Blog, Resources, E-learning, Contact, Sign In
   const items: Array<{ label: string; to: string; match?: RegExp }> = [
+    { label: t('nav.about','About'), to: '/about', match: /^\/(about|contact)/ },
     { label: t('nav.projects','Projects'), to: '/projects', match: /^\/projects/ },
-    { label: t('resources','Resources'), to: '/resources', match: /^\/resources/ },
-    { label: 'About', to: '/about', match: /^\/(about|contact)/ },
-    { label: 'Blog', to: '/blog', match: /^\/blog/ },
-    { label: 'E-learning', to: '/elearning', match: /^\/elearning/ },
+    { label: t('nav.blog','Blog'), to: '/blog', match: /^\/blog/ },
+    { label: t('nav.resources','Resources'), to: '/resources', match: /^\/resources/ },
+    { label: t('admin.elearning', t('nav.elearning','E-learning')), to: '/elearning', match: /^\/elearning/ },
     { label: t('nav.contact','Contact'), to: '/contact', match: /^\/(contact)/ },
     { label: t('nav.signin','Sign In'), to: '/login', match: /^\/login/ }
   ];
@@ -40,7 +41,7 @@ export const PublicNav: React.FC = () => {
               <Link key={item.to} to={item.to} className={`hover:text-[var(--rose-600)] ${active?'font-semibold text-[var(--rose-600)]':'text-[var(--slate-600)]'}`}>{item.label}</Link>
             );
           })}
-          <Link to="/donate" className="btn-rose">{t('nav.donate','Donate')}</Link>
+          <Link to="/donate" className="btn-donate">{t('nav.donate','Donate')}</Link>
           <LanguageSwitcher className="ml-1" />
           <button
             type="button"

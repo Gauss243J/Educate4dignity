@@ -17,11 +17,19 @@ const resources = {
         signin: 'Sign In',
         signup: 'Sign Up'
       },
+      nav_mh: {
+        projects: 'Menstrual Health Projects',
+        resources: 'Menstrual Health Resources',
+        blog: 'Stories & Insights',
+        elearning: 'E-learning (Menstrual Health)',
+        about: 'About Our Menstrual Health Mission'
+      },
       
       // Landing Page
       landing: {
-        title: 'From Taboo to Dignity',
-        subtitle: 'Keep girls in school with reusable, dignified menstrual kits.',
+  title: 'Transform menstrual health education in East Africa',
+  subtitle: 'We break taboos, educate communities, and provide sustainable solutions so every girl can manage her period with dignity.',
+  valueProp: 'Because no girl should miss school because of her period',
         description: 'Join us in creating sustainable change through innovative projects that provide education, resources, and opportunities to communities worldwide.',
         exploreProjects: 'Explore Projects',
         makeDonation: 'Make a Donation',
@@ -31,6 +39,7 @@ const resources = {
   whyTitle: "Education with dignity transforms a girl's future.",
   storiesTitle: 'Discover real voices and moments from the field.',
   featuredProjectsTitle: 'Choose a project you believe in and follow its progress.',
+  featuredProjectsTitle_mh: 'Back a menstrual health project and follow real impact.',
   momentsTitle: 'Locally sewn kits, women leading, girls keeping their days.',
   imagesDisclaimer: 'Images shown are illustrative placeholders for the prototype.',
   howTitle: 'See how your support turns into measurable impact.',
@@ -42,6 +51,49 @@ const resources = {
         livesImpacted: 'Lives Impacted',
         countriesReached: 'Countries Reached',
         fundsRaised: 'Funds Raised'
+      },
+      audience: {
+        beneficiaries: {
+          sectionTitle: "Your path to confidence",
+          p1: 'Understand your body without shame',
+          p2: 'Learn with female facilitators who get you',
+          p3: 'Receive free, durable menstrual hygiene kits',
+          p4: 'Join a supportive sisterhood community'
+        },
+        donors: {
+          sectionTitle: 'Your concrete impact',
+          i1: '€15 = 1 menstrual hygiene kit for 6 months',
+          i2: '€50 = Full training for a class of 30 students',
+          i3: '€100 = Equip a school with adapted facilities',
+          transparency: 'Track every euro all the way to the beneficiaries'
+        },
+        partners: {
+          sectionTitle: 'Let\'s build together',
+          i1: 'Schools: Integrate menstrual health education into curricula',
+          i2: 'Health centers: Become distribution points',
+          i3: 'Community leaders: Break the silence'
+        },
+        overview: {
+          title: 'Paths, impact and collaboration'
+        },
+        pedagogy: {
+          sectionTitle: 'Our learning approach',
+          i1: 'Participatory method adapted to cultural realities',
+          i2: 'Training in local languages with visual supports',
+            i3: 'Mixed parent–girl sessions to lift family taboos'
+        },
+        menstrualHealth: {
+          sectionTitle: 'Clear, practical menstrual health',
+          i1: 'Hygiene: preventing infections',
+          i2: 'Pain management with natural methods',
+          i3: 'When to seek care: warning signs explained simply'
+        }
+      },
+      projectCard: {
+        supportCta: 'Advance menstrual health',
+        supportCtaLong: 'Advance menstrual health & dignity',
+        locationFrom: 'Location',
+        funded: 'funded'
       },
       
       // Authentication
@@ -305,7 +357,26 @@ const resources = {
         projectProgress: 'Project Progress',
         viewDetails: 'View Details',
         hideDetails: 'Hide Details'
+      },
+      // Newsletter
+      newsletter: {
+        title: 'Newsletter',
+        description: 'Sign up for monthly updates.',
+        placeholder: 'you@example.com',
+        cta: 'Subscribe',
+        success: 'Thank you! Check your email.',
+        invalid: 'Invalid address',
+        failure: 'Failed, please retry',
+        privacy: 'Data protection: unsubscribe with one click in every email.'
       }
+      ,education: {
+        title: 'Why menstrual health education matters',
+  lead: 'Knowledge and dignity keep girls in school.',
+    p1: 'Without good information many girls miss class, face stigma, or use unsafe materials. Kits help—but training builds confidence.',
+  p2: 'Local facilitators teach hygiene and reuse; online courses and the blog reinforce it. Layered support keeps girls present and equipped.',
+  cta: 'See more content about menstruation health'
+      }
+      
     }
   },
   fr: {
@@ -324,8 +395,9 @@ const resources = {
       
       // Landing Page
       landing: {
-        title: 'Autonomiser les communautés grâce à',
-        subtitle: 'l\'Éducation et la Dignité',
+  title: 'Transformons l\'éducation menstruelle en Afrique de l\'Est',
+  subtitle: 'Nous brisons les tabous, éduquons les communautés et offrons des solutions durables pour que chaque jeune fille vive ses règles avec dignité.',
+  valueProp: 'Parce qu\'aucune fille ne devrait manquer l\'école à cause de ses règles',
         description: 'Rejoignez-nous pour créer un changement durable grâce à des projets innovants qui fournissent éducation, ressources et opportunités aux communautés du monde entier.',
         exploreProjects: 'Explorer les projets',
         makeDonation: 'Faire un don',
@@ -346,6 +418,43 @@ const resources = {
         livesImpacted: 'Vies impactées',
         countriesReached: 'Pays atteints',
         fundsRaised: 'Fonds collectés'
+      },
+      audience: {
+        beneficiaries: {
+          sectionTitle: 'Ton parcours vers la confiance',
+          p1: 'Découvre ton corps sans honte',
+          p2: 'Apprends avec des formatrices qui te comprennent',
+          p3: 'Reçois des kits d\'hygiène gratuits et durables',
+          p4: 'Rejoins une communauté de sœurs solidaires'
+        },
+        donors: {
+          sectionTitle: 'Votre impact concret',
+          i1: '15€ = 1 kit d\'hygiène menstruelle pour 6 mois',
+          i2: '50€ = Formation complète d\'une classe de 30 élèves',
+          i3: '100€ = Équipement d\'une école avec des infrastructures adaptées',
+          transparency: 'Suivez chaque franc jusqu\'aux mains des bénéficiaires'
+        },
+        partners: {
+          sectionTitle: 'Construisons ensemble',
+          i1: 'Écoles : Intégrez l\'éducation menstruelle à vos programmes',
+          i2: 'Centres de santé : Devenez points de distribution',
+          i3: 'Leaders communautaires : Brisez les silences'
+        },
+        overview: {
+          title: 'Parcours, impact et collaboration'
+        },
+        pedagogy: {
+          sectionTitle: 'Approche pédagogique visible',
+          i1: 'Méthode participative adaptée aux réalités culturelles',
+          i2: 'Formation en langues locales avec supports visuels',
+          i3: 'Sessions mixtes parents–filles pour lever les tabous familiaux'
+        },
+        menstrualHealth: {
+          sectionTitle: 'Santé menstruelle sans détour',
+          i1: 'Hygiène menstruelle : prévention des infections',
+          i2: 'Gestion de la douleur avec méthodes naturelles',
+          i3: 'Quand consulter : signaux d\'alerte expliqués simplement'
+        }
       },
       
       // Authentication
@@ -375,6 +484,13 @@ const resources = {
         resources: 'Ressources',
         research: 'R&D',
   team: 'Équipe',
+          nav_mh: {
+            projects: 'Projets santé menstruelle',
+            resources: 'Ressources santé menstruelle',
+            blog: 'Histoires & Perspectives',
+            elearning: 'E-learning (santé menstruelle)',
+            about: 'Notre mission santé menstruelle'
+          },
   admin: 'Admin',
         settings: 'Paramètres',
         welcome: 'Bon retour ! Voici ce qui se passe avec vos projets.',
@@ -402,6 +518,12 @@ const resources = {
             reference: 'Référence',
             status: 'Statut',
             amount: 'Montant',
+          projectCard: {
+            supportCta: 'Avancer la santé menstruelle',
+            supportCtaLong: 'Avancer la santé menstruelle & la dignité',
+            locationFrom: 'Lieu',
+            funded: 'financé'
+          },
             actions: 'Actions',
             searchPlaceholder: 'Rechercher...'
           },
@@ -609,6 +731,24 @@ const resources = {
         projectProgress: 'Progression du Projet',
         viewDetails: 'Voir les détails',
         hideDetails: 'Masquer les détails'
+      },
+      // Newsletter
+      newsletter: {
+        title: 'Newsletter',
+        description: 'Inscrivez-vous pour des mises à jour mensuelles.',
+        placeholder: 'vous@exemple.com',
+        cta: 'S\'inscrire',
+        success: 'Merci ! Vérifiez votre email.',
+        invalid: 'Adresse invalide',
+        failure: 'Échec, réessayez',
+        privacy: 'Protection des données : désabonnement en un clic dans chaque email.'
+      }
+      ,education: {
+        title: 'Pourquoi l\'éducation à la santé menstruelle compte',
+  lead: 'Savoir + dignité gardent les filles à l\'école.',
+    p1: 'Sans infos claires, des filles manquent les cours, subissent la stigmatisation ou utilisent des solutions risquées. Les kits aident — la formation donne confiance.',
+  p2: 'Animatrices locales: hygiène, réutilisation, moins de honte. Cours en ligne + blog renforcent. Cet appui combiné garde les filles présentes et équipées.',
+  cta: 'Voir plus de contenu sur la santé menstruelle'
       }
     }
   }
