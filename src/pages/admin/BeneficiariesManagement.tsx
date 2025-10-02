@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Ca
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Input } from '../../components/ui/Input';
+import AdminPage from '../../components/admin/AdminPage';
 
 const BeneficiariesManagement: React.FC = () => {
   const { t } = useTranslation();
@@ -159,12 +160,11 @@ const BeneficiariesManagement: React.FC = () => {
   const totalProjects = beneficiaries.reduce((sum, b) => sum + b.projectsCount, 0);
 
   return (
-    <div>
+    <AdminPage title={t('admin.beneficiaries')}>
       <div className="mb-6">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-text-primary">{t('admin.beneficiaries')}</h1>
-            <p className="text-text-secondary">Manage beneficiary communities and track impact</p>
+            <p className="text-text-secondary text-sm">Manage beneficiary communities and track impact</p>
           </div>
           <Button>+ Register New Beneficiary</Button>
         </div>
@@ -402,7 +402,7 @@ const BeneficiariesManagement: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
+  </AdminPage>
   );
 };
 

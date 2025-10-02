@@ -11,20 +11,35 @@ import { useTranslation } from 'react-i18next';
 import { useDashboardData } from '../../hooks/useDashboardData';
 import AdminPage from '../../components/admin/AdminPage';
 import ProjectsOverview from './ProjectsOverview';
+import ProjectCreate from './ProjectCreate';
+import ProjectDetail from './ProjectDetail';
+import ProjectPlanMilestonesPage from './ProjectPlanMilestonesPage';
+import ProjectLayout from '../../components/admin/ProjectLayout';
+import ProjectProduction from './project/ProjectProduction';
+import ProjectDistribution from './project/ProjectDistribution';
+import ProjectFormation from './project/ProjectFormation';
+import ProjectTransparency from './project/ProjectTransparency';
+import ProjectDepenses from './project/ProjectDepenses';
+import ProjectRapports from './project/ProjectRapports';
+import ProjectBeneficiaires from './project/ProjectBeneficiaires';
+import DistributorsManagement from './DistributorsManagement';
+import SuppliersManagement from './SuppliersManagement';
+import BeneficiariesManagement from './BeneficiariesManagement';
 
 // Placeholder simple cards used by routes
 const Placeholder = ({title,children}:{title:string;children?:React.ReactNode}) => (
-  <div className="p-6"><h1 className="text-xl font-semibold mb-4 text-[var(--text-primary,#503246)]">{title}</h1><div className="rounded-xl border border-[var(--border-color,#E9AABB)] bg-white p-6 shadow-sm text-[14px] text-[var(--muted-color,#8B6678)]">{children||'Contenu à venir.'}</div></div>
+  <div className="p-6"><h1 className="text-xl font-semibold mb-4 text-[var(--text-primary,#503246)]">{title}</h1><div className="rounded-xl bg-white p-6 text-[14px] text-[var(--muted-color,#8B6678)]" style={{boxShadow:'var(--elev-1)'}}>{children||'Contenu à venir.'}</div></div>
 );
 
 const AdminDashboard: React.FC = () => {
-  const [sidebarOpen,setSidebarOpen] = useState(false);
+  const [sidebarOpen,setSidebarOpen] = useState(false); // mobile overlay visibility
+  const [sidebarCollapsed,setSidebarCollapsed] = useState(false); // desktop collapse
   const { t } = useTranslation();
   const nav = adminNavSpec.sidebar;
   const { data, loading, error, refresh } = useDashboardData();
   return (
     <AdminLayout
-      sidebar={<AdminSidebar nav={nav} open={sidebarOpen} />}
+      sidebar={<AdminSidebar nav={nav} open={sidebarOpen} collapsed={sidebarCollapsed} onToggleCollapse={()=>setSidebarCollapsed(c=>!c)} />}
       header={<AdminHeader onToggleSidebar={()=>setSidebarOpen(o=>!o)} sidebarOpen={sidebarOpen} />}
     >
       <Routes>
@@ -39,19 +54,32 @@ const AdminDashboard: React.FC = () => {
             </>}
           </AdminPage>
         } />
-        <Route path="projects" element={<ProjectsOverview />} />
-        <Route path="distributors" element={<Placeholder title="Distributeurs" />} />
-        <Route path="producers" element={<Placeholder title="Fournisseurs" />} />
-        <Route path="beneficiaries" element={<Placeholder title="Bénéficiaires" />} />
-        <Route path="finances" element={<Placeholder title="Finances" />} />
-        <Route path="donors" element={<Placeholder title="Donateurs" />} />
-        <Route path="blog" element={<Placeholder title="Blogs" />} />
-        <Route path="elearning" element={<Placeholder title="E-learning" />} />
-        <Route path="resources" element={<Placeholder title="Ressources" />} />
-        <Route path="research" element={<Placeholder title="Recherche" />} />
-        <Route path="settings" element={<Placeholder title="Paramètres" />} />
-        <Route path="settings/access" element={<Placeholder title="Admin" />} />
-        <Route path="team" element={<Placeholder title="Équipes" />} />
+  <Route path="projects" element={<ProjectsOverview />} />
+  <Route path="projects/new" element={<ProjectCreate />} />
+  <Route path="projects/:id" element={<ProjectLayout />}> 
+    <Route path="resume" element={<ProjectDetail />} />
+    <Route path="plan" element={<ProjectPlanMilestonesPage />} />
+    <Route path="production" element={<ProjectProduction />} />
+    <Route path="distribution" element={<ProjectDistribution />} />
+    <Route path="formation" element={<ProjectFormation />} />
+    <Route path="transparency" element={<ProjectTransparency />} />
+    <Route path="depenses" element={<ProjectDepenses />} />
+    <Route path="rapports" element={<ProjectRapports />} />
+    <Route path="beneficiaires" element={<ProjectBeneficiaires />} />
+    <Route index element={<ProjectDetail />} />
+  </Route>
+  <Route path="distributors" element={<DistributorsManagement />} />
+  <Route path="producers" element={<SuppliersManagement />} />
+  <Route path="beneficiaries" element={<BeneficiariesManagement />} />
+  <Route path="finances" element={<Placeholder title={t('admin.finances')} />} />
+  <Route path="donors" element={<Placeholder title={t('admin.donors')} />} />
+  <Route path="blog" element={<Placeholder title={t('admin.resources')} />} />
+  <Route path="elearning" element={<Placeholder title={t('admin.elearning')} />} />
+  <Route path="resources" element={<Placeholder title={t('admin.resources')} />} />
+  <Route path="research" element={<Placeholder title={t('admin.research')} />} />
+  <Route path="settings" element={<Placeholder title={t('admin.settings')} />} />
+  <Route path="settings/access" element={<Placeholder title={t('admin.admin')} />} />
+  <Route path="team" element={<Placeholder title={t('admin.team')} />} />
         <Route path="*" element={<Outlet />} />
       </Routes>
     </AdminLayout>

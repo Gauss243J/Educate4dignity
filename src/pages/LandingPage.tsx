@@ -64,10 +64,16 @@ const LandingPage: React.FC = () => {
   <PublicNav />
       <main>
         {/* Hero */}
-        <section className="relative px-4 sm:px-6 lg:px-8 pt-10 pb-14 min-h-[640px] flex items-center overflow-hidden" >
+  <section className="relative px-4 sm:px-6 lg:px-8 pt-10 pb-14 min-h-[640px] flex items-center overflow-hidden" >
           <div className="absolute inset-0 z-0">
             <img src="/photos/banniere.png" alt="Hero background" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-[rgba(255,245,247,0.68)]" />
+            {/* Overlay: reduced white, added gradient & vignette shadow */}
+            <div className="absolute inset-0" style={{
+              background: 'linear-gradient(180deg, rgba(255,245,247,0.70) 0%, rgba(255,245,247,0.60) 35%, rgba(255,245,247,0.50) 60%, rgba(255,245,247,0.55) 100%), radial-gradient(circle at center, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.25) 100%)',
+              mixBlendMode: 'normal'
+            }} />
+            {/* Subtle inner shadow for depth */}
+            <div className="pointer-events-none absolute inset-0" style={{boxShadow:'inset 0 0 80px rgba(0,0,0,0.20)'}} />
           </div>
           <div className="relative z-10 max-w-7xl mx-auto w-full">
             <div className="max-w-2xl space-y-6 bg-white/55 backdrop-blur-md rounded-xl px-8 py-8 shadow-sm ring-1 ring-white/40">
@@ -77,6 +83,33 @@ const LandingPage: React.FC = () => {
                 <Link to="/donate" className="btn-rose" data-analytics-id="donate_now">{t('landing.makeDonation','Donate Now')}</Link>
                 <Link to="/projects" className="btn-outline-rose" data-analytics-id="see_projects">{t('landing.exploreProjects','See Active Projects')}</Link>
               </div>
+            </div>
+          </div>
+        </section>
+        {/* Immediate Impact Stats (moved up) */}
+        <section className="px-4 sm:px-6 lg:px-8 -mt-8 pb-12" id="impact-top">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" data-stagger-group>
+              {impactMetrics.map((m)=>{
+                const format = (v:number)=> {
+                  switch(m.formatter){
+                    case 'percent': return Math.round(v) + '%';
+                    case 'money': {
+                      const base = (v>=1000) ? (v/1000).toFixed(v>=100000 ? 0:1) + 'k' : v.toString();
+                      return '$' + base;
+                    }
+                    default: return Math.round(v).toLocaleString();
+                  }
+                };
+                return (
+                  <div key={m.key} className="p-6 text-center rounded-lg border card-fade card-hover-lift" style={{borderColor:'var(--color-border)',background:'var(--color-primary-light)'}}>
+                    <div className="kpi-number mb-1">
+                      <CountUp end={m.end} formatter={format} />{m.approx && '+'}
+                    </div>
+                    <div className="text-[13px]" style={{color:'var(--color-text-secondary)'}}>{m.sub}</div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -137,51 +170,7 @@ const LandingPage: React.FC = () => {
             <div className="mt-6 text-right"><Link to="/projects" className="btn-outline-rose text-sm">View all projects</Link></div>
           </div>
   </Reveal>
-        {/* PARTNERS + IMPACT grouped */}
-  <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="partners" delay={160}>
-          <div className="max-w-7xl mx-auto space-y-8">
-            <div>
-              <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>Our Partners</h2>
-              <div className="flex gap-3 overflow-x-auto py-2">
-                {partners.map((pt,i)=>(<div key={i} className="partner-tile whitespace-nowrap">{pt}</div>))}
-              </div>
-              <div className="flex justify-center gap-2 mt-2">
-                {partners.map((_,i)=>(<span key={i} className={`partner-rotate-dot ${i===0?'active':''}`}></span>))}
-              </div>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4" data-stagger-group>
-              {impactMetrics.map((m)=>{
-                const format = (v:number)=> {
-                  switch(m.formatter){
-                    case 'percent': return Math.round(v) + '%';
-                    case 'money': {
-                      const base = (v>=1000) ? (v/1000).toFixed(v>=100000 ? 0:1) + 'k' : v.toString();
-                      return '$' + base;
-                    }
-                    default: return Math.round(v).toLocaleString();
-                  }
-                };
-                return (
-                  <div key={m.key} className="p-6 text-center rounded-lg border card-fade card-hover-lift" style={{borderColor:'var(--color-border)',background:'var(--color-primary-light)'}}>
-                    <div className="kpi-number mb-1">
-                      <CountUp end={m.end} formatter={format} />{m.approx && '+'}
-                    </div>
-                    <div className="text-[13px]" style={{color:'var(--color-text-secondary)'}}>{m.sub}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-  </Reveal>
-        {/* MAP PILLS FALLBACK */}
-  <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="map" delay={200}>
-          <div className="max-w-7xl mx-auto">
-            <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.countriesReached','Where we work')}</h2>
-            <div className="bg-white border rounded-2xl p-2 sm:p-4 md:p-6" style={{borderColor:'var(--rose-200)'}}>
-              <InteractiveWorldMap mode="global" />
-            </div>
-          </div>
-  </Reveal>
+  {/* (Moved) PARTNERS + MAP will appear near the end before donate banner */}
         {/* FIELD MOMENTS GALLERY */}
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="field-moments" delay={240}>
           <div className="max-w-7xl mx-auto">
@@ -211,6 +200,29 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
   </Reveal>
+        {/* RELOCATED PARTNERS */}
+        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="partners" delay={300}>
+          <div className="max-w-7xl mx-auto space-y-8">
+            <div>
+              <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>Our Partners</h2>
+              <div className="flex gap-3 overflow-x-auto py-2">
+                {partners.map((pt,i)=>(<div key={i} className="partner-tile whitespace-nowrap">{pt}</div>))}
+              </div>
+              <div className="flex justify-center gap-2 mt-2">
+                {partners.map((_,i)=>(<span key={i} className={`partner-rotate-dot ${i===0?'active':''}`}></span>))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+        {/* RELOCATED MAP */}
+        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="map" delay={320}>
+          <div className="max-w-7xl mx-auto">
+            <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.countriesReached','Where we work')}</h2>
+            <div className="bg-white border rounded-2xl p-2 sm:p-4 md:p-6" style={{borderColor:'var(--rose-200)'}}>
+              <InteractiveWorldMap mode="global" />
+            </div>
+          </div>
+        </Reveal>
         {/* DONATE BANNER */}
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-16" id="donate-banner" delay={320}>
           <div className="max-w-7xl mx-auto">

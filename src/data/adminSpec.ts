@@ -1,28 +1,28 @@
 // Admin dashboard spec data generated from provided requirements
 export const adminNavSpec = {
   sidebar: {
-    title: 'Navigation',
-  quick_links: [ { label: 'Dashboard', labelKey:'admin.ui.quick.dashboard', href: '/admin', active: true } ],
+    title: 'Navigation', // will be translated via key later if needed
+    quick_links: [ { label: 'Dashboard', labelKey:'admin.ui.quick.dashboard', href: '/admin', active: true } ],
     groups: [
-      { id: 'ops', title: 'Opérations & Projets', titleKey:'admin.ui.groups.operations', expanded: true, items: [
-        { label: 'Projets', labelKey:'admin.projects', href: '/admin/projects' },
-        { label: 'Distributeurs', labelKey:'admin.distributors', href: '/admin/distributors' },
-        { label: 'Fournisseurs', labelKey:'admin.suppliers', href: '/admin/producers' },
-        { label: 'Bénéficiaires', labelKey:'admin.beneficiaries', href: '/admin/beneficiaries' },
+      { id: 'ops', title: 'Operations & Projects', titleKey:'admin.ui.groups.operations', expanded: true, items: [
+        { label: 'Projects', labelKey:'admin.projects', href: '/admin/projects' },
+        { label: 'Distributors', labelKey:'admin.distributors', href: '/admin/distributors' },
+        { label: 'Suppliers', labelKey:'admin.suppliers', href: '/admin/producers' },
+        { label: 'Beneficiaries', labelKey:'admin.beneficiaries', href: '/admin/beneficiaries' },
       ]},
-      { id: 'fin', title: 'Finances & Donateurs', titleKey:'admin.ui.groups.finance', expanded: true, items: [
+      { id: 'fin', title: 'Finance & Donors', titleKey:'admin.ui.groups.finance', expanded: true, items: [
         { label: 'Dashboard', labelKey:'admin.ui.quick.dashboard', href: '/admin' },
-        { label: 'Donateurs', labelKey:'admin.finances', href: '/admin/donors' },
+        { label: 'Donors', labelKey:'admin.donors', href: '/admin/donors' },
       ]},
-      { id: 'content', title: 'Contenu & Apprentissage', titleKey:'admin.ui.groups.content', expanded: true, items: [
+      { id: 'content', title: 'Content & Learning', titleKey:'admin.ui.groups.content', expanded: true, items: [
         { label: 'Blogs', labelKey:'admin.resources', href: '/admin/blog' },
         { label: 'E-learning', labelKey:'admin.elearning', href: '/admin/elearning' },
-        { label: 'Ressources', labelKey:'admin.resources', href: '/admin/resources' },
+        { label: 'Resources', labelKey:'admin.resources', href: '/admin/resources' },
       ]},
-  { id: 'gov', title: 'Gouvernance & Administration', titleKey:'admin.ui.groups.governance', expanded: true, preview: 'Équipes • Admin • Paramètres', items: [
-        { label: 'Équipes', labelKey:'admin.team', href: '/admin/team' },
+  { id: 'gov', title: 'Governance & Administration', titleKey:'admin.ui.groups.governance', expanded: true, preview: 'Teams • Admin • Settings', items: [
+        { label: 'Team', labelKey:'admin.team', href: '/admin/team' },
         { label: 'Admin', labelKey:'admin.admin', href: '/admin/settings/access' },
-        { label: 'Paramètres', labelKey:'admin.settings', href: '/admin/settings' },
+        { label: 'Settings', labelKey:'admin.settings', href: '/admin/settings' },
       ]},
     ]
   }

@@ -57,6 +57,7 @@ const resources = {
         distributors: 'Distributors',
         beneficiaries: 'Beneficiaries',
         finances: 'Finances & Donors',
+  donors: 'Donors',
         elearning: 'E-learning',
         resources: 'Resources',
         research: 'R&D',
@@ -141,7 +142,84 @@ const resources = {
             },
             filters: {
               type: 'Type', status: 'Status', country: 'Country', org: 'Org', period: 'Period'
+            },
+            create: {
+              title: 'Create New Project',
+              name: 'Project name',
+              placeholderName: 'Ex: Gitega School Dignity Kits',
+              manager: 'Project manager',
+              operators: 'Field operators',
+              type: 'Type',
+              org: 'Organisation (type + entity)',
+              organisationType: 'Type',
+              organisationEntity: 'Entity',
+              dates: 'Dates',
+              startDate: 'Start date',
+              endDate: 'End date',
+              location: 'Location',
+              country: 'Country',
+              state: 'Province/State',
+              city: 'City',
+              template: 'Template (if distribution/training)',
+              description: 'Description',
+              plannedBudget: 'Planned total budget (USD)',
+              code: 'Project code (auto)',
+              createdBy: 'Created by',
+              createdAt: 'Created at',
+              tipRequired: 'Tip: Fields marked * are required. Errors show below fields.',
+              saveDraft: 'Save draft',
+              create: 'Create',
+              createContinue: 'Create & continue',
+              cancel: 'Cancel',
+              operatorsPlaceholder: 'Add/remove operators',
+              required: 'This field is required',
+              budgetInvalid: 'Invalid budget value',
+              shortDescription: 'Short description',
+              coverImage: 'Cover image',
+              videoUrl: 'Video URL',
+              initialCollected: 'Initial collected (USD)',
+              coverRequired: 'Cover image is required'
+              ,videoSource: 'Video source'
+              ,videoFile: 'Video file'
+              ,sourceUrl: 'Link'
+              ,sourceUpload: 'Upload'
+              ,removeVideo: 'Remove video'
+              ,type_blank: 'Blank'
+              ,type_distribution: 'Distribution'
+              ,type_formation: 'Training'
+              ,type_recherche_dev: 'Research & Development'
+              ,type_achat: 'Purchase'
+              ,type_hybride: 'Hybrid (Distribution + Training)'
+              ,operatorsLabel: 'Field operators'
+              ,primaryOperator: 'Primary operator'
+              ,operatorsRequired: 'Select at least one operator'
+              ,primaryOperatorRequired: 'Select a primary operator'
+              ,operatorSearch: 'Search operator...'
+              ,orgType_ong: 'NGO'
+              ,orgType_ecole: 'School'
+              ,orgType_association: 'Association'
+              ,orgType_institution: 'Institution'
+              ,orgType_organisation: 'Organisation'
+              ,detail_tabs_resume: 'Summary'
+              ,detail_tabs_plan: 'Plan'
+              ,detail_tabs_production: 'Production'
+              ,detail_tabs_distribution: 'Distribution'
+              ,detail_tabs_formation: 'Training'
+              ,detail_tabs_transparency: 'Transparency'
+              ,detail_tabs_depenses: 'Spending'
+              ,detail_tabs_rapports: 'Reports'
+              ,detail_tabs_beneficiaires: 'Beneficiaries'
+              ,detail_checklist_title: 'Checklist — Next steps'
+              ,detail_project_info: 'Project info'
+              ,detail_quick_actions: 'Quick actions'
+              ,action_open_production: 'Open Production'
+              ,action_open_distribution: 'Open Distribution'
+              ,action_add_expense: 'Add expense'
+              ,action_upload_report: 'Upload report'
+              ,action_import_beneficiaries: 'Import beneficiaries'
+              ,action_export_pdf: 'Export PDF'
             }
+            , newProject: 'New project'
           },
           months: {
             jan: 'Jan',
@@ -274,6 +352,7 @@ const resources = {
         distributors: 'Distributeurs',
         beneficiaries: 'Bénéficiaires',
         finances: 'Finances et donateurs',
+  donors: 'Donateurs',
         elearning: 'E-learning',
         resources: 'Ressources',
         research: 'R&D',
@@ -358,7 +437,84 @@ const resources = {
             },
             filters: {
               type: 'Type', status: 'Statut', country: 'Pays', org: 'Org', period: 'Période'
+            },
+            create: {
+              title: 'Créer un nouveau projet',
+              name: 'Nom du projet',
+              placeholderName: 'Ex: Gitega School Dignity Kits',
+              manager: 'Chef de projet',
+              operators: 'Opérateurs terrain',
+              type: 'Type',
+              org: 'Organisation (type + entité)',
+              organisationType: 'Type',
+              organisationEntity: 'Entité',
+              dates: 'Dates',
+              startDate: 'Date début',
+              endDate: 'Date fin',
+              location: 'Location',
+              country: 'Pays',
+              state: 'Province/État',
+              city: 'Ville',
+              template: 'Template (si distribution/formation)',
+              description: 'Description',
+              plannedBudget: 'Budget planifié total (USD)',
+              code: 'Code projet (auto)',
+              createdBy: 'Créé par',
+              createdAt: 'Créé le',
+              tipRequired: 'Astuce : les champs marqués * sont obligatoires. Les erreurs s\'affichent sous les champs.',
+              saveDraft: 'Enregistrer brouillon',
+              create: 'Créer',
+              createContinue: 'Créer & continuer',
+              cancel: 'Annuler',
+              operatorsPlaceholder: 'Ajouter/supprimer des opérateurs',
+              required: 'Champ requis',
+              budgetInvalid: 'Budget invalide',
+              shortDescription: 'Courte description',
+              coverImage: 'Image de couverture',
+              videoUrl: 'URL vidéo',
+              initialCollected: 'Collecté initial (USD)',
+              coverRequired: 'Image de couverture requise'
+              ,videoSource: 'Source vidéo'
+              ,videoFile: 'Fichier vidéo'
+              ,sourceUrl: 'Lien'
+              ,sourceUpload: 'Téléverser'
+              ,removeVideo: 'Supprimer la vidéo'
+              ,type_blank: 'Blank'
+              ,type_distribution: 'Distribution'
+              ,type_formation: 'Formation'
+              ,type_recherche_dev: 'Recherche & Développement'
+              ,type_achat: 'Achat'
+              ,type_hybride: 'Hybride (Distribution + Formation)'
+              ,operatorsLabel: 'Opérateurs terrain'
+              ,primaryOperator: 'Opérateur principal'
+              ,operatorsRequired: 'Choisissez au moins un opérateur'
+              ,primaryOperatorRequired: 'Sélectionnez un opérateur principal'
+              ,operatorSearch: 'Rechercher un opérateur...'
+              ,orgType_ong: 'ONG'
+              ,orgType_ecole: 'École'
+              ,orgType_association: 'Association'
+              ,orgType_institution: 'Institution'
+              ,orgType_organisation: 'Organisation'
+              ,detail_tabs_resume: 'Résumé'
+              ,detail_tabs_plan: 'Plan'
+              ,detail_tabs_production: 'Production'
+              ,detail_tabs_distribution: 'Distribution'
+              ,detail_tabs_formation: 'Formation'
+              ,detail_tabs_transparency: 'Transparence'
+              ,detail_tabs_depenses: 'Dépenses'
+              ,detail_tabs_rapports: 'Rapports'
+              ,detail_tabs_beneficiaires: 'Bénéficiaires'
+              ,detail_checklist_title: 'Checklist — Prochaines étapes'
+              ,detail_project_info: 'Infos projet'
+              ,detail_quick_actions: 'Actions rapides'
+              ,action_open_production: 'Ouvrir Production'
+              ,action_open_distribution: 'Ouvrir Distribution'
+              ,action_add_expense: 'Ajouter dépense'
+              ,action_upload_report: 'Téléverser rapport'
+              ,action_import_beneficiaries: 'Importer bénéficiaires'
+              ,action_export_pdf: 'Exporter PDF'
             }
+            , newProject: 'Nouveau projet'
           },
           months: {
             jan: 'Jan',

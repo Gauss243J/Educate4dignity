@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Ca
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
 import { Input } from '../../components/ui/Input';
+import AdminPage from '../../components/admin/AdminPage';
 
 const SuppliersManagement: React.FC = () => {
   const { t } = useTranslation();
@@ -94,12 +95,11 @@ const SuppliersManagement: React.FC = () => {
   };
 
   return (
-    <div>
+    <AdminPage title={t('admin.suppliers')}>
       <div className="mb-6">
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-text-primary">{t('admin.suppliers')}</h1>
-            <p className="text-text-secondary">Manage suppliers and vendor relationships</p>
+            <p className="text-text-secondary text-sm">Manage suppliers and vendor relationships</p>
           </div>
           <Button>+ Add New Supplier</Button>
         </div>
@@ -282,7 +282,7 @@ const SuppliersManagement: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
+  </AdminPage>
   );
 };
 

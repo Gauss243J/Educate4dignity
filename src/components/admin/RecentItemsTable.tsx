@@ -38,7 +38,7 @@ const RecentItemsTable: React.FC<Props> = ({ items }) => {
 
 
   return (
-    <div className="rounded-lg border bg-white border-[var(--rose-200)] p-3 md:p-4 flex flex-col gap-3">
+    <div className="rounded-lg bg-white p-3 md:p-4 flex flex-col gap-3" style={{boxShadow:'var(--elev-1)'}}>
       <div className="flex flex-wrap gap-2 items-center text-[11px]">
         <FilterSelect value={typeFilter} onChange={setTypeFilter} options={[allKey,t('admin.ui.types.project'),t('admin.ui.types.donation'),t('admin.ui.types.report')]} ariaLabel={t('admin.ui.table.type')} />
         <FilterSelect value={statusFilter} onChange={setStatusFilter} options={[allKey,
@@ -52,7 +52,7 @@ const RecentItemsTable: React.FC<Props> = ({ items }) => {
             t('admin.ui.status.rejected')]} ariaLabel={t('admin.ui.table.status')} />
         <FilterSelect value={periodFilter} onChange={setPeriodFilter} options={[t('admin.ui.filters.period30'),t('admin.ui.filters.period90'),t('admin.ui.filters.period365')]} ariaLabel={t('admin.ui.filters.period')||'Period'} />
         <div className="ml-auto relative">
-          <input value={search} onChange={e=>setSearch(e.target.value)} placeholder={t('admin.ui.table.searchPlaceholder')} className="pl-7 pr-3 py-1 text-[11px] border rounded border-[var(--rose-200)] focus:outline-none" />
+          <input value={search} onChange={e=>setSearch(e.target.value)} placeholder={t('admin.ui.table.searchPlaceholder')} className="pl-7 pr-3 py-1 text-[11px] rounded bg-white border border-[var(--color-border)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition" style={{boxShadow:'var(--elev-0)'}} />
           <Search size={14} className="absolute left-2 top-1.5 text-[var(--slate-400)]" />
         </div>
       </div>
@@ -71,7 +71,7 @@ const RecentItemsTable: React.FC<Props> = ({ items }) => {
           </thead>
           <tbody>
             {pageItems.map(r=> (
-              <tr key={r.id} className="border-t border-[var(--rose-100)] hover:bg-[var(--rose-50)] transition">
+              <tr key={r.id} className="border-t hover:bg-[var(--rose-50)] transition" style={{borderColor:'rgba(0,0,0,0.06)'}}>
                 <td className="py-1 pr-4 whitespace-nowrap">{r.date}</td>
                 <td className="py-1 pr-4 capitalize">{r.type}</td>
                 <td className="py-1 pr-4 font-medium">{r.ref}</td>
@@ -87,13 +87,13 @@ const RecentItemsTable: React.FC<Props> = ({ items }) => {
       <div className="flex items-center justify-between text-[10px] mt-2">
         <div>
           Rows: {(page-1)*pageSize+1} - {Math.min(page*pageSize, filtered.length)} / {filtered.length} |
-          <select value={pageSize} onChange={e=>{setPageSize(Number(e.target.value)); setPage(1);}} className="ml-1 border rounded px-1 py-0.5 border-[var(--rose-200)] bg-white">
+          <select value={pageSize} onChange={e=>{setPageSize(Number(e.target.value)); setPage(1);}} className="ml-1 rounded px-1 py-0.5 bg-white border border-[var(--color-border)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none">
             {[10,25,50].map(n=> <option key={n} value={n}>{n}</option>)}
           </select>
         </div>
         <div className="flex gap-1">
-          <button onClick={()=>setPage(p=> Math.max(1,p-1))} disabled={page===1} className="px-2 py-0.5 rounded border border-[var(--rose-200)] disabled:opacity-40 flex items-center justify-center" aria-label="Prev page"><ChevronLeft size={16} /></button>
-          <button onClick={()=>setPage(p=> Math.min(totalPages,p+1))} disabled={page===totalPages} className="px-2 py-0.5 rounded border border-[var(--rose-200)] disabled:opacity-40 flex items-center justify-center" aria-label="Next page"><ChevronRight size={16} /></button>
+          <button onClick={()=>setPage(p=> Math.max(1,p-1))} disabled={page===1} className="px-2 py-0.5 rounded bg-white border border-[var(--color-border)] hover:bg-[var(--color-primary-light)] disabled:opacity-40 flex items-center justify-center transition" style={{boxShadow:'var(--elev-0)'}} aria-label="Prev page"><ChevronLeft size={16} /></button>
+          <button onClick={()=>setPage(p=> Math.min(totalPages,p+1))} disabled={page===totalPages} className="px-2 py-0.5 rounded bg-white border border-[var(--color-border)] hover:bg-[var(--color-primary-light)] disabled:opacity-40 flex items-center justify-center transition" style={{boxShadow:'var(--elev-0)'}} aria-label="Next page"><ChevronRight size={16} /></button>
         </div>
       </div>
     </div>
