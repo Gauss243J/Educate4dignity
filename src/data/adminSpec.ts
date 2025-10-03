@@ -15,7 +15,7 @@ export const adminNavSpec = {
         { label: 'Donors', labelKey:'admin.donors', href: '/admin/donors' },
       ]},
       { id: 'content', title: 'Content & Learning', titleKey:'admin.ui.groups.content', expanded: true, items: [
-        { label: 'Blogs', labelKey:'admin.resources', href: '/admin/blog' },
+  { label: 'Blog', labelKey:'admin.blog', href: '/admin/blog' },
         { label: 'E-learning', labelKey:'admin.elearning', href: '/admin/elearning' },
         { label: 'Resources', labelKey:'admin.resources', href: '/admin/resources' },
       ]},

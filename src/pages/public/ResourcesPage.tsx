@@ -1,314 +1,148 @@
-import React, { useState } from 'react';
-import { Search as SearchIcon, Star, Book, FileText, Download, Video, Wrench } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
-import { Button } from '../../components/ui/Button';
-import { Badge } from '../../components/ui/Badge';
-import { Input } from '../../components/ui/Input';
-import PublicNav from '../../components/layout/PublicNav';
+import PublicPageShell from '../../components/layout/PublicPageShell';
+import { listResources, formatSize, mockResources } from '../../data/resources';
+import { ResourceCategory, ResourceLanguage } from '../../types/resources';
+import { Link } from 'react-router-dom';
+import { Search, Download } from 'lucide-react';
+
+const categoryLabels: Record<string,string> = { report:'Report', audit:'Audit', policy:'Policy', template:'Template', data:'Data', guide:'Guide' };
 
 const ResourcesPage: React.FC = () => {
   const { t } = useTranslation();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  // Filters state
+  const [q,setQ] = useState('');
+  const [type,setType] = useState<ResourceCategory|''>('');
+  const years = useMemo(()=> Array.from(new Set(mockResources.map(r=> r.year))).sort((a,b)=> b-a),[]);
+  const [year,setYear] = useState<number|''>('');
+  const [lang,setLang] = useState<ResourceLanguage|''>('');
+  const allTags = useMemo(()=> Array.from(new Set(mockResources.flatMap(r=> r.tags||[]))).sort(),[]);
+  const [tags,setTags] = useState<string[]>([]);
+  const [sort,setSort] = useState<'newest'|'oldest'>('newest');
+  const [page,setPage] = useState(1);
+  const [pageSize,setPageSize] = useState(6);
+  const [showTags,setShowTags] = useState(false);
 
-  const categories = [
-    { id: 'all', name: 'All Resources', count: 24 },
-    { id: 'guides', name: 'Implementation Guides', count: 8 },
-    { id: 'reports', name: 'Research Reports', count: 6 },
-    { id: 'tools', name: 'Tools & Templates', count: 5 },
-    { id: 'videos', name: 'Training Videos', count: 5 }
-  ];
+  useEffect(()=> { setPage(1); },[q,type,year,lang,tags,sort]);
+  const data = useMemo(()=> listResources({ q, type, year, lang, tags, sort, page, pageSize }),[q,type,year,lang,tags,sort,page,pageSize]);
+  const totalPages = Math.max(1, Math.ceil(data.total / pageSize));
 
-  const resources = [
-    {
-      id: '1',
-      title: 'Community Water System Implementation Guide',
-      description: 'Comprehensive guide for implementing sustainable water systems in rural communities.',
-      category: 'guides',
-      type: 'PDF',
-      size: '2.5 MB',
-      downloads: 1250,
-      rating: 4.8,
-      tags: ['water', 'implementation', 'community'],
-      image: '/api/placeholder/300/200',
-      downloadUrl: '#'
-    },
-    {
-      id: '2',
-      title: 'Digital Literacy Training Curriculum',
-      description: 'Complete curriculum for teaching digital skills to underserved populations.',
-      category: 'guides',
-      type: 'ZIP',
-      size: '15.2 MB',
-      downloads: 892,
-      rating: 4.9,
-      tags: ['education', 'digital', 'training'],
-      image: '/api/placeholder/300/200',
-      downloadUrl: '#'
-    },
-    {
-      id: '3',
-      title: 'Impact Measurement Framework',
-      description: 'Research-based framework for measuring social impact in development projects.',
-      category: 'reports',
-      type: 'PDF',
-      size: '1.8 MB',
-      downloads: 567,
-      rating: 4.7,
-      tags: ['research', 'impact', 'measurement'],
-      image: '/api/placeholder/300/200',
-      downloadUrl: '#'
-    },
-    {
-      id: '4',
-      title: 'Project Budget Template',
-      description: 'Excel template for creating detailed project budgets with built-in calculations.',
-      category: 'tools',
-      type: 'XLSX',
-      size: '0.8 MB',
-      downloads: 2145,
-      rating: 4.6,
-      tags: ['budget', 'template', 'planning'],
-      image: '/api/placeholder/300/200',
-      downloadUrl: '#'
-    },
-    {
-      id: '5',
-      title: 'Community Engagement Best Practices',
-      description: 'Video series on effective community engagement strategies.',
-      category: 'videos',
-      type: 'MP4',
-      size: '45.6 MB',
-      downloads: 734,
-      rating: 4.8,
-      tags: ['community', 'engagement', 'training'],
-      image: '/api/placeholder/300/200',
-      downloadUrl: '#'
-    },
-    {
-      id: '6',
-      title: 'Sustainability Assessment Tool',
-      description: 'Interactive tool for assessing project sustainability and long-term viability.',
-      category: 'tools',
-      type: 'WEB',
-      size: 'Online',
-      downloads: 456,
-      rating: 4.5,
-      tags: ['sustainability', 'assessment', 'tool'],
-      image: '/api/placeholder/300/200',
-      downloadUrl: '#'
-    }
-  ];
-
-  const filteredResources = resources.filter(resource => {
-    const matchesSearch = resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         resource.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         resource.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === 'all' || resource.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  function toggleTag(tag:string){ setTags(cur => cur.includes(tag)? cur.filter(x=> x!==tag): [...cur,tag]); }
+  function clearAll(){ setQ(''); setType(''); setYear(''); setLang(''); setTags([]); setSort('newest'); }
 
   return (
-    <div className="min-h-screen bg-background">
-      <PublicNav />
+    <PublicPageShell>
+      {/* Header */}
+      <header className="space-y-2 mb-8">
+        <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">{t('resources.title','Resources')}</h1>
+        <p className="text-[14px] leading-[20px] text-secondary">{t('resources.subtitle','Reports, audits, policies & templates for full transparency.')}</p>
+      </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-text-primary mb-4">
-            {t('resources.title', 'Resource Library')}
-          </h1>
-          <p className="text-text-secondary text-lg">
-            Free tools, guides, and resources to help implement impactful development projects.
-          </p>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar - Categories */}
-          <div className="lg:w-1/4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Categories</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {categories.map((category) => (
-                    <button
-                      key={category.id}
-                      onClick={() => setSelectedCategory(category.id)}
-                      className={`w-full text-left p-3 rounded-lg transition-colors ${
-                        selectedCategory === category.id
-                          ? 'bg-primary-light text-primary'
-                          : 'hover:bg-background-light text-text-secondary'
-                      }`}
-                    >
-                      <div className="flex justify-between items-center">
-                        <span>{category.name}</span>
-                        <Badge variant="secondary" size="sm">{category.count}</Badge>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Quick Stats */}
-            <Card className="mt-6">
-              <CardHeader>
-                <CardTitle>Library Stats</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary">24</div>
-                    <div className="text-text-secondary text-sm">Total Resources</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-success">6,044</div>
-                    <div className="text-text-secondary text-sm">Downloads</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-warning">4.7</div>
-                    <div className="text-text-secondary text-sm">Avg Rating</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+      {/* Toolbar */}
+      <section id="toolbar" className="sticky top-[84px] z-30 mb-10">
+        <div className="rounded-2xl bg-white border border-base p-4 flex flex-wrap gap-3 items-center">
+          <div className="relative flex-1 min-w-[260px]">
+            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-primary" />
+            <input role="searchbox" aria-label={t('resources.searchAria','Search resources')} value={q} onChange={e=> setQ(e.target.value)} placeholder={t('resources.searchPlaceholder','Search resources...')} className="pl-9 pr-4 h-10 w-full rounded-full text-[13px] border border-base bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
           </div>
-
-          {/* Main Content */}
-          <div className="lg:w-3/4">
-            {/* Search Bar */}
-            <div className="mb-6">
-              <Input
-                placeholder="Search resources by title, description, or tags..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full"
-              />
-            </div>
-
-            {/* Resource Grid */}
-            <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filteredResources.map((resource) => (
-                <Card key={resource.id} className="hover:shadow-lg transition-shadow">
-                  <div className="relative">
-                    <div className="aspect-video bg-background-light rounded-t-lg flex items-center justify-center">
-                      <FileText size={48} className="text-primary/60" />
-                    </div>
-                    <div className="absolute top-2 right-2">
-                      <Badge variant="secondary" size="sm">{resource.type}</Badge>
-                    </div>
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="text-lg line-clamp-2">{resource.title}</CardTitle>
-                    <p className="text-text-secondary text-sm line-clamp-3">
-                      {resource.description}
-                    </p>
-                  </CardHeader>
-                  <CardContent>
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {resource.tags.map((tag, index) => (
-                        <Badge key={index} variant="secondary" size="sm">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    {/* Stats */}
-                    <div className="flex justify-between items-center text-sm text-text-secondary mb-4">
-                      <div className="flex items-center space-x-4">
-                        <span className="inline-flex items-center gap-1"><Download size={14} /> {resource.downloads}</span>
-                        <span className="inline-flex items-center gap-1"><Star size={14} className="text-yellow-500 fill-yellow-500" /> {resource.rating}</span>
-                      </div>
-                      <span>{resource.size}</span>
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex space-x-2">
-                      <Button size="sm" className="flex-1">
-                        Download
-                      </Button>
-                      <Button size="sm" variant="outline">
-                        Preview
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-
-            {/* Empty State */}
-            {filteredResources.length === 0 && (
-              <div className="text-center py-12">
-                <div className="text-6xl mb-4"><SearchIcon size={64} className="mx-auto text-muted" /></div>
-                <h3 className="text-xl font-semibold text-text-primary mb-2">No resources found</h3>
-                <p className="text-text-secondary">
-                  Try adjusting your search terms or browse different categories.
-                </p>
+          <select aria-label={t('resources.type','Type')} value={type} onChange={e=> setType(e.target.value as any)} className="h-10 px-3 rounded-full border border-base bg-white text-[13px]">
+            <option value="">Type</option>
+            {Object.keys(categoryLabels).map(k=> <option key={k} value={k}>{categoryLabels[k]}</option>)}
+          </select>
+          <select aria-label={t('resources.year','Year')} value={year} onChange={e=> setYear(e.target.value? Number(e.target.value):'')} className="h-10 px-3 rounded-full border border-base bg-white text-[13px] w-[110px]">
+            <option value="">Year</option>
+            {years.map(y=> <option key={y} value={y}>{y}</option>)}
+          </select>
+            <select aria-label={t('resources.language','Language')} value={lang} onChange={e=> setLang(e.target.value as any)} className="h-10 px-3 rounded-full border border-base bg-white text-[13px] w-[120px]">
+              <option value="">Lang</option>
+              <option value="EN">EN</option>
+              <option value="FR">FR</option>
+              <option value="EN/FR">EN/FR</option>
+            </select>
+          <div className="relative" aria-expanded={showTags} aria-haspopup="listbox">
+            <button type="button" onClick={()=> setShowTags(s=>!s)} className="h-10 px-3 rounded-full border border-base bg-white flex items-center gap-2 text-[13px]">
+              <span>Tags</span>
+              {tags.length>0 && <span className="text-[11px] rounded-full px-2 py-[2px] bg-[var(--color-primary-light)] border border-base text-primary">{tags.length}</span>}
+            </button>
+            {showTags && (
+              <div className="absolute left-0 mt-2 w-[260px] max-h-[260px] overflow-y-auto rounded-xl border border-base bg-white shadow-lg p-3 z-40 grid gap-2" role="listbox">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-[11px] font-medium text-secondary">{t('resources.selectTags','Select tags')}</span>
+                  {tags.length>0 && <button type="button" onClick={()=> setTags([])} className="text-[11px] underline text-secondary">{t('resources.clear','Clear')}</button>}
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {allTags.map(tg=> {
+                    const active = tags.includes(tg);
+                    return (
+                      <button key={tg} type="button" onClick={()=> toggleTag(tg)} className={`px-2 h-7 rounded-full border border-base text-[11px] transition-colors ${active? 'bg-primary text-white border-primary':'bg-[var(--color-primary-light)] text-primary-dark'}`}>{tg}</button>
+                    );
+                  })}
+                </div>
+                <div className="pt-1 flex justify-end">
+                  <button type="button" onClick={()=> setShowTags(false)} className="text-[11px] underline text-secondary">{t('resources.done','Done')}</button>
+                </div>
               </div>
             )}
           </div>
+          <select aria-label={t('resources.sort','Sort')} value={sort} onChange={e=> setSort(e.target.value as any)} className="h-10 px-3 rounded-full border border-base bg-white text-[13px] w-[150px]">
+            <option value="newest">Sort: Newest</option>
+            <option value="oldest">Oldest</option>
+          </select>
+          {(q||type||year||lang||tags.length||sort!=='newest') && <button onClick={clearAll} className="h-10 px-4 rounded-full border border-base bg-white text-[12px]">{t('resources.reset','Reset')}</button>}
         </div>
+      </section>
 
-        {/* Featured Resources Section */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-text-primary mb-6">Featured Resources</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="text-center">
-              <CardContent className="py-8">
-                <div className="text-4xl mb-4"><Book size={48} className="mx-auto" /></div>
-                <h3 className="font-bold text-text-primary mb-2">Getting Started Guide</h3>
-                <p className="text-text-secondary mb-4">
-                  Complete guide for organizations new to development work.
-                </p>
-                <Button>Download Guide</Button>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardContent className="py-8">
-                <div className="text-4xl mb-4"><Video size={48} className="mx-auto" /></div>
-                <h3 className="font-bold text-text-primary mb-2">Training Video Series</h3>
-                <p className="text-text-secondary mb-4">
-                  Video tutorials on project management and implementation.
-                </p>
-                <Button>Watch Videos</Button>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardContent className="py-8">
-                <div className="text-4xl mb-4"><Wrench size={48} className="mx-auto" /></div>
-                <h3 className="font-bold text-text-primary mb-2">Template Collection</h3>
-                <p className="text-text-secondary mb-4">
-                  Ready-to-use templates for planning and documentation.
-                </p>
-                <Button>Get Templates</Button>
-              </CardContent>
-            </Card>
+      {/* Grid */}
+      <section id="grid" className="min-h-[400px]" aria-live="polite">
+          {data.items.length===0 && (
+            <div className="text-center py-16 text-[14px]" style={{color:'var(--slate-600)'}}>{t('resources.noResults','No results. Clear filters?')} <button onClick={clearAll} className="underline">{t('resources.clearFilters','Clear filters')}</button>.</div>
+          )}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-6">
+            {data.items.map(r => (
+              <article key={r.id} role="article" className="group relative h-[260px] rounded-xl border border-base p-4 flex flex-col bg-white transition hover:shadow-sm">
+                <div className="flex gap-4">
+                  <div className="w-[84px] h-[84px] rounded-xl border border-base flex items-center justify-center text-[11px] font-medium uppercase tracking-wide bg-[var(--color-primary-light)] text-primary-dark">{r.file_type}</div>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-[15px] leading-[20px] font-semibold line-clamp-2 text-primary">{r.title}</h3>
+                    <p className="mt-1 text-[12px] leading-[18px] line-clamp-3 text-secondary">{r.summary}</p>
+                  </div>
+                </div>
+                <div className="mt-2 text-[11px] leading-[18px] text-secondary">{categoryLabels[r.category]} · {r.year} · {r.language} · {r.file_type} · {formatSize(r.file_size_bytes)}</div>
+                <div className="mt-auto pt-3 flex gap-2 justify-end">
+                  <Link aria-label={`${t('resources.view','View')} ${r.title}`} to={`/resources/${r.slug}`} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">View</Link>
+                  <button aria-label={`${t('resources.download','Download')} ${r.title}`} onClick={()=> console.log('resource_download',{slug:r.slug})} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium flex items-center gap-1 hover:bg-[var(--color-primary-light)]"><Download className="w-4 h-4"/>DL</button>
+                </div>
+              </article>
+            ))}
           </div>
-        </div>
+        </section>
 
-        {/* Call to Action */}
-        <div className="mt-12 text-center">
-          <Card className="max-w-2xl mx-auto">
-            <CardContent className="py-8">
-              <h3 className="text-xl font-bold text-text-primary mb-4">
-                Need a specific resource?
-              </h3>
-              <p className="text-text-secondary mb-6">
-                Can't find what you're looking for? Request custom resources or suggest additions to our library.
-              </p>
-              <div className="flex justify-center space-x-4">
-                <Button>Request Resource</Button>
-                <Button variant="outline">Submit Suggestion</Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </div>
+        {/* Pagination (always visible when there is data, even if only one page) */}
+        {data.total>0 && (
+          <nav id="pagination" className="mt-8 flex items-center justify-between text-[12px] flex-wrap gap-4" aria-label="Pagination">
+            <div className="flex items-center gap-2">Rows:
+              <select value={pageSize} onChange={e=> { setPageSize(Number(e.target.value)); setPage(1); }} className="h-8 px-2 rounded-full border border-base bg-white" aria-label={t('resources.rows','Rows per page')}>
+                {[6,9,12,15].map(sz=> <option key={sz} value={sz}>{sz}</option>)}
+              </select>
+              <span className="ml-2 text-secondary">{t('resources.page','Page')} {page} / {totalPages}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <button aria-label={t('resources.prev','Previous page')} onClick={()=> setPage(p=> Math.max(1,p-1))} disabled={page===1} className="h-8 px-3 rounded-full transition-colors border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40 disabled:cursor-not-allowed">Prev</button>
+              {Array.from({length: totalPages}).slice(0,5).map((_,i)=> { const pageNum=i+1; const active=pageNum===page; return (
+                <button aria-current={active? 'page':undefined} key={pageNum} onClick={()=> setPage(pageNum)} className={`w-8 h-8 rounded-full text-[12px] border border-base ${active?'bg-primary text-white':'bg-[var(--color-primary-light)] text-primary hover:brightness-95'}`}>{pageNum}</button>
+              );})}
+              <button aria-label={t('resources.next','Next page')} onClick={()=> setPage(p=> Math.min(totalPages,p+1))} disabled={page===totalPages} className="h-8 px-3 rounded-full transition-colors border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40 disabled:cursor-not-allowed">Next</button>
+            </div>
+          </nav>
+        )}
+        {/* Donate banner */}
+        <section className="pt-10">
+          <div className="rounded-xl border border-base bg-white p-6 space-y-4 text-center">
+            <h2 className="text-[18px] leading-[24px] font-semibold text-primary">Help expand open resources & transparency.</h2>
+            <a href="/donate" className="btn-donate inline-flex justify-center">Donate</a>
+          </div>
+        </section>
+    </PublicPageShell>
   );
 };
 

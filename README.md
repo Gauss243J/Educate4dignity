@@ -78,6 +78,29 @@ git push -u origin feature/ma-feature
 1. Construire: `npm run build`
 2. Déployer le dossier `dist/` sur un hébergeur statique (Netlify, Vercel, GitHub Pages).
 
+### 12.1 Déploiement sur Render (Static Site)
+Pour éviter l'erreur `Not Found` quand on recharge une route (ex: `/about`), il faut un fallback vers `index.html`.
+
+Le fichier `static.json` contient maintenant:
+```json
+{
+  "redirects": [
+    { "source": "/api/*", "destination": "/api/*" },
+    { "source": "/*", "destination": "/index.html" }
+  ]
+}
+```
+Cela force toutes les routes non-fichier à renvoyer l'app SPA.
+
+Étapes Render:
+1. Créer un service Static Site.
+2. Build Command: `npm run build`
+3. Publish Directory: `dist`
+4. (Optionnel) Ajouter variables d'env Stripe.
+5. Redéployer après modifications de `static.json`.
+
+Si vous avez un backend Express unique sur Render au lieu d'un static site, utilisez le middleware `connect-history-api-fallback` (voir section plus bas) avant de servir `dist`.
+
 ## 13. Problèmes courants
 | Problème | Solution |
 |----------|----------|
@@ -90,3 +113,110 @@ MIT.
 
 ---
 Rapide pour démarrer: 1) `npm install` 2) `npm run dev` 3) coder ✨
+
+## 16. UX Chargement & 404
+### Page 404
+Route catch-all `*` -> `NotFoundPage` (lien retour Accueil / Projets / Don).
+
+### Skeleton de chargement
+Les pages sont maintenant chargées en lazy (`React.lazy`) avec un fallback shimmer (`PageSkeleton`). Ajuster le composant dans `src/components/feedback/PageSkeleton.tsx` si vous voulez un style différent.
+
+## 15. Intégration Stripe (Donations)
+
+Le bouton "Donate" redirige vers Stripe Checkout. Pour activer cette intégration côté frontend :
+
+1. Créez un fichier `.env.local` à la racine du projet avec :
+```
+VITE_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxxxxxxx
+```
+2. Fournissez un endpoint backend `POST /api/create-checkout-session` qui retourne `{ id: string }` (l'identifiant de la Checkout Session).
+   Exemple (Node/Express minimal) :
+```js
+// server.js (exemple)
+import express from 'express';
+import Stripe from 'stripe';
+const app = express();
+app.use(express.json());
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+app.post('/api/create-checkout-session', async (req, res) => {
+  try {
+    const { amountCents, currency, donationType, projectId, donor } = req.body;
+    const session = await stripe.checkout.sessions.create({
+      mode: donationType === 'recurring' ? 'subscription' : 'payment',
+      payment_method_types: ['card'],
+      line_items: [
+        donationType === 'recurring'
+          ? {
+              price_data: {
+                currency,
+                recurring: { interval: 'month' },
+                product_data: { name: `Monthly donation – ${projectId}` },
+                unit_amount: amountCents,
+              },
+              quantity: 1,
+            }
+          : {
+              price_data: {
+                currency,
+                product_data: { name: `One-time donation – ${projectId}` },
+                unit_amount: amountCents,
+              },
+              quantity: 1,
+            },
+      ],
+      customer_email: donor?.email || undefined,
+      metadata: {
+        projectId,
+        anonymous: donor?.anonymous ? 'true' : 'false',
+        donorName: `${donor?.firstName || ''} ${donor?.lastName || ''}`.trim(),
+      },
+      success_url: 'https://votre-domaine.example/donate?status=success',
+      cancel_url: 'https://votre-domaine.example/donate?status=cancel',
+    });
+    res.json({ id: session.id });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+app.listen(4242, () => console.log('Stripe backend listening on 4242'));
+```
+3. En développement, configurez éventuellement un proxy Vite vers `http://localhost:4242` ou servez le backend sur le même domaine.
+4. Pour les montants récurrents (subscription), Stripe crée un abonnement associé à un Price dynamique (usage basique). Pour des plans prédéfinis réels, créez les Prices dans le Dashboard et passez directement leurs IDs à `line_items`.
+5. Sécurité: Ne JAMAIS exposer votre clé secrète dans le frontend. Le frontend n'utilise que la clé publishable.
+
+Voir `src/services/checkoutSession.ts` et `DonationPage.tsx` pour l'intégration actuelle.
+
+### Mode Aperçu Sans Backend
+Si vous n'avez pas encore développé le backend, définissez une URL de session Checkout de test :
+```
+VITE_STRIPE_CHECKOUT_TEST_URL=https://checkout.stripe.com/c/pay/cs_test_XXXXXXXXXXXX
+```
+Dans ce cas le bouton redirige directement vers cette page Stripe (aucune transaction réelle n'est créée côté backend dans votre projet). Vous pouvez obtenir une URL en créant manuellement une session via le Dashboard ou via la Stripe CLI.
+
+### Middleware Express (alternative si serveur Node unique)
+```js
+import express from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import history from 'connect-history-api-fallback';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const app = express();
+
+// API d'abord
+app.use('/api', (req, res) => res.json({ ok: true }));
+
+// History fallback pour SPA
+app.use(history({
+  disableDotRule: true,
+  verbose: false
+}));
+
+// Servir les assets build
+app.use(express.static(path.join(__dirname, 'dist')));
+
+app.listen(3000, () => console.log('Server listening on :3000'));
+```

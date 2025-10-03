@@ -128,6 +128,7 @@ const resources = {
         finances: 'Finances & Donors',
   donors: 'Donors',
         elearning: 'E-learning',
+    blog: 'Blog',
         resources: 'Resources',
         research: 'R&D',
   team: 'Team',
@@ -497,6 +498,7 @@ const resources = {
         finances: 'Finances et donateurs',
   donors: 'Donateurs',
         elearning: 'E-learning',
+    blog: 'Blog',
         resources: 'Ressources',
         research: 'R&D',
   team: 'Équipe',
@@ -765,6 +767,31 @@ const resources = {
     p1: 'Sans infos claires, des filles manquent les cours, subissent la stigmatisation ou utilisent des solutions risquées. Les kits aident — la formation donne confiance.',
   p2: 'Animatrices locales: hygiène, réutilisation, moins de honte. Cours en ligne + blog renforcent. Cet appui combiné garde les filles présentes et équipées.',
   cta: 'Voir plus de contenu sur la santé menstruelle'
+      }
+      ,aboutPage: {
+        heroTitle: 'From Taboo to Dignity: Rethinking Menstrual Health through Innovation and Equity',
+        heroSubtitle: 'An origin story about girls, engineering, and dignity — how communities and simple innovations can remove a monthly barrier to education.',
+        quote: 'Biology should never determine destiny. Menstruation must be met with science, support, and solidarity — not silence.',
+        beginnings: 'Our beginnings',
+        vision: 'Vision & intent',
+        team: 'Team & governance',
+        partners: 'Partners',
+        cta: 'Join us in restoring dignity through engineering with empathy.',
+        donate: 'Donate now'
+      }
+      ,blog: {
+        listTitle: 'Stories & Insights',
+        listSubtitle: 'Field stories, research notes, and product updates from the ground.',
+        searchPlaceholder: 'Search articles...',
+        filters: { topic:'Topic', country:'Country', year:'Year', type:'Type', sortNewest:'Sort: Newest' },
+        stayLoop: 'Stay in the loop',
+        stayLoopDesc: 'Monthly round-up of impact stories and transparency updates.',
+        subscribeCta: 'Subscribe',
+        onThisPage: 'On this page',
+        consentVerified: 'Consent verified',
+        transparencyNote: 'Transparency note',
+        keepReading: 'Keep Reading',
+        popularTopics: 'Popular topics'
       }
     }
   }
