@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Globe2, Package, Target, BarChart3, Mail, Phone, FileText } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -122,7 +123,7 @@ const DistributorsManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-primary-light rounded-lg">
-                <span className="text-primary text-xl">🌍</span>
+                <Globe2 className="text-primary w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">{distributors.length}</div>
@@ -135,7 +136,7 @@ const DistributorsManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-success-light rounded-lg">
-                <span className="text-success text-xl">📦</span>
+                <Package className="text-success w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">
@@ -150,7 +151,7 @@ const DistributorsManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-warning-light rounded-lg">
-                <span className="text-warning text-xl">🎯</span>
+                <Target className="text-warning w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">
@@ -165,7 +166,7 @@ const DistributorsManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-primary-light rounded-lg">
-                <span className="text-primary text-xl">📊</span>
+                <BarChart3 className="text-primary w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">
@@ -275,10 +276,10 @@ const DistributorsManagement: React.FC = () => {
 
                 {/* Contact and Actions */}
                 <div className="border-t border-border pt-4">
-                  <div className="text-sm text-text-secondary mb-3">
-                    📧 {distributor.contact}<br />
-                    📱 {distributor.phone}<br />
-                    📄 Last report: {new Date(distributor.lastReport).toLocaleDateString()}
+                  <div className="text-sm text-text-secondary mb-3 space-y-1">
+                    <div className="flex items-center space-x-2"><Mail className="w-4 h-4" /><span>{distributor.contact}</span></div>
+                    <div className="flex items-center space-x-2"><Phone className="w-4 h-4" /><span>{distributor.phone}</span></div>
+                    <div className="flex items-center space-x-2"><FileText className="w-4 h-4" /><span>Last report: {new Date(distributor.lastReport).toLocaleDateString()}</span></div>
                   </div>
                   <div className="flex space-x-2">
                     <Button size="sm" variant="secondary" className="flex-1">View Details</Button>

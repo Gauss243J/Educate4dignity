@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Mail, BarChart3, DollarSign, Building2, Clock, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -111,7 +112,7 @@ const SuppliersManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-primary-light rounded-lg">
-                <span className="text-primary text-xl">🏢</span>
+                <Building2 className="text-primary w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">{suppliers.length}</div>
@@ -124,7 +125,7 @@ const SuppliersManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-success-light rounded-lg">
-                <span className="text-success text-xl">✅</span>
+                <Star className="text-success w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">
@@ -139,7 +140,7 @@ const SuppliersManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-warning-light rounded-lg">
-                <span className="text-warning text-xl">⏳</span>
+                <Clock className="text-warning w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">
@@ -154,7 +155,7 @@ const SuppliersManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-primary-light rounded-lg">
-                <span className="text-primary text-xl">⭐</span>
+                <Star className="text-primary w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">4.7</div>
@@ -228,7 +229,7 @@ const SuppliersManagement: React.FC = () => {
                     </td>
                     <td className="p-4">
                       <div className="flex items-center space-x-1">
-                        <span className="text-warning">⭐</span>
+                        <Star className="text-warning w-4 h-4" />
                         <span className="text-text-primary">{supplier.rating}</span>
                       </div>
                     </td>
@@ -262,19 +263,19 @@ const SuppliersManagement: React.FC = () => {
             <div className="grid md:grid-cols-3 gap-4">
               <Button variant="secondary" className="h-16">
                 <div className="text-center">
-                  <div>📧</div>
+                  <Mail className="w-5 h-5 mx-auto" />
                   <div className="text-xs">Send Newsletter</div>
                 </div>
               </Button>
               <Button variant="secondary" className="h-16">
                 <div className="text-center">
-                  <div>📊</div>
+                  <BarChart3 className="w-5 h-5 mx-auto" />
                   <div className="text-xs">Performance Report</div>
                 </div>
               </Button>
               <Button variant="secondary" className="h-16">
                 <div className="text-center">
-                  <div>💰</div>
+                  <DollarSign className="w-5 h-5 mx-auto" />
                   <div className="text-xs">Payment Status</div>
                 </div>
               </Button>

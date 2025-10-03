@@ -15,7 +15,10 @@ const resources = {
         contact: 'Contact',
         donate: 'Donate',
         signin: 'Sign In',
-        signup: 'Sign Up'
+  signup: 'Sign Up',
+  menuToggle: 'Toggle menu',
+  menu: 'Menu',
+  close: 'Close menu'
       },
       nav_mh: {
         projects: 'Menstrual Health Projects',
@@ -27,7 +30,7 @@ const resources = {
       
       // Landing Page
       landing: {
-  title: 'Transform menstrual health education in East Africa',
+  title: 'Transform menstrual health education in Africa',
   subtitle: 'We break taboos, educate communities, and provide sustainable solutions so every girl can manage her period with dignity.',
   valueProp: 'Because no girl should miss school because of her period',
         description: 'Join us in creating sustainable change through innovative projects that provide education, resources, and opportunities to communities worldwide.',
@@ -53,6 +56,11 @@ const resources = {
         fundsRaised: 'Funds Raised'
       },
       audience: {
+        labels: {
+          beneficiaries: 'Beneficiaries',
+          donors: 'Donors',
+          partners: 'Partners'
+        },
         beneficiaries: {
           sectionTitle: "Your path to confidence",
           p1: 'Understand your body without shame',
@@ -69,9 +77,9 @@ const resources = {
         },
         partners: {
           sectionTitle: 'Let\'s build together',
-          i1: 'Schools: Integrate menstrual health education into curricula',
-          i2: 'Health centers: Become distribution points',
-          i3: 'Community leaders: Break the silence'
+          i1: 'Schools: Embed menstrual health education & supportive facilities',
+          i2: 'NGOs & local associations: Run kit production and distribution points',
+          i3: 'Community & faith leaders: Break stigma and champion girls\' dignity'
         },
         overview: {
           title: 'Paths, impact and collaboration'
@@ -390,12 +398,15 @@ const resources = {
         contact: 'Contact',
         donate: 'Faire un don',
         signin: 'Se connecter',
-        signup: 'S\'inscrire'
+  signup: 'S\'inscrire',
+  menuToggle: 'Ouvrir/fermer le menu',
+  menu: 'Menu',
+  close: 'Fermer le menu'
       },
       
       // Landing Page
       landing: {
-  title: 'Transformons l\'éducation menstruelle en Afrique de l\'Est',
+  title: 'Transformons l\'éducation menstruelle en Afrique',
   subtitle: 'Nous brisons les tabous, éduquons les communautés et offrons des solutions durables pour que chaque jeune fille vive ses règles avec dignité.',
   valueProp: 'Parce qu\'aucune fille ne devrait manquer l\'école à cause de ses règles',
         description: 'Rejoignez-nous pour créer un changement durable grâce à des projets innovants qui fournissent éducation, ressources et opportunités aux communautés du monde entier.',
@@ -420,6 +431,11 @@ const resources = {
         fundsRaised: 'Fonds collectés'
       },
       audience: {
+        labels: {
+          beneficiaries: 'Bénéficiaires',
+          donors: 'Donateurs',
+          partners: 'Partenaires'
+        },
         beneficiaries: {
           sectionTitle: 'Ton parcours vers la confiance',
           p1: 'Découvre ton corps sans honte',
@@ -436,9 +452,9 @@ const resources = {
         },
         partners: {
           sectionTitle: 'Construisons ensemble',
-          i1: 'Écoles : Intégrez l\'éducation menstruelle à vos programmes',
-          i2: 'Centres de santé : Devenez points de distribution',
-          i3: 'Leaders communautaires : Brisez les silences'
+          i1: 'Écoles : Intégrer l\'éducation menstruelle et des espaces adaptés',
+          i2: 'ONG & associations : Organiser production et distribution des kits',
+          i3: 'Leaders communautaires & religieux : Briser le silence et porter la dignité des filles'
         },
         overview: {
           title: 'Parcours, impact et collaboration'

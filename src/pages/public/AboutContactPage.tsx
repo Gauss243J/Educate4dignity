@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Users, Lightbulb, Leaf, User } from 'lucide-react';
+import { Users, Lightbulb, Leaf, User, Target, Star, Mail, Phone, MapPin } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -70,23 +70,23 @@ const AboutContactPage: React.FC = () => {
     <div className="min-h-screen bg-background">
       <PublicNav />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-text-primary mb-6">
+        <div className="text-center mb-12 md:mb-16">
+          <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-4 sm:mb-6 leading-tight">
             {t('about.title', 'About Educate4Dignity')}
           </h1>
-          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-text-secondary max-w-3xl mx-auto">
             We are dedicated to creating sustainable change through education, technology, 
             and community empowerment initiatives across the globe.
           </p>
         </div>
 
         {/* Mission & Vision */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+  <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
           <Card>
             <CardHeader>
-              <div className="text-4xl mb-4">🎯</div>
+              <div className="text-4xl mb-4"><Target className="w-10 h-10 text-primary/70" /></div>
               <CardTitle className="text-2xl">Our Mission</CardTitle>
             </CardHeader>
             <CardContent>
@@ -100,7 +100,7 @@ const AboutContactPage: React.FC = () => {
 
           <Card>
             <CardHeader>
-              <div className="text-4xl mb-4">🌟</div>
+              <div className="text-4xl mb-4"><Star className="w-10 h-10 text-primary/70" /></div>
               <CardTitle className="text-2xl">Our Vision</CardTitle>
             </CardHeader>
             <CardContent>
@@ -114,9 +114,9 @@ const AboutContactPage: React.FC = () => {
         </div>
 
         {/* Impact Numbers */}
-        <div className="bg-primary-light rounded-2xl p-8 mb-16">
-          <h2 className="text-2xl font-bold text-text-primary text-center mb-8">Why Educate4Dignity</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="bg-primary-light rounded-2xl p-6 sm:p-8 mb-12 md:mb-16">
+          <h2 className="text-xl sm:text-2xl font-bold text-text-primary text-center mb-6 sm:mb-8">Why Educate4Dignity</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             <div className="text-center">
               <div className="text-3xl font-bold text-primary mb-2">50,000+</div>
               <div className="text-text-secondary">Lives Impacted</div>
@@ -137,9 +137,9 @@ const AboutContactPage: React.FC = () => {
         </div>
 
         {/* Our Approach */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold text-text-primary text-center mb-8">Our Approach</h2>
-          <div className="grid md:grid-cols-3 gap-8">
+        <div className="mb-12 md:mb-16">
+          <h2 className="text-xl sm:text-2xl font-bold text-text-primary text-center mb-6 sm:mb-8">Our Approach</h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             <Card className="text-center">
               <CardContent className="py-8">
                 <div className="text-4xl mb-4"><Users className="w-10 h-10 mx-auto text-primary/70" /></div>
@@ -176,9 +176,9 @@ const AboutContactPage: React.FC = () => {
         </div>
 
         {/* Team Section */}
-        <div className="mb-16">
-          <h2 className="text-2xl font-bold text-text-primary text-center mb-8">Meet Our Team</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="mb-12 md:mb-16">
+          <h2 className="text-xl sm:text-2xl font-bold text-text-primary text-center mb-6 sm:mb-8">Meet Our Team</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {teamMembers.map((member, index) => (
               <Card key={index} className="text-center">
                 <CardContent className="py-6">
@@ -199,7 +199,7 @@ const AboutContactPage: React.FC = () => {
         </div>
 
         {/* Contact Section */}
-        <div className="grid lg:grid-cols-2 gap-12">
+  <div className="grid lg:grid-cols-2 gap-10 lg:gap-12">
           {/* Contact Form */}
           <Card>
             <CardHeader>
@@ -299,21 +299,21 @@ const AboutContactPage: React.FC = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <div className="text-primary text-xl">📧</div>
+                  <div className="text-primary text-xl"><Mail className="w-5 h-5" /></div>
                   <div>
                     <div className="font-medium text-text-primary">Email</div>
                     <div className="text-text-secondary">info@educate4dignity.org</div>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <div className="text-primary text-xl">📱</div>
+                  <div className="text-primary text-xl"><Phone className="w-5 h-5" /></div>
                   <div>
                     <div className="font-medium text-text-primary">Phone</div>
                     <div className="text-text-secondary">+1 (555) 123-4567</div>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <div className="text-primary text-xl">📍</div>
+                  <div className="text-primary text-xl"><MapPin className="w-5 h-5" /></div>
                   <div>
                     <div className="font-medium text-text-primary">Address</div>
                     <div className="text-text-secondary">

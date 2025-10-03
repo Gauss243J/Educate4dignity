@@ -28,13 +28,13 @@ const ProjectsPage: React.FC = () => {
       <PublicNav />
 
       {/* Header */}
-      <section className="bg-gradient-to-r from-primary-light to-white py-12">
+  <section className="bg-gradient-to-r from-primary-light to-white py-10 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-text-primary mb-4">
+            <h1 className="text-3xl sm:text-4xl font-bold text-text-primary mb-3 sm:mb-4 leading-tight">
               {t('nav.projects')}
             </h1>
-            <p className="text-xl text-text-secondary max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-text-secondary max-w-3xl mx-auto">
               Discover and support our ongoing projects that make a real difference in communities worldwide.
             </p>
           </div>
@@ -42,9 +42,9 @@ const ProjectsPage: React.FC = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-white border-b border-border">
+  <section className="py-6 sm:py-8 bg-white border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row gap-4 items-center">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-6 items-stretch md:items-center">
             <div className="flex-1">
               <Input
                 placeholder={`${t('common.search')} projects...`}
@@ -54,7 +54,7 @@ const ProjectsPage: React.FC = () => {
               />
             </div>
             
-            <div className="flex gap-4">
+            <div className="flex gap-3 sm:gap-4">
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
@@ -87,7 +87,7 @@ const ProjectsPage: React.FC = () => {
       <div className="mb-6 text-sm text-secondary">
             Showing {filteredProjects.length} of {mockProjects.length} projects
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filteredProjects.map(p => (
               <ProjectCard key={p.id} project={p} />
             ))}

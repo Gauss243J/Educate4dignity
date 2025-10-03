@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Users, Home, School, BarChart3, MapPin, Phone, UserCog, Droplet } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
@@ -148,11 +149,11 @@ const BeneficiariesManagement: React.FC = () => {
 
   const getTypeIcon = (type: string) => {
     switch (type) {
-      case 'Community': return '🏘️';
-      case 'Institution': return '🏫';
-      case 'Cooperative': return '🤝';
-      case 'Youth Group': return '👥';
-      default: return '📋';
+      case 'Community': return <Home className="w-5 h-5 text-success" />;
+      case 'Institution': return <School className="w-5 h-5 text-primary" />;
+  case 'Cooperative': return <Users className="w-5 h-5 text-primary" />;
+      case 'Youth Group': return <Users className="w-5 h-5 text-primary" />;
+      default: return <BarChart3 className="w-5 h-5 text-primary" />;
     }
   };
 
@@ -176,7 +177,7 @@ const BeneficiariesManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-primary-light rounded-lg">
-                <span className="text-primary text-xl">👥</span>
+                <Users className="text-primary w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">{totalBeneficiaries.toLocaleString()}</div>
@@ -189,7 +190,7 @@ const BeneficiariesManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-success-light rounded-lg">
-                <span className="text-success text-xl">🏘️</span>
+                <Home className="text-success w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">{beneficiaries.length}</div>
@@ -202,7 +203,7 @@ const BeneficiariesManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-warning-light rounded-lg">
-                <span className="text-warning text-xl">📊</span>
+                <BarChart3 className="text-warning w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">{totalProjects}</div>
@@ -215,7 +216,7 @@ const BeneficiariesManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-primary-light rounded-lg">
-                <span className="text-primary text-xl">💧</span>
+                <Droplet className="text-primary w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">
@@ -284,10 +285,10 @@ const BeneficiariesManagement: React.FC = () => {
               <div className="space-y-4">
                 {/* Basic Info */}
                 <div>
-                  <div className="text-sm text-text-secondary mb-2">
-                    📍 {beneficiary.location}<br />
-                    👨‍💼 {beneficiary.coordinator}<br />
-                    📱 {beneficiary.phone}
+                  <div className="text-sm text-text-secondary mb-2 space-y-1">
+                    <div className="flex items-center space-x-2"><MapPin className="w-4 h-4" /><span>{beneficiary.location}</span></div>
+                    <div className="flex items-center space-x-2"><UserCog className="w-4 h-4" /><span>{beneficiary.coordinator}</span></div>
+                    <div className="flex items-center space-x-2"><Phone className="w-4 h-4" /><span>{beneficiary.phone}</span></div>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-sm text-text-secondary">Members:</span>

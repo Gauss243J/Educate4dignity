@@ -1,0 +1,13 @@
+{
+  "headers": {
+    "/**": {
+      "Access-Control-Allow-Origin": "*"
+    }
+  },
+  "redirects": [
+    { "source": "/api/*", "destination": "/api/*" }
+  ],
+  "rewrites": [
+    { "source": "**", "destination": "/index.html" }
+  ]
+}

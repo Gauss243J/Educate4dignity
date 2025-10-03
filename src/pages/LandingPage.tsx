@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Users, Heart, Building2, BookOpen, Droplet } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Chatbot } from '../components/ui/Chatbot';
 import { InteractiveWorldMap } from '../components/InteractiveWorldMap';
@@ -64,7 +65,7 @@ const LandingPage: React.FC = () => {
   <PublicNav />
       <main>
         {/* Hero */}
-  <section className="relative px-4 sm:px-6 lg:px-8 pt-10 pb-14 min-h-[640px] flex items-center overflow-hidden" >
+  <section className="relative px-4 sm:px-6 lg:px-8 pt-10 pb-14 min-h-[520px] md:min-h-[640px] flex items-center overflow-hidden" >
           <div className="absolute inset-0 z-0">
             <img src="/photos/banniere.png" alt="Hero background" className="w-full h-full object-cover" />
             {/* Darker overlay tending toward black for stronger focus */}
@@ -77,7 +78,7 @@ const LandingPage: React.FC = () => {
           </div>
           <div className="relative z-10 max-w-7xl mx-auto w-full">
             <div className="max-w-2xl space-y-6 bg-white/55 backdrop-blur-md rounded-xl px-8 py-8 shadow-sm ring-1 ring-white/40">
-              <h1 className="font-extrabold" style={{fontSize:'52px',lineHeight:'56px',color:'var(--color-text-primary)'}}>{t('landing.title','Transform menstrual health education in East Africa')}</h1>
+              <h1 className="font-extrabold text-[40px] leading-[44px] sm:text-[48px] sm:leading-[50px] md:text-[52px] md:leading-[56px]" style={{color:'var(--color-text-primary)'}}>{t('landing.title','Transform menstrual health education in East Africa')}</h1>
               <p className="text-lg font-medium" style={{color:'var(--color-text-secondary)'}}>{t('landing.subtitle','We break taboos, educate communities, and provide sustainable solutions so every girl can manage her period with dignity.')}</p>
               <p className="text-sm font-semibold" style={{color:'var(--rose-700)'}}>{t('landing.valueProp','Because no girl should miss school because of her period')}</p>
               <div className="flex gap-3 flex-wrap pt-2">
@@ -118,32 +119,47 @@ const LandingPage: React.FC = () => {
         <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-16 mt-6" id="audiences" delay={40}>
           <div className="max-w-7xl mx-auto">
             <h2 className="font-extrabold mb-8" style={{fontSize:'30px',color:'var(--color-text-primary)'}}>{t('audience.overview.title', 'Paths, impact and collaboration')}</h2>
-            <div className="grid md:grid-cols-3 gap-8" data-stagger-group>
-              {/* Column 1: Beneficiaries */}
-              <div className="card-fade">
-                <h3 className="font-bold mb-4" style={{color:'var(--color-text-primary)',fontSize:'20px'}}>{t('audience.beneficiaries.sectionTitle')}</h3>
-                <ul className="space-y-3 text-sm" style={{color:'var(--color-text-secondary)'}}>
+            <div className="grid gap-6 md:grid-cols-3" data-stagger-group>
+              {/* Card 1: Beneficiaries */}
+              <div className="card-fade info-card flex flex-col" aria-labelledby="aud-card-beneficiaries">
+                <div className="top-accent" />
+                <div className="flex items-center gap-2 mt-3 mb-2">
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center bg-[var(--rose-100)] text-[var(--rose-600)] border border-[var(--rose-200)]"><Users className="w-4 h-4" /></div>
+                  <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--rose-600)]">{t('audience.labels.beneficiaries','Beneficiaries')}</span>
+                </div>
+                <h3 id="aud-card-beneficiaries" className="font-bold mb-4" style={{color:'var(--color-text-primary)',fontSize:'20px'}}>{t('audience.beneficiaries.sectionTitle')}</h3>
+                <ul className="space-y-3 text-sm flex-1" style={{color:'var(--color-text-secondary)'}}>
                   {[t('audience.beneficiaries.p1'),t('audience.beneficiaries.p2'),t('audience.beneficiaries.p3'),t('audience.beneficiaries.p4')].map((txt,i)=>(
-                    <li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-600)] leading-snug">{txt}</li>
+                    <li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-500)] leading-snug">{txt}</li>
                   ))}
                 </ul>
               </div>
-              {/* Column 2: Donors */}
-              <div className="card-fade">
-                <h3 className="font-bold mb-4" style={{color:'var(--color-text-primary)',fontSize:'20px'}}>{t('audience.donors.sectionTitle')}</h3>
-                <ul className="space-y-3 text-sm font-medium" style={{color:'var(--color-text-secondary)'}}>
+              {/* Card 2: Donors */}
+              <div className="card-fade info-card alt flex flex-col" aria-labelledby="aud-card-donors">
+                <div className="top-accent" />
+                <div className="flex items-center gap-2 mt-3 mb-2">
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center bg-[var(--slate-900)] text-white border border-[var(--slate-700)]"><Heart className="w-4 h-4" /></div>
+                  <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--slate-800)]">{t('audience.labels.donors','Donors')}</span>
+                </div>
+                <h3 id="aud-card-donors" className="font-bold mb-4" style={{color:'var(--color-text-primary)',fontSize:'20px'}}>{t('audience.donors.sectionTitle')}</h3>
+                <ul className="space-y-3 text-sm font-medium flex-1" style={{color:'var(--color-text-secondary)'}}>
                   {[t('audience.donors.i1'),t('audience.donors.i2'),t('audience.donors.i3')].map((txt,i)=>(
-                    <li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-600)] leading-snug">{txt}</li>
+                    <li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-500)] leading-snug">{txt}</li>
                   ))}
                 </ul>
-                <div className="text-[12px] mt-3 font-semibold" style={{color:'var(--rose-700)'}}>{t('audience.donors.transparency')}</div>
+                <div className="text-[12px] mt-4 font-semibold" style={{color:'var(--rose-700)'}}>{t('audience.donors.transparency')}</div>
               </div>
-              {/* Column 3: Partners */}
-              <div className="card-fade">
-                <h3 className="font-bold mb-4" style={{color:'var(--color-text-primary)',fontSize:'20px'}}>{t('audience.partners.sectionTitle')}</h3>
-                <ul className="space-y-3 text-sm font-medium" style={{color:'var(--color-text-secondary)'}}>
+              {/* Card 3: Partners */}
+              <div className="card-fade info-card secondary flex flex-col" aria-labelledby="aud-card-partners">
+                <div className="top-accent" />
+                <div className="flex items-center gap-2 mt-3 mb-2">
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center bg-[var(--rose-100)] text-[var(--rose-600)] border border-[var(--rose-200)]"><Building2 className="w-4 h-4" /></div>
+                  <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--rose-600)]">{t('audience.labels.partners','Partners')}</span>
+                </div>
+                <h3 id="aud-card-partners" className="font-bold mb-4" style={{color:'var(--color-text-primary)',fontSize:'20px'}}>{t('audience.partners.sectionTitle')}</h3>
+                <ul className="space-y-3 text-sm font-medium flex-1" style={{color:'var(--color-text-secondary)'}}>
                   {[t('audience.partners.i1'),t('audience.partners.i2'),t('audience.partners.i3')].map((txt,i)=>(
-                    <li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-600)] leading-snug">{txt}</li>
+                    <li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-500)] leading-snug">{txt}</li>
                   ))}
                 </ul>
               </div>
@@ -152,11 +168,11 @@ const LandingPage: React.FC = () => {
         </Reveal>
         {/* EDUCATION SECTION (image left, text right) */}
         <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-20 mt-14" id="education" delay={60}>
-          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-            <div className="rounded-2xl overflow-hidden border" style={{borderColor:'var(--rose-200)'}}>
+          <div className="max-w-7xl mx-auto grid gap-10 items-center md:grid-cols-2">
+            <div className="rounded-2xl overflow-hidden border order-1 md:order-none" style={{borderColor:'var(--rose-200)'}}>
               <ImageWithFallback src="/photos/Project/Generated Image October 02, 2025 - 9_15AM.png" alt={t('education.title','Menstrual health education')} className="w-full h-full object-cover md:h-[420px]" />
             </div>
-            <div>
+            <div className="order-2 md:order-none">
               <h2 className="font-extrabold mb-4" style={{fontSize:'34px',lineHeight:'1.15',color:'var(--color-text-primary)'}}>{t('education.title','Why menstrual health education matters')}</h2>
               <p className="text-base font-medium mb-4" style={{color:'var(--color-text-secondary)'}}>{t('education.lead','Knowledge + dignity keeps girls learning consistently.')}</p>
               <p className="text-sm mb-3" style={{color:'var(--color-text-secondary)'}}>{t('education.p1')}</p>
@@ -167,17 +183,29 @@ const LandingPage: React.FC = () => {
         </Reveal>
         {/* PEDAGOGY & MENSTRUAL HEALTH QUICK LISTS */}
         <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="pedagogy" delay={70}>
-          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10">
-            <div>
-              <h3 className="font-bold mb-3" style={{fontSize:'22px',color:'var(--color-text-primary)'}}>{t('audience.pedagogy.sectionTitle','Our learning approach')}</h3>
-              <ul className="space-y-2 text-sm" style={{color:'var(--color-text-secondary)'}}>
-                {[t('audience.pedagogy.i1'),t('audience.pedagogy.i2'),t('audience.pedagogy.i3')].map((l,i)=>(<li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-600)]">{l}</li>))}
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6" data-stagger-group>
+            {/* Card: Learning Approach */}
+            <div className="info-card card-fade" aria-labelledby="pedagogy-card">
+              <div className="top-accent" />
+              <div className="flex items-center gap-2 mt-3 mb-2">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[var(--rose-100)] text-[var(--rose-600)] border border-[var(--rose-200)]"><BookOpen className="w-4 h-4" /></div>
+                <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--rose-600)]">{t('audience.pedagogy.sectionTitle','Our learning approach')}</span>
+              </div>
+              <h3 id="pedagogy-card" className="font-bold mb-4" style={{fontSize:'20px',color:'var(--color-text-primary)'}}>{t('audience.pedagogy.sectionTitle','Our learning approach')}</h3>
+              <ul className="space-y-3 text-sm" style={{color:'var(--color-text-secondary)'}}>
+                {[t('audience.pedagogy.i1'),t('audience.pedagogy.i2'),t('audience.pedagogy.i3')].map((l,i)=>(<li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-500)] leading-snug">{l}</li>))}
               </ul>
             </div>
-            <div>
-              <h3 className="font-bold mb-3" style={{fontSize:'22px',color:'var(--color-text-primary)'}}>{t('audience.menstrualHealth.sectionTitle','Clear, practical menstrual health')}</h3>
-              <ul className="space-y-2 text-sm" style={{color:'var(--color-text-secondary)'}}>
-                {[t('audience.menstrualHealth.i1'),t('audience.menstrualHealth.i2'),t('audience.menstrualHealth.i3')].map((l,i)=>(<li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-600)]">{l}</li>))}
+            {/* Card: Menstrual Health */}
+            <div className="info-card secondary card-fade" aria-labelledby="mh-card">
+              <div className="top-accent" />
+              <div className="flex items-center gap-2 mt-3 mb-2">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[var(--rose-100)] text-[var(--rose-600)] border border-[var(--rose-200)]"><Droplet className="w-4 h-4" /></div>
+                <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--rose-600)]">{t('audience.menstrualHealth.sectionTitle','Clear, practical menstrual health')}</span>
+              </div>
+              <h3 id="mh-card" className="font-bold mb-4" style={{fontSize:'20px',color:'var(--color-text-primary)'}}>{t('audience.menstrualHealth.sectionTitle','Clear, practical menstrual health')}</h3>
+              <ul className="space-y-3 text-sm" style={{color:'var(--color-text-secondary)'}}>
+                {[t('audience.menstrualHealth.i1'),t('audience.menstrualHealth.i2'),t('audience.menstrualHealth.i3')].map((l,i)=>(<li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-500)] leading-snug">{l}</li>))}
               </ul>
             </div>
           </div>
@@ -186,7 +214,7 @@ const LandingPage: React.FC = () => {
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="stories" delay={80}>
           <div className="max-w-7xl mx-auto">
             <h2 className="font-extrabold mb-6" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.storiesTitle','Real voices, real change')}</h2>
-            <div className="grid gap-4 md:grid-cols-3" data-stagger-group>
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3" data-stagger-group>
               {/*
                 Amina — Burundi
                 Grace — Rwanda
@@ -229,7 +257,7 @@ const LandingPage: React.FC = () => {
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="field-moments" delay={240}>
           <div className="max-w-7xl mx-auto">
             <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.momentsTitle','Small field moments that show big change')}</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-stagger-group>
+            <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-stagger-group>
               {[
                 {src:'/photos/Project/92038f75-aeef-42a1-a6f0-a4a014771f14.png', alt:'Project field photo 1'},
                 {src:'/photos/Project/Generated Image October 02, 2025 - 8_34AM.png', alt:'Project field photo 2'},

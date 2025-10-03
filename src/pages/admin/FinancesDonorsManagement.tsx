@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { User as UserIcon, Landmark, Building2, Briefcase, BarChart2, HeartHandshake, CreditCard, LineChart, MapPin, Clock } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
 import { Badge } from '../../components/ui/Badge';
@@ -117,10 +118,10 @@ const FinancesDonorsManagement: React.FC = () => {
 
   const getDonorTypeIcon = (type: string) => {
     switch (type) {
-      case 'individual': return '👤';
-      case 'foundation': return '🏛️';
-      case 'corporate': return '🏢';
-      default: return '💼';
+      case 'individual': return <UserIcon size={18} />;
+      case 'foundation': return <Landmark size={18} />;
+      case 'corporate': return <Building2 size={18} />;
+  default: return <Briefcase size={18} />;
     }
   };
 
@@ -159,10 +160,10 @@ const FinancesDonorsManagement: React.FC = () => {
         <div className="border-b border-border">
           <div className="flex space-x-8">
             {[
-              { key: 'overview', label: 'Overview', icon: '📊' },
-              { key: 'donors', label: 'Donors', icon: '💝' },
-              { key: 'transactions', label: 'Transactions', icon: '💳' },
-              { key: 'reports', label: 'Reports', icon: '📈' }
+              { key: 'overview', label: 'Overview', icon: <BarChart2 size={16} className="inline" /> },
+              { key: 'donors', label: 'Donors', icon: <HeartHandshake size={16} className="inline" /> },
+              { key: 'transactions', label: 'Transactions', icon: <CreditCard size={16} className="inline" /> },
+              { key: 'reports', label: 'Reports', icon: <LineChart size={16} className="inline" /> }
             ].map((tab) => (
               <button
                 key={tab.key}
@@ -173,7 +174,7 @@ const FinancesDonorsManagement: React.FC = () => {
                     : 'border-transparent text-text-secondary hover:text-text-primary'
                 }`}
               >
-                <span className="mr-2">{tab.icon}</span>
+                <span className="mr-2 align-middle">{tab.icon}</span>
                 {tab.label}
               </button>
             ))}
@@ -257,7 +258,7 @@ const FinancesDonorsManagement: React.FC = () => {
               <CardContent>
                 <div className="h-64 bg-background-light rounded-lg flex items-center justify-center">
                   <div className="text-center text-text-secondary">
-                    <div className="text-4xl mb-2">📈</div>
+                    <LineChart className="mx-auto mb-2" size={40} />
                     <div>Chart visualization would go here</div>
                   </div>
                 </div>
@@ -272,7 +273,7 @@ const FinancesDonorsManagement: React.FC = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-2">
-                      <span>👤</span>
+                      <UserIcon size={16} />
                       <span>Individual Donors</span>
                     </div>
                     <div className="text-right">
@@ -282,7 +283,7 @@ const FinancesDonorsManagement: React.FC = () => {
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-2">
-                      <span>🏢</span>
+                      <Building2 size={16} />
                       <span>Corporate</span>
                     </div>
                     <div className="text-right">
@@ -292,7 +293,7 @@ const FinancesDonorsManagement: React.FC = () => {
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center space-x-2">
-                      <span>🏛️</span>
+                      <Landmark size={16} />
                       <span>Foundations</span>
                     </div>
                     <div className="text-right">
@@ -367,8 +368,8 @@ const FinancesDonorsManagement: React.FC = () => {
                     </div>
 
                     <div className="text-sm text-text-secondary">
-                      📍 {donor.country}<br />
-                      🕒 Last donation: {new Date(donor.lastDonation).toLocaleDateString()}
+                      <MapPin className="inline mr-1" size={14} /> {donor.country}<br />
+                      <Clock className="inline mr-1" size={14} /> Last donation: {new Date(donor.lastDonation).toLocaleDateString()}
                     </div>
 
                     <div className="flex space-x-2">
@@ -449,7 +450,7 @@ const FinancesDonorsManagement: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <Card className="cursor-pointer hover:shadow-lg transition-shadow">
               <CardContent className="py-8 text-center">
-                <div className="text-4xl mb-4">📊</div>
+                <BarChart2 className="mx-auto mb-4" size={40} />
                 <h3 className="font-bold text-text-primary mb-2">Financial Summary</h3>
                 <p className="text-text-secondary text-sm mb-4">
                   Comprehensive financial overview and metrics
@@ -460,7 +461,7 @@ const FinancesDonorsManagement: React.FC = () => {
 
             <Card className="cursor-pointer hover:shadow-lg transition-shadow">
               <CardContent className="py-8 text-center">
-                <div className="text-4xl mb-4">💝</div>
+                <HeartHandshake className="mx-auto mb-4" size={40} />
                 <h3 className="font-bold text-text-primary mb-2">Donor Analytics</h3>
                 <p className="text-text-secondary text-sm mb-4">
                   Detailed donor behavior and retention analysis
@@ -471,7 +472,7 @@ const FinancesDonorsManagement: React.FC = () => {
 
             <Card className="cursor-pointer hover:shadow-lg transition-shadow">
               <CardContent className="py-8 text-center">
-                <div className="text-4xl mb-4">📈</div>
+                <LineChart className="mx-auto mb-4" size={40} />
                 <h3 className="font-bold text-text-primary mb-2">Tax Reports</h3>
                 <p className="text-text-secondary text-sm mb-4">
                   Tax-deductible donation reports for compliance
