@@ -6,11 +6,30 @@ const AboutPage: React.FC = () => {
   return (
     <PublicPageShell backgroundVariant="plain">
   <header className="space-y-3 mb-8 max-w-4xl mx-auto">
-    <p className="text-[11px] tracking-wide font-semibold uppercase text-primary/70">Transform menstrual health education</p>
+  <p className="text-[11px] tracking-wide font-semibold uppercase text-accent">Transform menstrual health education</p>
     <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">From taboo to dignity</h1>
     <p className="text-[14px] leading-[20px] text-secondary">We break taboos, educate communities and provide sustainable, reusable solutions so every girl can manage her period with dignity.</p>
-    <p className="text-[12px] leading-[18px] text-[var(--rose-700)] font-medium">Because no girl should miss school because of her period.</p>
+    <p className="text-[12px] leading-[18px]" style={{color:'var(--rose-700)'}}>Because no girl should miss school because of her period.</p>
       </header>
+
+      {/* Inline video just after the header tagline (no visible title) */}
+      <section className="mb-8 max-w-4xl mx-auto">
+  <div className="w-full max-w-xl rounded-xl border border-base overflow-hidden bg-[var(--color-surface)]">
+          <div className="relative w-full" style={{paddingTop:'56.25%'}}>
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              controls
+              preload="metadata"
+              poster="/photos/uploads/founder-video-thumb.jpg"
+              aria-label="Organization overview video"
+            >
+              <source src="/videos/video5985359414595426492.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+  <p className="mt-2 text-[12px] leading-[18px] text-secondary">Short clip from a school distribution session, illustrating the energy in the room when girls receive their kits and guidance.</p>
+      </section>
 
   <article className="max-w-4xl mx-auto">
         {/* Narrative */}
@@ -38,6 +57,8 @@ const AboutPage: React.FC = () => {
             <p className="italic">“Dignity is not a luxury add‑on. It is the quiet infrastructure of learning.”</p>
           </div>
         </section>
+
+        
 
         <h2 className="mt-8 mb-3 text-[18px] leading-[24px] font-semibold text-primary">What we focus on</h2>
         <ul className="list-disc pl-5 space-y-1 text-[13px] leading-[20px] text-primary">

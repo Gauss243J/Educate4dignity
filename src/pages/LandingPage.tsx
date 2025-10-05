@@ -119,7 +119,7 @@ const LandingPage: React.FC = () => {
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-14 mt-14" id="education" delay={60}>
           <div className="max-w-7xl mx-auto grid gap-10 items-center md:grid-cols-2">
             <div className="rounded-2xl overflow-hidden border order-1 md:order-none" style={{borderColor:'var(--rose-200)'}}>
-              <ImageWithFallback src="/photos/Project/Generated Image October 02, 2025 - 9_15AM.png" alt={t('education.title','Menstrual health education')} className="w-full h-full object-cover md:h-[420px]" />
+              <ImageWithFallback src="/photos/Project/Generated Image October 05, 2025 - 7_46PM.png" alt={t('education.title','Menstrual health education')} className="w-full h-full object-cover md:h-[420px]" />
             </div>
             <div className="order-2 md:order-none">
               <h2 className="font-extrabold mb-4" style={{fontSize:'34px',lineHeight:'1.15',color:'var(--color-text-primary)'}}>{t('education.title','Why menstrual health education matters')}</h2>
@@ -187,24 +187,26 @@ const LandingPage: React.FC = () => {
           <div className="max-w-7xl mx-auto">
             <h2 className="font-extrabold mb-6" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.storiesTitle','Real voices, real change')}</h2>
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3" data-stagger-group>
-              {/*
-                Amina — Burundi
-                Grace — Rwanda
-                Esperance — DRC
-              */}
-              { [
-                { key:'story_amima', n:'Amina — Burundi', q:'“I stopped missing school.”', d:'$25 keeps a girl learning all year.', img: '/photos/Dossier/1.png', alt:'Impact story 1' },
-                { key:'story_grace', n:'Grace — Rwanda', q:'“My daughter now has confidence.”', d:'Reusable kits + teacher talks.', img: '/photos/Dossier/Generated Image October 02, 2025 - 8_39AM.png', alt:'Impact story 2' },
-                { key:'story_esperance', n:'Esperance — DRC', q:'“No more stigma. Just dignity.”', d:'Parents & boys included in sessions.', img: '/photos/Dossier/Generated Image October 02, 2025 - 8_50AM (1).png', alt:'Impact story 3' }
+              {[
+                { key:'story_amima', n:'Amina — Burundi', q:'“I stopped missing school.”', d:'$25 keeps a girl learning all year.', img: '/photos/Dossier/Generated Image October 02, 2025 - 9_15AM.png', alt:'Impact story 1', slug:'from-absenteeism-to-attendance' },
+                { key:'story_grace', n:'Grace — Rwanda', q:'“My daughter now has confidence.”', d:'Reusable kits + teacher talks.', img: '/photos/Dossier/Generated Image October 02, 2025 - 8_39AM.png', alt:'Impact story 2', slug:'training-day-mhm-basics' },
+                { key:'story_esperance', n:'Esperance — DRC', q:'“No more stigma. Just dignity.”', d:'Parents & boys included in sessions.', img: '/photos/Dossier/Generated Image October 02, 2025 - 8_50AM (1).png', alt:'Impact story 3', slug:'coops-women-led-production' }
               ].map((s)=>(
-                <div key={s.key} className="p-4 rounded-lg border flex flex-col card-fade card-hover-lift" style={{borderColor:'var(--color-border)',background:'var(--color-primary-light)'}}>
+                <Link
+                  key={s.key}
+                  to={`/blog/${s.slug}`}
+                  state={{ coverOverride: s.img, quote: s.q, nameLine: s.n, descLine: s.d }}
+                  className="p-4 rounded-lg border flex flex-col card-fade card-hover-lift h-full focus:outline-none focus:ring-2 focus:ring-[var(--rose-400)] hover:shadow-md transition"
+                  style={{borderColor:'var(--color-border)',background:'var(--color-primary-light)'}}
+                  aria-label={`Read more: ${s.n}`}
+                >
                   <div className="h-40 mb-3 rounded-md border overflow-hidden" style={{borderColor:'var(--rose-200)'}}>
                     <ImageWithFallback src={s.img} alt={s.alt} className="w-full h-full object-cover" />
                   </div>
                   <blockquote className="text-base font-semibold mb-1" style={{color:'var(--color-text-primary)'}}>{s.q}</blockquote>
                   <div className="text-sm" style={{color:'var(--color-text-secondary)'}}>{s.n}</div>
                   <div className="text-[13px] mt-1" style={{color:'var(--color-text-tertiary)'}}>{s.d}</div>
-                </div>
+                </Link>
               )) }
             </div>
           </div>
@@ -231,13 +233,35 @@ const LandingPage: React.FC = () => {
             <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.momentsTitle','Small field moments that show big change')}</h2>
             <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-stagger-group>
               {[
-                {src:'/photos/Project/92038f75-aeef-42a1-a6f0-a4a014771f14.png', alt:'Project field photo 1'},
-                {src:'/photos/Project/Generated Image October 02, 2025 - 8_34AM.png', alt:'Project field photo 2'},
-                {src:'/photos/Project/Generated Image October 02, 2025 - 9_01AM.png', alt:'Project field photo 3'},
-                {src:'/photos/Project/Generated Image October 02, 2025 - 9_11AM.png', alt:'Project field photo 4'}
+                // Existing first row
+                {src:'/photos/Project/92038f75-aeef-42a1-a6f0-a4a014771f14.png', alt:'Project field photo 1', title:'Teacher-led session', quote:'“I learned to manage my period with dignity.”'},
+                {src:'/photos/Project/Generated Image October 02, 2025 - 8_34AM.png', alt:'Project field photo 2', title:'Kits unpacked', quote:'Reusable pads and guidance for every girl.'},
+                {src:'/photos/Project/Generated Image October 02, 2025 - 9_01AM.png', alt:'Project field photo 3', title:'Confident and ready', quote:'Girls share what they learned with peers.'},
+                {src:'/photos/Project/Generated Image October 02, 2025 - 9_11AM.png', alt:'Project field photo 4', title:'Dignity in a box', quote:'Practical, reusable, locally sewn supplies.'},
+                // New second row from /public/photos/kit
+                {src:'/photos/kit/03.png', alt:'Locally sewn kits in classroom', title:'Women-led production', quote:'Mothers and tailors create jobs and dignity.'},
+                {src:'/photos/kit/04.png', alt:'Girls receiving reusable kits', title:'Distribution day', quote:'“I won’t miss school anymore.”'},
+                {src:'/photos/kit/05.png', alt:'Women-led distribution of kits', title:'Community celebration', quote:'Boys and teachers join to reduce stigma.'},
+                {src:'/photos/kit/Generated Image October 03, 2025 - 9_04AM (1).png', alt:'Education 4 Dignity kits box with students', title:'Simple, sustainable', quote:'One kit supports a year of learning.'}
               ].map((g,i)=>(
-                <div key={i} className="rounded-lg overflow-hidden border card-fade" style={{borderColor:'var(--color-border)'}}>
-                  <ImageWithFallback src={g.src} alt={g.alt} className="w-full h-48 object-cover" />
+                <div
+                  key={i}
+                  className="relative group rounded-lg overflow-hidden border card-fade"
+                  style={{borderColor:'var(--color-border)'}}
+                  aria-label={g.title}
+                >
+                  <div className="overflow-hidden">
+                    <ImageWithFallback src={g.src} alt={g.alt} className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
+                  </div>
+                  {/* Overlay: gradient + subtle blur on hover */}
+                  <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                    <div className="absolute inset-0 backdrop-blur-[1.5px] opacity-90"></div>
+                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white">
+                      <div className="text-[13px] sm:text-[14px] font-semibold leading-snug">{g.title}</div>
+                      {g.quote && <p className="mt-1 text-[11px] sm:text-[12px] leading-snug text-white/90">{g.quote}</p>}
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>

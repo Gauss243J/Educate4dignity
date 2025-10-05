@@ -26,11 +26,13 @@ const DonorPortal = lazy(() => import('./pages/donor/DonorPortal'))
 const NotFoundPage = lazy(() => import('./pages/public/NotFoundPage'))
 import { ProtectedRoute } from './components/ProtectedRoute'
 import PageSkeleton from './components/feedback/PageSkeleton'
+import ScrollToTop from './components/routing/ScrollToTop'
 
 function App() {
   return (
     <Router>
       <div className="App">
+        <ScrollToTop />
         <Suspense fallback={<PageSkeleton withHeader lines={10} />}> 
         <Routes>
           <Route path="/" element={<LandingPage />} />

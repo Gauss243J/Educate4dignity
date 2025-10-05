@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import PublicNav from '../../components/layout/PublicNav';
 // Logo import removed (handled inside PublicFooter)
 import NewsletterInline from '../../components/ui/NewsletterInline';
@@ -14,6 +14,7 @@ import { transformArticleHtml } from '../../utils/mediaTransform';
 
 const BlogArticlePage: React.FC = () => {
   const { slug } = useParams();
+  const location = useLocation() as unknown as { state?: { coverOverride?: string; quote?: string; nameLine?: string; descLine?: string } };
   const navigate = useNavigate();
   // Prefer admin/store article if available, else fall back to static dataset
   const storeArticle = slug ? blogStore.get(slug) : undefined;
@@ -38,9 +39,13 @@ const BlogArticlePage: React.FC = () => {
   })();
   const article: BlogArticle | undefined = merged;
   // Prefer curated static cover first; fall back to admin/store cover
-  const coverUrl = (staticArticle?.cover_image_url || storeArticle?.cover_image_url || '');
+  const coverUrl = (location.state?.coverOverride || staticArticle?.cover_image_url || storeArticle?.cover_image_url || '');
   const [imgSrc, setImgSrc] = useState(coverUrl);
-  useEffect(() => { setImgSrc(staticArticle?.cover_image_url || storeArticle?.cover_image_url || ''); }, [slug, storeArticle, staticArticle]);
+  // Keep the landing card's cover image if provided via route state; otherwise prefer static then store cover
+  useEffect(() => {
+    const next = (location.state?.coverOverride || staticArticle?.cover_image_url || storeArticle?.cover_image_url || '');
+    setImgSrc(next);
+  }, [slug, storeArticle, staticArticle, location.state]);
   const tried = useRef<{staticTried:boolean; placeholderTried:boolean}>({staticTried:false, placeholderTried:false});
   const [copied, setCopied] = useState(false);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -158,11 +163,20 @@ const BlogArticlePage: React.FC = () => {
               </div>
             )}
 
-            {/* Title */}
+            {/* Title + optional landing card lines */}
             <header className="space-y-4">
               <h1 className="text-[32px] leading-[38px] font-extrabold text-[var(--slate-900)]">
                 {article.title}
               </h1>
+              {location.state?.quote && (
+                <blockquote className="text-[18px] leading-[24px] font-extrabold text-[var(--slate-900)]">{location.state.quote}</blockquote>
+              )}
+              {location.state?.nameLine && (
+                <div className="text-[14px] text-[var(--slate-800)]">{location.state.nameLine}</div>
+              )}
+              {location.state?.descLine && (
+                <div className="text-[13px] text-[var(--slate-600)]">{location.state.descLine}</div>
+              )}
               {article.excerpt && (
                 <p className="text-[15px] leading-[22px] text-[var(--slate-700)] max-w-2xl">{article.excerpt}</p>
               )}
