@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Users, Heart, Building2, BookOpen, Droplet } from 'lucide-react';
+import { Users, Heart, Building2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Chatbot } from '../components/ui/Chatbot';
 import { InteractiveWorldMap } from '../components/InteractiveWorldMap';
@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import ProjectCard from '../components/ProjectCard';
 import { ImageWithFallback } from '../components/ui/ImageWithFallback';
 import Logo from '../components/ui/Logo';
+import PublicFooter from '../components/layout/PublicFooter';
 import NewsletterSignup from '../components/ui/NewsletterSignup';
 import PublicNav from '../components/layout/PublicNav';
 import { impactMetrics } from '../data/metrics';
@@ -115,8 +116,24 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </section>
-        {/* AUDIENCE COMBINED 3-COLUMN SECTION */}
-        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-16 mt-6" id="audiences" delay={40}>
+        
+        {/* EDUCATION SECTION (image left, text right) */}
+  <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-14 mt-14" id="education" delay={60}>
+          <div className="max-w-7xl mx-auto grid gap-10 items-center md:grid-cols-2">
+            <div className="rounded-2xl overflow-hidden border order-1 md:order-none" style={{borderColor:'var(--rose-200)'}}>
+              <ImageWithFallback src="/photos/Project/Generated Image October 02, 2025 - 9_15AM.png" alt={t('education.title','Menstrual health education')} className="w-full h-full object-cover md:h-[420px]" />
+            </div>
+            <div className="order-2 md:order-none">
+              <h2 className="font-extrabold mb-4" style={{fontSize:'34px',lineHeight:'1.15',color:'var(--color-text-primary)'}}>{t('education.title','Why menstrual health education matters')}</h2>
+              <p className="text-base font-medium mb-4" style={{color:'var(--color-text-secondary)'}}>{t('education.lead','Knowledge + dignity keeps girls learning consistently.')}</p>
+              <p className="text-sm mb-3" style={{color:'var(--color-text-secondary)'}}>{t('education.p1')}</p>
+              <p className="text-sm mb-6" style={{color:'var(--color-text-secondary)'}}>{t('education.p2')}</p>
+              <Link to="/blog" className="btn-outline-rose text-sm">{t('education.cta','Read more on our learning approach')}</Link>
+            </div>
+          </div>
+    </Reveal>
+  {/* AUDIENCE COMBINED 3-COLUMN SECTION (moved below education) */}
+  <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-16 mt-4" id="audiences-moved" delay={70}>
           <div className="max-w-7xl mx-auto">
             <h2 className="font-extrabold mb-8" style={{fontSize:'30px',color:'var(--color-text-primary)'}}>{t('audience.overview.title', 'Paths, impact and collaboration')}</h2>
             <div className="grid gap-6 md:grid-cols-3" data-stagger-group>
@@ -166,50 +183,7 @@ const LandingPage: React.FC = () => {
             </div>
           </div>
         </Reveal>
-        {/* EDUCATION SECTION (image left, text right) */}
-        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-20 mt-14" id="education" delay={60}>
-          <div className="max-w-7xl mx-auto grid gap-10 items-center md:grid-cols-2">
-            <div className="rounded-2xl overflow-hidden border order-1 md:order-none" style={{borderColor:'var(--rose-200)'}}>
-              <ImageWithFallback src="/photos/Project/Generated Image October 02, 2025 - 9_15AM.png" alt={t('education.title','Menstrual health education')} className="w-full h-full object-cover md:h-[420px]" />
-            </div>
-            <div className="order-2 md:order-none">
-              <h2 className="font-extrabold mb-4" style={{fontSize:'34px',lineHeight:'1.15',color:'var(--color-text-primary)'}}>{t('education.title','Why menstrual health education matters')}</h2>
-              <p className="text-base font-medium mb-4" style={{color:'var(--color-text-secondary)'}}>{t('education.lead','Knowledge + dignity keeps girls learning consistently.')}</p>
-              <p className="text-sm mb-3" style={{color:'var(--color-text-secondary)'}}>{t('education.p1')}</p>
-              <p className="text-sm mb-6" style={{color:'var(--color-text-secondary)'}}>{t('education.p2')}</p>
-              <Link to="/blog" className="btn-outline-rose text-sm">{t('education.cta','Read more on our learning approach')}</Link>
-            </div>
-          </div>
-        </Reveal>
-        {/* PEDAGOGY & MENSTRUAL HEALTH QUICK LISTS */}
-        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="pedagogy" delay={70}>
-          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-6" data-stagger-group>
-            {/* Card: Learning Approach */}
-            <div className="info-card card-fade" aria-labelledby="pedagogy-card">
-              <div className="top-accent" />
-              <div className="flex items-center gap-2 mt-3 mb-2">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[var(--rose-100)] text-[var(--rose-600)] border border-[var(--rose-200)]"><BookOpen className="w-4 h-4" /></div>
-                <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--rose-600)]">{t('audience.pedagogy.sectionTitle','Our learning approach')}</span>
-              </div>
-              <h3 id="pedagogy-card" className="font-bold mb-4" style={{fontSize:'20px',color:'var(--color-text-primary)'}}>{t('audience.pedagogy.sectionTitle','Our learning approach')}</h3>
-              <ul className="space-y-3 text-sm" style={{color:'var(--color-text-secondary)'}}>
-                {[t('audience.pedagogy.i1'),t('audience.pedagogy.i2'),t('audience.pedagogy.i3')].map((l,i)=>(<li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-500)] leading-snug">{l}</li>))}
-              </ul>
-            </div>
-            {/* Card: Menstrual Health */}
-            <div className="info-card secondary card-fade" aria-labelledby="mh-card">
-              <div className="top-accent" />
-              <div className="flex items-center gap-2 mt-3 mb-2">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center bg-[var(--rose-100)] text-[var(--rose-600)] border border-[var(--rose-200)]"><Droplet className="w-4 h-4" /></div>
-                <span className="text-[11px] font-semibold uppercase tracking-wide text-[var(--rose-600)]">{t('audience.menstrualHealth.sectionTitle','Clear, practical menstrual health')}</span>
-              </div>
-              <h3 id="mh-card" className="font-bold mb-4" style={{fontSize:'20px',color:'var(--color-text-primary)'}}>{t('audience.menstrualHealth.sectionTitle','Clear, practical menstrual health')}</h3>
-              <ul className="space-y-3 text-sm" style={{color:'var(--color-text-secondary)'}}>
-                {[t('audience.menstrualHealth.i1'),t('audience.menstrualHealth.i2'),t('audience.menstrualHealth.i3')].map((l,i)=>(<li key={i} className="pl-4 relative before:content-['•'] before:absolute before:left-0 before:text-[var(--rose-500)] leading-snug">{l}</li>))}
-              </ul>
-            </div>
-          </div>
-        </Reveal>
+  {/* Removed the two pedagogy/menstrual health info cards per request. Guard any leftover legacy sections by not rendering them. */}
         {/* STORIES */}
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="stories" delay={80}>
           <div className="max-w-7xl mx-auto">
@@ -317,37 +291,7 @@ const LandingPage: React.FC = () => {
           </div>
   </Reveal>
       </main>
-      {/* FOOTER */}
-      <footer className="px-4 sm:px-6 lg:px-8 pb-12" id="footer" style={{background:'var(--rose-50)',borderTop:'1px solid var(--rose-200)'}}>
-        <div className="max-w-7xl mx-auto grid gap-8 md:grid-cols-5 pt-10">
-          <div className="text-sm" style={{color:'var(--slate-600)'}}>
-            <Logo size="sm" className="font-extrabold mb-2 inline-flex items-center" />
-            <div className="text-[13px] mb-2">EN/FR — SSL — Compliance</div>
-            <div className="text-[13px]">© 2025 Educate4Dignity</div>
-          </div>
-          <div>
-            <h4 className="font-bold text-sm mb-2" style={{color:'var(--slate-900)'}}>Programme</h4>
-            <ul className="space-y-1 text-[13px]" style={{color:'var(--slate-600)'}}>
-              <li>Projects</li><li>Transparency</li><li>E-learning</li><li>Resources</li><li>R&D</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold text-sm mb-2" style={{color:'var(--slate-900)'}}>Partnerships & Help</h4>
-            <ul className="space-y-1 text-[13px]" style={{color:'var(--slate-600)'}}>
-              <li>Partner with us</li><li>Become distributor</li><li>FAQ</li><li>Contact</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-bold text-sm mb-2" style={{color:'var(--slate-900)'}}>Support</h4>
-            <ul className="space-y-1 text-[13px]" style={{color:'var(--slate-600)'}}>
-              <li>Donate</li><li>Monthly giving</li><li>Corporate</li><li>Reports & audits</li>
-            </ul>
-          </div>
-          <div>
-            <NewsletterSignup />
-          </div>
-        </div>
-      </footer>
+      <PublicFooter withNewsletter topMargin={false} />
       <Chatbot />
     </div>
   );
