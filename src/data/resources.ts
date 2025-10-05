@@ -1,4 +1,5 @@
 import { ResourceItem, ResourceListParams, ResourceListResult } from '../types/resources';
+import { resourcesStore } from '../services/resourcesStore';
 
 export function formatSize(bytes?: number) {
   if(bytes === undefined) return '—';
@@ -30,7 +31,22 @@ export const mockResources: ResourceItem[] = [
 
 export function listResources(params: ResourceListParams): ResourceListResult {
   const { q='', type='', year='', lang='', tags=[], sort='newest', page=1, pageSize=6 } = params;
-  let items = [...mockResources];
+  // Include store-published resources (public visibility only)
+  const fromStore = resourcesStore.list().filter(r=> r.status==='published' && r.visibility==='public').map(r=> ({
+    id: r.id,
+    slug: r.slug,
+    title: r.title,
+    summary: r.summary,
+    category: r.category as any,
+    year: r.year,
+    language: r.language as any,
+    file_type: r.file_type as any,
+    file_size_bytes: r.file_size_bytes,
+    published_at: r.published_at || new Date().toISOString(),
+  tags: r.tags,
+  views: (resourcesStore.get(r.id)?.views_30d),
+  } as ResourceItem));
+  let items = [...mockResources, ...fromStore];
 
   if(q) {
     const ql = q.toLowerCase();

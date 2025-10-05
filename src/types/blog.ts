@@ -19,7 +19,11 @@ export interface BlogArticle {
   published_at: string; // ISO date
   read_minutes: number;
   excerpt?: string;
-  body_md: string; // markdown content
+  body_md: string; // markdown content (legacy / fallback)
+  body_html?: string; // optional rich HTML content (preferred when present)
+  // Extracted media lists from body_html (data URLs or remote URLs)
+  media_images?: string[];
+  media_videos?: string[];
   callout_transparency?: string;
   related?: BlogRelatedRef[];
   seo_title?: string;

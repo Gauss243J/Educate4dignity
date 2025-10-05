@@ -93,6 +93,7 @@ export interface BeneficiaryRecord {
   females: number;
   males: number;
   notes?: string;
+  file?: string; // optional filename for list export/link
 }
 
 export interface ProjectRow {
@@ -213,9 +214,9 @@ export const db: MockDB = {
     { id:'RPT5', projectId:'D123', type:'milestone', milestoneId:'M2', author:'Production', submittedAt:'2025-01-20', status:'validé', file:'rapport_prod_M01.pdf' },
   ],
   beneficiaries: [
-    { id:'BENE1', projectId:'D123', date:'2025-02-10', type:'distribution', females:200, males:50 },
-    { id:'BENE2', projectId:'D123', date:'2025-02-18', type:'formation', females:80, males:15 },
-    { id:'BENE3', projectId:'D123', date:'2025-03-05', type:'distribution', females:260, males:60 },
+    { id:'BENE1', projectId:'D123', date:'2025-02-10', type:'distribution', females:200, males:50, file:'beneficiaires_D123_2025-02-10.csv' },
+    { id:'BENE2', projectId:'D123', date:'2025-02-18', type:'formation', females:80, males:15, file:'beneficiaires_D123_2025-02-18.csv' },
+    { id:'BENE3', projectId:'D123', date:'2025-03-05', type:'distribution', females:260, males:60, file:'beneficiaires_D123_2025-03-05.csv' },
   ]
 };
 

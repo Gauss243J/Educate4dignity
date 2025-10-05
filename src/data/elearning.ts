@@ -1,6 +1,7 @@
 // Mock e-learning data & simple in-memory query helpers.
 // This mirrors the lightweight approach used for blog/resources pages.
 // In future, replace with real API calls (see spec in conversation).
+import { elearningStore } from '../services/elearningStore';
 
 export interface LessonSummary {
   title: string;
@@ -140,12 +141,71 @@ const moduleRecord: ModuleRecord = {
   is_public: true
 };
 
+// Helpers to layer dynamic admin-created lessons over the static seeds
+function storePublishedSummaries(): LessonSummary[] {
+  return elearningStore
+    .list()
+    .filter(r => r.status === 'published')
+    .map(r => ({
+      title: r.title,
+      slug: r.slug,
+      summary: r.summary,
+      level: r.level,
+      duration_minutes: r.duration_minutes,
+      tags: r.tags,
+      topic: r.topic,
+      cover_image_url: r.cover_image_url,
+      published_at: r.published_at,
+      is_public: true,
+    } as LessonSummary));
+}
+
+function storeDetail(slug: string): LessonDetail | undefined {
+  const rec = elearningStore.get(slug);
+  if (!rec || !rec.published_at) return undefined;
+  return {
+    title: rec.title,
+    slug: rec.slug,
+    summary: rec.summary,
+    level: rec.level,
+    duration_minutes: rec.duration_minutes,
+    tags: rec.tags,
+    topic: rec.topic,
+    cover_image_url: rec.cover_image_url,
+    published_at: rec.published_at,
+    updated_at: rec.updated_at || rec.published_at,
+    is_public: true,
+    body_sections: [ { h2: 'Lesson', html: rec.body_html } ],
+  } as LessonDetail;
+}
+
+function combinedPublic(): LessonSummary[] {
+  return [...lessons, ...storePublishedSummaries()].filter(l => l.is_public).map(l => ({
+    title: l.title,
+    slug: l.slug,
+    summary: (l as any).summary,
+    level: l.level,
+    duration_minutes: (l as any).duration_minutes,
+    tags: (l as any).tags,
+    topic: (l as any).topic,
+    cover_image_url: (l as any).cover_image_url,
+    published_at: (l as any).published_at,
+    is_public: true,
+  }));
+}
+
 // Public outline convenience (would be filtered for public lessons only)
 export function getModuleOutline(moduleSlug: string) {
   if (moduleSlug !== moduleRecord.slug) return [];
-  return lessons
-    .filter(l => l.is_public)
-    .map(l => ({ title: l.title.replace(': period health 101',''), slug: l.slug, order_index: lessons.findIndex(x=> x.slug===l.slug)+1, is_public: l.is_public }));
+  const base = lessons.filter(l => l.is_public);
+  const store = storePublishedSummaries();
+  const merged = [...base, ...store];
+  return merged.map((l,idx) => ({
+    title: (l.title || '').replace(': period health 101',''),
+    slug: l.slug,
+    order_index: idx+1,
+    is_public: l.is_public,
+  }));
 }
 
 export function getModule(slug: string): ModuleRecord | undefined {
@@ -154,7 +214,7 @@ export function getModule(slug: string): ModuleRecord | undefined {
 
 export function listLessons(params: { q?: string; topic?: string; level?: string; length?: string; sort?: string; page?: number; pageSize: number }) {
   const { q='', topic='', level='', length='', sort='newest', page=1, pageSize } = params;
-  let pool: LessonSummary[] = lessons.filter(l => l.is_public);
+  let pool: LessonSummary[] = combinedPublic();
   if(q) pool = pool.filter(l => (l.title + l.summary).toLowerCase().includes(q.toLowerCase()));
   if(topic) pool = pool.filter(l => l.topic === topic);
   if(level) pool = pool.filter(l => l.level === level);
@@ -178,12 +238,15 @@ export function listLessons(params: { q?: string; topic?: string; level?: string
 }
 
 export function getLessonDetail(slug: string): LessonDetail | undefined {
+  const fromStore = storeDetail(slug);
+  if (fromStore) return fromStore;
   return lessons.find(l => l.slug === slug && l.is_public);
 }
 
 export function getRelatedLessons(slug: string) {
   // simplified: pick two different lessons
-  const others = lessons.filter(l => l.slug !== slug).slice(0,2).map(l => ({ title: l.title, slug: l.slug, level: l.level, duration_minutes: l.duration_minutes, cover_image_url: l.cover_image_url }));
+  const pool = combinedPublic();
+  const others = pool.filter(l => l.slug !== slug).slice(0,2).map(l => ({ title: l.title, slug: l.slug, level: l.level, duration_minutes: l.duration_minutes, cover_image_url: l.cover_image_url }));
   return others;
 }
 

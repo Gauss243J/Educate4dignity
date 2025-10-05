@@ -8,6 +8,7 @@ import { Input } from '../../components/ui/Input';
 import { trackEvent } from '../../utils/analytics';
 import { loadStripe } from '@stripe/stripe-js';
 import { createCheckoutSession } from '../../services/checkoutSession';
+import { donorStore } from '../../services/donorStore';
 import PublicPageShell from '../../components/layout/PublicPageShell';
 
 const DonationPage: React.FC = () => {
@@ -54,6 +55,18 @@ const DonationPage: React.FC = () => {
     });
   };
 
+  // When toggling anonymous, clear personally identifiable fields for clarity
+  const handleAnonymousToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+    setDonorInfo(info => ({
+      ...info,
+      anonymous: checked,
+      firstName: checked ? '' : info.firstName,
+      lastName: checked ? '' : info.lastName,
+      email: checked ? '' : info.email,
+    }));
+  };
+
   const getFinalAmount = () => {
     return customAmount ? parseFloat(customAmount) : selectedAmount;
   };
@@ -73,7 +86,13 @@ const DonationPage: React.FC = () => {
       // Fallback: if a test checkout URL is provided (no backend yet), just redirect there.
       const testUrl = import.meta.env.VITE_STRIPE_CHECKOUT_TEST_URL as string | undefined;
       if (testUrl) {
-        trackEvent({ name: 'donation_test_redirect', properties: { amount, via: 'TEST_URL' } });
+        // Demo mode: record a local donor + donation to feed Admin Donors.
+        const name = donorInfo.anonymous ? 'Anonyme' : `${donorInfo.firstName} ${donorInfo.lastName}`.trim() || 'Supporter';
+        const donorId = donorStore.addDonor({ name, email: donorInfo.anonymous ? undefined : donorInfo.email, country: donorInfo.country, language: 'EN', anonymous: donorInfo.anonymous });
+        const id = 'tx_'+Math.random().toString(36).slice(2,9);
+        const date = new Date().toISOString();
+        donorStore.addDonation({ id, donorId, projectId: selectedProject==='general' ? 'GEN' : selectedProject, projectTitle: selectedProject==='general'? 'Fonds général' : projects.find(p=> p.id===selectedProject)?.name, amount, currency: 'USD', method: 'card', status:'succeeded', date });
+        trackEvent({ name: 'donation_test_recorded', properties: { amount, donorId, anonymous: donorInfo.anonymous } });
         window.location.href = testUrl;
         return;
       }
@@ -253,7 +272,9 @@ const DonationPage: React.FC = () => {
                     name="firstName"
                     value={donorInfo.firstName}
                     onChange={handleInputChange}
-                    required
+                    required={!donorInfo.anonymous}
+                    disabled={donorInfo.anonymous}
+                    placeholder={donorInfo.anonymous? 'Anonymous':''}
                   />
                 </div>
                 <div>
@@ -264,7 +285,9 @@ const DonationPage: React.FC = () => {
                     name="lastName"
                     value={donorInfo.lastName}
                     onChange={handleInputChange}
-                    required
+                    required={!donorInfo.anonymous}
+                    disabled={donorInfo.anonymous}
+                    placeholder={donorInfo.anonymous? '—':''}
                   />
                 </div>
               </div>
@@ -278,8 +301,9 @@ const DonationPage: React.FC = () => {
                   name="email"
                   value={donorInfo.email}
                   onChange={handleInputChange}
-                  required
-                  placeholder="For donation receipt"
+                  required={!donorInfo.anonymous}
+                  disabled={donorInfo.anonymous}
+                  placeholder={donorInfo.anonymous? 'Optional (no receipt will be emailed)':'For donation receipt'}
                 />
               </div>
 
@@ -329,18 +353,25 @@ const DonationPage: React.FC = () => {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="anonymous"
-                  name="anonymous"
-                  checked={donorInfo.anonymous}
-                  onChange={handleInputChange}
-                  className="rounded border-border focus:ring-primary"
-                />
-                <label htmlFor="anonymous" className="text-sm text-text-secondary">
-                  Make this donation anonymous
-                </label>
+              <div className="space-y-1">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="anonymous"
+                    name="anonymous"
+                    checked={donorInfo.anonymous}
+                    onChange={handleAnonymousToggle}
+                    className="rounded border-border focus:ring-primary"
+                  />
+                  <label htmlFor="anonymous" className="text-sm text-text-secondary">
+                    Make this donation anonymous
+                  </label>
+                </div>
+                {donorInfo.anonymous && (
+                  <div className="text-[11px] leading-[16px] text-secondary ml-6">
+                    We won’t store your name or email. If you enter an email, we’ll only use it to send a receipt.
+                  </div>
+                )}
               </div>
 
               {/* Tax Information */}

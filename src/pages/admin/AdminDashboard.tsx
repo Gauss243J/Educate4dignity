@@ -22,31 +22,49 @@ import ProjectTransparency from './project/ProjectTransparency';
 import ProjectDepenses from './project/ProjectDepenses';
 import ProjectRapports from './project/ProjectRapports';
 import ProjectBeneficiaires from './project/ProjectBeneficiaires';
-import DistributorsManagement from './DistributorsManagement';
-import SuppliersManagement from './SuppliersManagement';
+import AdminDistributors from './AdminDistributors';
+import AdminSuppliers from './AdminSuppliers';
+import AdminSupplierCreate from './suppliers/AdminSupplierCreate';
+import AdminSupplierProfile from './suppliers/AdminSupplierProfile';
 import BeneficiariesManagement from './BeneficiariesManagement';
+import AdminBlog from './AdminBlog';
+import AdminELearning from './AdminELearning';
+import AdminResources from './AdminResources';
+import AdminSettings from './AdminSettings';
+import AdminLessonEditor from './elearning/AdminLessonEditor';
+import AdminBlogEditor from './AdminBlogEditor';
+import AdminDonors from './donors/AdminDonors';
+import AdminDonorProfile from './donors/AdminDonorProfile';
+import AdminDistributorProfile from './distributors/AdminDistributorProfile';
+import AdminDistributorCreate from './distributors/AdminDistributorCreate';
+import AdminTeam from './AdminTeam';
+import TeamCreate from './team/TeamCreate';
+import TeamProfile from './team/TeamProfile';
+import AdminAdmins from './AdminAdmins';
+import AdminCreate from './admins/AdminCreate';
+import AdminProfilePage from './admins/AdminProfile';
+import AdminAuditLog from './admins/AdminAuditLog';
 
 // Placeholder simple cards used by routes
 const Placeholder = ({title,children}:{title:string;children?:React.ReactNode}) => (
-  <div className="p-6"><h1 className="text-xl font-semibold mb-4 text-[var(--text-primary,#503246)]">{title}</h1><div className="rounded-xl bg-white p-6 text-[14px] text-[var(--muted-color,#8B6678)]" style={{boxShadow:'var(--elev-1)'}}>{children||'Contenu à venir.'}</div></div>
+  <div className="p-6"><h1 className="text-xl font-semibold mb-4 text-[var(--text-primary,#503246)]">{title}</h1><div className="rounded-xl bg-[var(--color-surface)] p-6 text-[14px] text-[var(--muted-color,#8B6678)]" style={{boxShadow:'var(--elev-1)'}}>{children||'...'}</div></div>
 );
 
 const AdminDashboard: React.FC = () => {
-  const [sidebarOpen,setSidebarOpen] = useState(false); // mobile overlay visibility
   const [sidebarCollapsed,setSidebarCollapsed] = useState(false); // desktop collapse
   const { t } = useTranslation();
   const nav = adminNavSpec.sidebar;
   const { data, loading, error, refresh } = useDashboardData();
   return (
     <AdminLayout
-      sidebar={<AdminSidebar nav={nav} open={sidebarOpen} collapsed={sidebarCollapsed} onToggleCollapse={()=>setSidebarCollapsed(c=>!c)} />}
-      header={<AdminHeader onToggleSidebar={()=>setSidebarOpen(o=>!o)} sidebarOpen={sidebarOpen} />}
+  sidebar={<AdminSidebar nav={nav} open={true} collapsed={sidebarCollapsed} />}
+  header={<AdminHeader onToggleSidebar={()=>setSidebarCollapsed(c=>!c)} sidebarOpen={!sidebarCollapsed} />}
     >
       <Routes>
         <Route index element={
           <AdminPage title={t('admin.dashboard')}>
-            {loading && <div className="text-sm text-[var(--muted-color)]">Chargement...</div>}
-            {error && <div className="text-sm text-red-600">Erreur: {error} <button onClick={refresh} className="underline">Réessayer</button></div>}
+            {loading && <div className="text-sm text-[var(--muted-color)]">{t('common.loading')}</div>}
+            {error && <div className="text-sm text-red-600">{t('common.error','Error')}: {error} <button onClick={refresh} className="underline">{t('common.retry','Retry')}</button></div>}
             {data && <>
               <KpiRow data={data} />
               <ChartsRow data={data} />
@@ -68,18 +86,32 @@ const AdminDashboard: React.FC = () => {
     <Route path="beneficiaires" element={<ProjectBeneficiaires />} />
     <Route index element={<ProjectDetail />} />
   </Route>
-  <Route path="distributors" element={<DistributorsManagement />} />
-  <Route path="producers" element={<SuppliersManagement />} />
+  <Route path="distributors" element={<AdminDistributors />} />
+  <Route path="distributors/new" element={<AdminDistributorCreate />} />
+  <Route path="distributors/:id" element={<AdminDistributorProfile />} />
+  <Route path="producers" element={<AdminSuppliers />} />
+  <Route path="producers/new" element={<AdminSupplierCreate />} />
+  <Route path="producers/:id" element={<AdminSupplierProfile />} />
   <Route path="beneficiaries" element={<BeneficiariesManagement />} />
   <Route path="finances" element={<Placeholder title={t('admin.finances')} />} />
-  <Route path="donors" element={<Placeholder title={t('admin.donors')} />} />
-  <Route path="blog" element={<Placeholder title={t('admin.resources')} />} />
-  <Route path="elearning" element={<Placeholder title={t('admin.elearning')} />} />
-  <Route path="resources" element={<Placeholder title={t('admin.resources')} />} />
+  <Route path="donors" element={<AdminDonors />} />
+  <Route path="donors/:id" element={<AdminDonorProfile />} />
+  <Route path="blog" element={<AdminBlog />} />
+  <Route path="blog/new" element={<AdminBlogEditor />} />
+  <Route path="blog/:slug/edit" element={<AdminBlogEditor />} />
+  <Route path="elearning" element={<AdminELearning />} />
+  <Route path="elearning/lessons/new" element={<AdminLessonEditor />} />
+  <Route path="elearning/lessons/:slug/edit" element={<AdminLessonEditor />} />
+  <Route path="resources" element={<AdminResources />} />
   <Route path="research" element={<Placeholder title={t('admin.research')} />} />
-  <Route path="settings" element={<Placeholder title={t('admin.settings')} />} />
-  <Route path="settings/access" element={<Placeholder title={t('admin.admin')} />} />
-  <Route path="team" element={<Placeholder title={t('admin.team')} />} />
+  <Route path="settings" element={<AdminSettings />} />
+  <Route path="settings/access" element={<AdminAdmins />} />
+  <Route path="settings/access/audit" element={<AdminAuditLog />} />
+  <Route path="settings/access/new" element={<AdminCreate />} />
+  <Route path="settings/access/:id" element={<AdminProfilePage />} />
+  <Route path="team" element={<AdminTeam />} />
+  <Route path="team/new" element={<TeamCreate />} />
+  <Route path="team/:id" element={<TeamProfile />} />
         <Route path="*" element={<Outlet />} />
       </Routes>
     </AdminLayout>

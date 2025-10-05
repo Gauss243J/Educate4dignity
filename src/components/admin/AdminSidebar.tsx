@@ -1,5 +1,4 @@
 import React from 'react';
-import Logo from '../ui/Logo';
 import SidebarGroup from './SidebarGroup';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -14,25 +13,21 @@ interface AdminSidebarProps {
   nav: NavSpec;
   open: boolean; // mobile visibility
   collapsed?: boolean; // desktop collapsed state
-  onToggleCollapse?: () => void;
   onClose?: () => void;
   id?: string;
 }
 
-const AdminSidebar: React.FC<AdminSidebarProps> = ({ nav, open, collapsed=false, onToggleCollapse, id = 'admin-sidebar' }) => {
+const AdminSidebar: React.FC<AdminSidebarProps> = ({ nav, open, collapsed=false, id = 'admin-sidebar' }) => {
   const { t } = useTranslation();
   return (
     <aside
       id={id}
       role="navigation"
       aria-label="Admin sidebar"
-      className={`fixed lg:static inset-y-0 left-0 z-40 bg-[var(--panel-sidebar)] border-r border-[var(--border-color)] flex flex-col transform transition-transform duration-300 ${open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${collapsed ? 'w-[72px]' : 'w-[240px]'} transition-[width]`}
+      className={`relative lg:static self-stretch bg-[var(--panel-sidebar)] border-r border-[var(--border-color)]/60 flex flex-col transform transition-transform duration-300 ${open ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'} ${collapsed ? 'w-[72px]' : 'w-[240px]'} transition-[width] shadow-[var(--elev-1)]`}
       data-collapsed={collapsed}
     >
-      <div className={`flex items-center ${collapsed ? 'justify-center' : 'gap-2'} px-4 h-14 border-b border-[var(--border-color)] bg-white/70 backdrop-blur text-[13px] font-semibold text-[var(--text-primary)]`}>        
-        <Logo size="sm" />
-        {!collapsed && <span>Admin</span>}
-      </div>
+      {/* Remove duplicate top bar; header already contains logo & title */}
       <div className={`p-3 text-[11px] font-semibold text-[var(--muted-color)] uppercase tracking-wide ${collapsed ? 'text-center' : ''}`}>{!collapsed && t('admin.ui.quick.dashboard')}</div>
       <div className={`px-3 mb-2 ${collapsed ? 'space-y-2 flex flex-col items-center' : ''}`}>
         {nav.quick_links.map((q) => (
@@ -41,14 +36,14 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ nav, open, collapsed=false,
             to={q.href}
             aria-current={q.active ? 'page' : undefined}
             className={`block text-[12px] ${collapsed ? 'px-0 text-center w-10 h-10 flex items-center justify-center rounded-full' : 'px-4 py-1.5 rounded-md'} border ${q.active
-                ? 'bg-[var(--chip-bg)] border-[var(--border-color)] text-[var(--primary-accent)]'
-                : 'border-transparent hover:bg-white text-[var(--muted-color)] hover:text-[var(--primary-accent)]'} `}
+                ? 'bg-[var(--chip-bg)] border-[var(--border-color)]/60 text-[var(--primary-accent)] shadow-[var(--elev-1)]'
+                : 'border-[var(--border-color)]/0 hover:border-[var(--border-color)]/40 hover:bg-white text-[var(--muted-color)] hover:text-[var(--primary-accent)] transition-colors'} `}
           >
             {collapsed ? q.label.charAt(0) : (q.labelKey ? t(q.labelKey) : q.label)}
           </Link>
         ))}
       </div>
-      <div className="flex-1 overflow-y-auto px-3 pb-4 space-y-3">
+      <div className="flex-1 overflow-y-auto px-3 pb-4 space-y-3 admin-scrollbar">
         {nav.groups.map((g) => (
           <div key={g.id}>
             {!collapsed && <SidebarGroup
@@ -69,9 +64,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ nav, open, collapsed=false,
           </div>
         ))}
       </div>
-      <button onClick={onToggleCollapse} aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'} className="m-3 mt-0 mb-4 text-[11px] w-full rounded-md bg-white/70 hover:bg-white border border-[var(--border-color)] py-1 font-medium text-[var(--muted-color)]">
-        {collapsed ? '»' : '«'}
-      </button>
+      {/* Collapse/expand button removed per design; use header hamburger instead */}
     </aside>
   );
 };

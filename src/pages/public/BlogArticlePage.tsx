@@ -8,22 +8,16 @@ import { findArticleBySlug } from '../../data/blogArticles';
 import { BlogArticle } from '../../types/blog';
 import { ArrowLeft, Share2, Copy, Check, ShieldCheck, Clock, Tag, BookOpen, ChevronRight } from 'lucide-react';
 
-// Simple markdown render fallback (placeholder) until react-markdown added
-function basicMarkdownToHtml(md: string): string {
-  return md
-    .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-    .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-    .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-    .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
-    .replace(/\*(.*)\*/gim, '<em>$1</em>')
-    .replace(/> (.*)/gim, '<blockquote>$1</blockquote>')
-    .replace(/\n\n/g, '<br/><br/>' )
-}
+import { mdToHtml } from '../../utils/markdown';
+import { blogStore } from '../../services/blogStore';
+import { transformArticleHtml } from '../../utils/mediaTransform';
 
 const BlogArticlePage: React.FC = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
   const article: BlogArticle | undefined = slug ? findArticleBySlug(slug) : undefined;
+  // Prefer store article if exists (admin-published). Fallback to existing logic below.
+  const storeArticle = blogStore.get(slug!);
   const [copied, setCopied] = useState(false);
   const progressRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -80,7 +74,8 @@ const BlogArticlePage: React.FC = () => {
     );
   }
 
-  const htmlBody = basicMarkdownToHtml(article.body_md);
+  const htmlBody = mdToHtml(article.body_md);
+  const withMediaTransforms = (html: string) => transformArticleHtml(html);
 
   return (
     <div className="min-h-screen bg-[var(--rose-50)] font-[Segoe UI,ui-sans-serif,sans-serif] relative">
@@ -171,7 +166,7 @@ const BlogArticlePage: React.FC = () => {
             </div>
 
             {/* Article body */}
-            <div className="prose prose-sm max-w-none prose-headings:font-semibold prose-headings:text-[var(--slate-900)] prose-p:text-[14px] prose-p:leading-[20px] prose-p:text-[var(--slate-700)] prose-blockquote:border-l-4 prose-blockquote:border-[var(--rose-300)] prose-blockquote:bg-[var(--rose-50)] prose-blockquote:p-4 prose-blockquote:rounded-xl prose-blockquote:text-[var(--slate-700)] prose-img:rounded-xl bg-white border rounded-2xl p-8" style={{borderColor:'var(--rose-200)'}} dangerouslySetInnerHTML={{__html: htmlBody}} />
+            <div className="prose prose-sm max-w-none prose-headings:font-semibold prose-headings:text-[var(--slate-900)] prose-p:text-[14px] prose-p:leading-[20px] prose-p:text-[var(--slate-700)] prose-blockquote:border-l-4 prose-blockquote:border-[var(--rose-300)] prose-blockquote:bg-[var(--rose-50)] prose-blockquote:p-4 prose-blockquote:rounded-xl prose-blockquote:text-[var(--slate-700)] prose-img:rounded-xl bg-white border rounded-2xl p-8" style={{borderColor:'var(--rose-200)'}} dangerouslySetInnerHTML={{__html: withMediaTransforms((storeArticle?.body_html) ? storeArticle.body_html : htmlBody)}} />
 
             {/* Transparency callout */}
             {article.callout_transparency && (

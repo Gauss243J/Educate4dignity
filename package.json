@@ -15,6 +15,13 @@
     "@stripe/react-stripe-js": "^5.0.0",
     "@stripe/stripe-js": "^8.0.0",
     "@tanstack/react-query": "^5.90.2",
+    "@tiptap/extension-color": "^3.6.5",
+    "@tiptap/extension-image": "^3.6.5",
+    "@tiptap/extension-placeholder": "^3.6.5",
+    "@tiptap/extension-text-align": "^3.6.5",
+    "@tiptap/extension-text-style": "^3.6.5",
+    "@tiptap/react": "^3.6.5",
+    "@tiptap/starter-kit": "^3.6.5",
     "clsx": "^2.0.0",
     "d3-geo": "^3.1.1",
     "framer-motion": "^11.18.2",
@@ -31,6 +38,7 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
     "@types/node": "^20.19.18",
     "@types/react": "^18.3.25",
     "@types/react-dom": "^18.3.7",

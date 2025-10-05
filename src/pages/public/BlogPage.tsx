@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PublicPageShell from '../../components/layout/PublicPageShell';
 import { Activity, Lightbulb, FlaskConical, BookOpen, Search } from 'lucide-react';
 import { imageForIndex, courseImageAlt } from '../../data/imagePools';
+import { blogStore } from '../../services/blogStore';
 
 const BlogPage: React.FC = () => {
   // Filters / pagination state (resource-style)
@@ -112,7 +113,22 @@ const BlogPage: React.FC = () => {
   ];
 
   // Replace water post titles later to align with menstrual health theme if desired.
-  const blogPosts = basePostData; // placeholder for future dynamic fetch
+  // Prefer admin-managed posts if any exist; fallback to base mock
+  const adminPosts = blogStore.list().filter(r=> r.status==='published');
+  const blogPosts = adminPosts.length ? adminPosts.map((r,i)=> ({
+    id: String(i+1),
+    slug: r.slug,
+    title: r.title,
+    excerpt: r.excerpt || '',
+    author: r.author_name || 'E4D',
+    authorRole: '',
+    publishDate: r.published_at,
+    readTime: `${r.read_minutes||5} min read`,
+    category: r.category,
+    tags: r.tags || [],
+    image: '',
+    featured: false
+  })) : basePostData;
 
   const categoryMeta: Record<string, { name: string; icon: React.ReactNode }> = {
     impact: { name: 'Impact Stories', icon: <Activity className="w-4 h-4" /> },

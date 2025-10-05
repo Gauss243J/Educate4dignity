@@ -1,14 +1,14 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
+import { useAuth } from '../hooks/authContext';
 
 const TestPage: React.FC = () => {
-  const handleAdminLogin = () => {
-    // Simulate admin login
-    localStorage.setItem('user_role', 'admin');
-    localStorage.setItem('user_name', 'Test Admin');
-    localStorage.setItem('is_authenticated', 'true');
-    window.location.href = '/admin';
+  const { login } = useAuth();
+  const handleAdminLogin = async () => {
+    // Real login through AuthProvider (role derived from email prefix)
+    await login('admin@local', 'dev');
+    window.location.href = '/admin/blog';
   };
 
   const clearAuth = () => {
@@ -24,16 +24,8 @@ const TestPage: React.FC = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <h3 className="font-medium mb-2">Current Status:</h3>
-            <p className="text-sm text-text-secondary">
-              Auth: {localStorage.getItem('is_authenticated') || 'false'}
-            </p>
-            <p className="text-sm text-text-secondary">
-              Role: {localStorage.getItem('user_role') || 'none'}
-            </p>
-            <p className="text-sm text-text-secondary">
-              User: {localStorage.getItem('user_name') || 'none'}
-            </p>
+            <h3 className="font-medium mb-2">Quick Admin Access</h3>
+            <p className="text-sm text-text-secondary">This button logs you in as admin (dev) using the real auth context.</p>
           </div>
 
           <div className="space-y-2">
@@ -52,6 +44,7 @@ const TestPage: React.FC = () => {
               <a href="/projects" className="block text-sm text-primary hover:underline">Projects</a>
               <a href="/login" className="block text-sm text-primary hover:underline">Login</a>
               <a href="/admin" className="block text-sm text-primary hover:underline">Admin Dashboard</a>
+              <a href="/admin/blog" className="block text-sm text-primary hover:underline">Admin Blog</a>
             </div>
           </div>
         </CardContent>

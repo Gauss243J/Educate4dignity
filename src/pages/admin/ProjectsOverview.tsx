@@ -13,7 +13,7 @@ const statusColors: Record<string,string> = {
 
 const ProjectsOverview: React.FC = () => {
   const { rows, kpis, loading, error } = useProjectsData();
-  useTranslation(); // hook retained for future translations
+  const { t } = useTranslation();
   const [search,setSearch] = useState('');
   // Derive option lists
   const ALL = 'Tous';
@@ -50,54 +50,54 @@ const ProjectsOverview: React.FC = () => {
   useEffect(()=> { if(page>totalPages) setPage(1); }, [totalPages,page]);
 
   return (
-  <AdminPage title="Projects — Overview">
+  <AdminPage title={t('admin.projects')+ ' — ' + (t('admin.ui.overview','Overview'))}>
       <div className="flex items-center mb-4">
-        <h2 className="text-[14px] font-semibold text-[var(--text-primary)]">Projects KPIs</h2>
+  <h2 className="text-[14px] font-semibold text-[var(--text-primary)]">{t('admin.ui.projects.total')}</h2>
         <Link to="/admin/projects/new" className="ml-auto h-8 px-4 rounded-full text-[12px] font-medium bg-[var(--color-primary)] hover:bg-[var(--color-primary-dark)] text-white flex items-center" style={{boxShadow:'var(--elev-1)'}}>
           {/** Using fallback if key not found */}
           { ( (window as any).i18next?.t?.('admin.ui.projects.newProject') ) || 'New project'}
         </Link>
       </div>
       {kpis && <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mb-2">
-        <KpiCard title="Total projets" value={kpis.total} subtitle={`Actifs: ${kpis.active} • Pause: ${kpis.paused} • Clos: ${kpis.closed}`} />
-        <KpiCard title="Budget planifié" value={`$ ${kpis.plannedBudget.toLocaleString()}`} subtitle="Somme tous projets" />
-        <KpiCard title="Collecté" value={`$ ${kpis.collected.toLocaleString()}`} subtitle="Somme tous projets" />
-        <KpiCard title="Dépensé" value={`$ ${kpis.spent.toLocaleString()}`} subtitle={`Exécution: ${((kpis.spent/Math.max(kpis.collected,1))*100).toFixed(0)}%`} progressPct={(kpis.spent/Math.max(kpis.collected,1))*100} />
+        <KpiCard title={t('admin.ui.projects.total')} value={kpis.total} subtitle={`${t('admin.ui.status.active', 'Active')}: ${kpis.active} • ${t('admin.ui.status.paused','Paused')}: ${kpis.paused} • ${t('admin.ui.status.closed','Closed')}: ${kpis.closed}`} />
+        <KpiCard title={t('admin.ui.projects.plannedBudget')} value={`$ ${kpis.plannedBudget.toLocaleString()}`} subtitle={t('admin.ui.projects.total')} />
+        <KpiCard title={t('admin.ui.projects.collected')} value={`$ ${kpis.collected.toLocaleString()}`} subtitle={t('admin.ui.projects.total')} />
+        <KpiCard title={t('admin.ui.projects.spent')} value={`$ ${kpis.spent.toLocaleString()}`} subtitle={`% ${t('common.progress')}: ${((kpis.spent/Math.max(kpis.collected,1))*100).toFixed(0)}%`} progressPct={(kpis.spent/Math.max(kpis.collected,1))*100} />
       </div>}
-  <div className="rounded-lg bg-white p-3 md:p-4 flex flex-col gap-3" style={{boxShadow:'var(--elev-1)'}}>
+  <div className="rounded-lg bg-[var(--color-surface)] p-3 md:p-4 flex flex-col gap-3" style={{boxShadow:'var(--elev-1)'}}>
         {/* Filters row (select style to mirror RecentItemsTable) */}
         <div className="flex flex-wrap gap-2 items-center">
-          <FilterSelect label="Type" value={typeFilter} options={[ALL,...types]} onChange={v=>{setTypeFilter(v); setPage(1);}} />
-          <FilterSelect label="Statut" value={statusFilter} options={[ALL,...statuses]} onChange={v=>{setStatusFilter(v); setPage(1);}} />
-          <FilterSelect label="Pays" value={countryFilter} options={[ALL,...countries]} onChange={v=>{setCountryFilter(v); setPage(1);}} />
-          <FilterSelect label="Org" value={orgFilter} options={[ALL,...orgs]} onChange={v=>{setOrgFilter(v); setPage(1);}} />
-          <FilterSelect label="Période" value={yearFilter} options={[ALL,...years]} onChange={v=>{setYearFilter(v); setPage(1);}} />
+          <FilterSelect label={t('admin.ui.projects.filters.type')} value={typeFilter} options={[ALL,...types]} onChange={v=>{setTypeFilter(v); setPage(1);}} />
+          <FilterSelect label={t('admin.ui.projects.filters.status')} value={statusFilter} options={[ALL,...statuses]} onChange={v=>{setStatusFilter(v); setPage(1);}} />
+          <FilterSelect label={t('admin.ui.projects.filters.country')} value={countryFilter} options={[ALL,...countries]} onChange={v=>{setCountryFilter(v); setPage(1);}} />
+          <FilterSelect label={t('admin.ui.projects.filters.org')} value={orgFilter} options={[ALL,...orgs]} onChange={v=>{setOrgFilter(v); setPage(1);}} />
+          <FilterSelect label={t('admin.ui.projects.filters.period')} value={yearFilter} options={[ALL,...years]} onChange={v=>{setYearFilter(v); setPage(1);}} />
           <div className="ml-auto relative">
-            <input value={search} onChange={e=>{setSearch(e.target.value); setPage(1);}} placeholder="Search..." className="pl-7 pr-3 py-1 text-[11px] rounded bg-white border border-[var(--color-border)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition" style={{boxShadow:'var(--elev-0)'}} />
+            <input value={search} onChange={e=>{setSearch(e.target.value); setPage(1);}} placeholder={t('common.search')} className="pl-7 pr-3 py-1 text-[11px] rounded bg-[var(--color-surface)] border border-[var(--color-border)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition" style={{boxShadow:'var(--elev-0)'}} />
             <Search size={14} className="absolute left-2 top-1.5 text-[var(--slate-400)]" />
           </div>
         </div>
         {/* Table */}
         <div className="overflow-x-auto">
-          <table className="min-w-full text-[11px]">
+          <table className="min-w-full text-[11px] text-[var(--text-primary)]">
             <thead>
-              <tr className="text-left text-[var(--slate-600)]">
-                <th className="py-1 pr-4 font-medium">ID</th>
-                <th className="py-1 pr-4 font-medium">Nom</th>
-                <th className="py-1 pr-4 font-medium">Type</th>
-                <th className="py-1 pr-4 font-medium">Organisation</th>
-                <th className="py-1 pr-4 font-medium">Location</th>
-                <th className="py-1 pr-4 font-medium">Date</th>
-                <th className="py-1 pr-4 font-medium">Statut</th>
-                <th className="py-1 pr-4 font-medium">Budget</th>
-                <th className="py-1 pr-4 font-medium">Collecté</th>
-                <th className="py-1 pr-4 font-medium">Dépensé</th>
-                <th className="py-1 pr-2 font-medium">Actions</th>
+              <tr className="text-left text-[var(--color-text-secondary)]">
+                <th className="py-1 pr-4 font-medium">{t('admin.ui.projects.table.id')}</th>
+                <th className="py-1 pr-4 font-medium">{t('admin.ui.projects.table.name')}</th>
+                <th className="py-1 pr-4 font-medium">{t('admin.ui.projects.table.type')}</th>
+                <th className="py-1 pr-4 font-medium">{t('admin.ui.projects.table.organisation')}</th>
+                <th className="py-1 pr-4 font-medium">{t('admin.ui.projects.table.location')}</th>
+                <th className="py-1 pr-4 font-medium">{t('admin.ui.projects.table.dates')}</th>
+                <th className="py-1 pr-4 font-medium">{t('admin.ui.projects.table.status')}</th>
+                <th className="py-1 pr-4 font-medium">{t('admin.ui.projects.table.budget')}</th>
+                <th className="py-1 pr-4 font-medium">{t('admin.ui.projects.table.collected')}</th>
+                <th className="py-1 pr-4 font-medium">{t('admin.ui.projects.table.spent')}</th>
+                <th className="py-1 pr-2 font-medium">{t('admin.ui.table.actions')}</th>
               </tr>
             </thead>
             <tbody>
               {pageItems.map(p=> (
-                <tr key={p.id} className="border-t hover:bg-[var(--rose-50)] transition" style={{borderColor:'rgba(0,0,0,0.06)'}}>
+                <tr key={p.id} className="border-t hover:bg-[var(--chip-bg)] transition" style={{borderColor:'var(--color-border)'}}>
                   <td className="py-1 pr-4 whitespace-nowrap font-mono">{p.id}</td>
                   <td className="py-1 pr-4">{p.name}</td>
                   <td className="py-1 pr-4 capitalize">{p.type}</td>
@@ -108,8 +108,8 @@ const ProjectsOverview: React.FC = () => {
                   <td className="py-1 pr-4">$ {(p.budget/1000).toFixed(0)}k</td>
                   <td className="py-1 pr-4">$ {(p.collected/1000).toFixed(0)}k</td>
                   <td className="py-1 pr-4">$ {(p.spent/1000).toFixed(0)}k</td>
-                  <td className="py-1 pr-2 text-[var(--rose-600)] underline cursor-pointer">
-                    <Link to={`/admin/projects/${p.id}/resume`}>Voir</Link>
+                  <td className="py-1 pr-2 text-[var(--primary-accent)] underline cursor-pointer">
+                    <Link to={`/admin/projects/${p.id}/resume`}>{t('admin.ui.actions.view')}</Link>
                   </td>
                 </tr>
               ))}
@@ -130,8 +130,8 @@ const ProjectsOverview: React.FC = () => {
           </div>
         </div>
       </div>
-      {loading && <div className="text-[12px] text-[var(--muted-color)]">Chargement...</div>}
-      {error && <div className="text-[12px] text-red-600">Erreur: {error}</div>}
+  {loading && <div className="text-[12px] text-[var(--muted-color)]">{t('common.loading')}</div>}
+  {error && <div className="text-[12px] text-red-600">{t('common.error')}: {error}</div>}
     </AdminPage>
   );
 };

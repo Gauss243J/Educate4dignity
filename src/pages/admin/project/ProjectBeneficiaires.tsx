@@ -1,6 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useProjectData } from '../../../hooks/useProjectData';
+import { listBeneficiaries } from '../../../mock/db';
+import { FileDown } from 'lucide-react';
 
 const ProjectBeneficiaires: React.FC = () => {
   const { id } = useParams();
@@ -16,7 +18,12 @@ const ProjectBeneficiaires: React.FC = () => {
         <Stat label="Sessions" value={beneficiaries.length} />
       </div>
       <div className="rounded-xl bg-white p-4 border" style={{boxShadow:'var(--elev-1)'}}>
-        <h3 className="font-semibold mb-3 text-[13px]">Sessions</h3>
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="font-semibold text-[13px]">Sessions</h3>
+          <button onClick={()=> downloadProjectCsv(id||'')} className="inline-flex items-center gap-2 text-[12px] underline">
+            <FileDown className="w-4 h-4"/> Export CSV
+          </button>
+        </div>
         <table className="w-full text-[12px]">
           <thead className="bg-gray-50 text-gray-600">
             <tr className="text-left">
@@ -25,6 +32,7 @@ const ProjectBeneficiaires: React.FC = () => {
               <th className="px-3 py-2 font-medium">Femmes</th>
               <th className="px-3 py-2 font-medium">Hommes</th>
               <th className="px-3 py-2 font-medium">Total</th>
+              <th className="px-3 py-2 font-medium text-right">Fichier</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +43,7 @@ const ProjectBeneficiaires: React.FC = () => {
                 <td className="px-3 py-1.5">{b.females}</td>
                 <td className="px-3 py-1.5">{b.males}</td>
                 <td className="px-3 py-1.5 font-medium">{b.females + b.males}</td>
+                <td className="px-3 py-1.5 text-right">{b.file? <button onClick={()=> downloadSessionCsv(b)} className="inline-flex items-center gap-1 underline"><FileDown className="w-4 h-4" /> {b.file}</button> : <span className="text-gray-400">—</span>}</td>
               </tr>
             ))}
           </tbody>
@@ -51,3 +60,17 @@ const Stat = ({label,value}:{label:string;value:number}) => (
   </div>
 );
 export default ProjectBeneficiaires;
+
+function downloadProjectCsv(projectId: string){
+  if(!projectId) return;
+  const rows = listBeneficiaries(projectId);
+  const headers = ['session_id','date','type','females','males','total'];
+  const csv = [headers.join(','), ...rows.map(r=> [r.id, r.date, r.type, String(r.females), String(r.males), String(r.females + r.males)].map(v => '"'+String(v).replace(/"/g,'""')+'"').join(','))].join('\n');
+  const blob = new Blob([csv],{type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`beneficiaries_${projectId}.csv`; a.click(); URL.revokeObjectURL(a.href);
+}
+
+function downloadSessionCsv(b: {id:string; date:string; type:string; females:number; males:number; file?: string}){
+  const headers = ['session_id','date','type','females','males','total'];
+  const csv = [headers.join(','), ['"'+b.id+'"','"'+b.date+'"','"'+b.type+'"', '"'+b.females+'"', '"'+b.males+'"', '"'+(b.females + b.males)+'"'].join(',')].join('\n');
+  const blob = new Blob([csv],{type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=b.file || `beneficiaries_session_${b.id}.csv`; a.click(); URL.revokeObjectURL(a.href);
+}

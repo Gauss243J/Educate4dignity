@@ -1,34 +1,37 @@
-/* Unified admin theme tokens mapped to base design system colors */
+/* Base variables copied from Context/Fichier styles.txt to ensure exact parity */
 :root {
-  /* Base palette from Fichier styles.txt */
+  /* Primary colors */
   --color-primary: #fa9b9f;
-  --color-primary-dark: #f07e84;
-  --color-primary-light: #fce8e9;
-  --color-primary-hover: #fbafb3;
+  --color-primary-dark: #f07e84; /* Légèrement plus foncé que primary */
+  --color-primary-light: #fce8e9; /* Très clair, idéal pour les fonds */
+  --color-primary-hover: #fbafb3; /* Légèrement plus clair que primary pour les états de survol */
+  /* Background colors */
   --color-background: #ffffff;
   --color-surface: #ffffff;
   --color-overlay: rgba(0, 0, 0, 0.5);
+  /* Border colors */
   --color-border: #e5e7eb;
-  --color-text-primary: #111827;
-  --color-text-secondary: #4b5563;
-  --color-text-tertiary: #6b7280;
-  --color-success: #015730;
-  --color-success-light: #e6efe9;
-  --color-warning: #ee872b;
-  --color-warning-light: #fdf3ea;
-  --color-error: #dc2626;
-  --color-error-light: #fee2e2;
+  /* Text colors */
+  --color-text-primary: #111827; /* Noir profond */
+  --color-text-secondary: #4b5563; /* Gris foncé */
+  --color-text-tertiary: #6b7280; /* Gris moyen */
+  /* Status colors */
+  --color-success: #015730; /* Vert foncé pour le succès */
+  --color-success-light: #e6efe9; /* Vert très clair pour les fonds de succès */
+  --color-warning: #ee872b; /* Orange pour l'avertissement */
+  --color-warning-light: #fdf3ea; /* Orange très clair pour les fonds d'avertissement */
+  --color-error: #dc2626; /* Rouge pour l'erreur */
+  --color-error-light: #fee2e2; /* Rouge très clair pour les fonds d'erreur */
 
-  /* Legacy admin semantic tokens remapped to new system */
-  --admin-bg: var(--color-primary-light); /* previous #FFF7FA */
-  --panel-sidebar: var(--color-primary-light); /* unify with light primary background */
+  /* Admin semantic tokens mapped to base */
+  --admin-bg: var(--color-primary-light);
+  --panel-sidebar: var(--color-primary-light);
   --card-bg: var(--color-surface);
   --text-primary: var(--color-text-primary);
   --muted-color: var(--color-text-tertiary);
   --primary-accent: var(--color-primary-dark);
   --border-color: var(--color-border);
   --chip-bg: var(--color-primary-light);
-  /* Convenience aliases used in components */
   --success: var(--color-success);
   --success-bg: var(--color-success-light);
   --warning: var(--color-warning);
@@ -43,7 +46,6 @@
   --elev-3: 0 4px 8px -2px rgba(0,0,0,0.10), 0 2px 4px -1px rgba(0,0,0,0.06);
 }
 
-/* Dark mode mapping */
 .dark {
   --color-background: #1a1a1a;
   --color-surface: #2d2d2d;
@@ -52,7 +54,7 @@
   --color-text-primary: #f3f4f6;
   --color-text-secondary: #d1d5db;
   --color-text-tertiary: #9ca3af;
-  --color-primary: #f07e84; /* adjust for contrast */
+  --color-primary: #f07e84;
   --color-primary-dark: #fa9b9f;
   --color-primary-light: #fbafb3;
   --color-success: #059669;
@@ -62,7 +64,7 @@
   --color-error: #dc2626;
   --color-error-light: #7f1d1d;
 
-  /* Re-link semantic tokens */
+  /* Re-link semantic tokens in dark */
   --admin-bg: var(--color-background);
   --panel-sidebar: #2d2d2d;
   --card-bg: var(--color-surface);
@@ -79,3 +81,9 @@
 
 .admin-scrollbar::-webkit-scrollbar { width: 8px; }
 .admin-scrollbar::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+
+/* TipTap bubble/floating menu helpers */
+.btn-icon { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 999px; border: 1px solid var(--border-color); background: white; font-weight: 600; }
+.btn-icon:hover { filter: brightness(0.97); }
+.btn-chip { height: 28px; border-radius: 999px; border: 1px solid var(--border-color); padding: 0 10px; background: var(--chip-bg); color: var(--text-primary); font-size: 12px; }
+.btn-chip:hover { filter: brightness(0.97); }

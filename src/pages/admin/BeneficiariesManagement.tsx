@@ -1,177 +1,56 @@
-import React, { useState } from 'react';
-import { Users, Home, School, BarChart3, MapPin, Phone, UserCog, Droplet } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { Users, Layers, UserPlus, UserMinus, FileDown } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/Card';
+import { Card, CardContent } from '../../components/ui/Card';
 import { Button } from '../../components/ui/Button';
-import { Badge } from '../../components/ui/Badge';
 import { Input } from '../../components/ui/Input';
 import AdminPage from '../../components/admin/AdminPage';
+import { listProjects, listBeneficiaries } from '../../mock/db';
 
 const BeneficiariesManagement: React.FC = () => {
   const { t } = useTranslation();
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedStatus, setSelectedStatus] = useState('all');
+  const [q, setQ] = useState('');
+  const [rowsPerPage, setRowsPerPage] = useState(25);
+  const [page, setPage] = useState(1);
 
-  const beneficiaries = [
-    {
-      id: 'BEN001',
-      name: 'Kibera Community Water Group',
-      type: 'Community',
-      category: 'Water Access',
-      location: 'Kibera, Kenya',
-      status: 'active',
-      members: 1250,
-      coordinator: 'Mary Wanjiku',
-      phone: '+254 722 123 456',
-      projectsCount: 3,
-      impact: {
-        waterAccess: 95,
-        educationReach: 450,
-        economicImprovement: 78
-      },
-      registrationDate: '2023-06-15',
-      lastUpdate: '2024-12-10'
-    },
-    {
-      id: 'BEN002',
-      name: 'Digital Bridge Academy',
-      type: 'Institution',
-      category: 'Education',
-      location: 'Accra, Ghana',
-      status: 'active',
-      members: 850,
-      coordinator: 'Kwame Asante',
-      phone: '+233 244 567 890',
-      projectsCount: 2,
-      impact: {
-        waterAccess: 0,
-        educationReach: 850,
-        economicImprovement: 65
-      },
-      registrationDate: '2023-09-20',
-      lastUpdate: '2024-12-08'
-    },
-    {
-      id: 'BEN003',
-      name: 'Rural Women Cooperative',
-      type: 'Cooperative',
-      category: 'Economic Empowerment',
-      location: 'Dodoma, Tanzania',
-      status: 'review',
-      members: 320,
-      coordinator: 'Grace Mwangi',
-      phone: '+255 789 234 567',
-      projectsCount: 1,
-      impact: {
-        waterAccess: 40,
-        educationReach: 180,
-        economicImprovement: 85
-      },
-      registrationDate: '2024-01-10',
-      lastUpdate: '2024-12-05'
-    },
-    {
-      id: 'BEN004',
-      name: 'Youth Innovation Hub',
-      type: 'Youth Group',
-      category: 'Technology',
-      location: 'Lagos, Nigeria',
-      status: 'pending',
-      members: 95,
-      coordinator: 'Adaora Okafor',
-      phone: '+234 803 345 678',
-      projectsCount: 1,
-      impact: {
-        waterAccess: 0,
-        educationReach: 95,
-        economicImprovement: 45
-      },
-      registrationDate: '2024-11-15',
-      lastUpdate: '2024-12-01'
-    },
-    {
-      id: 'BEN005',
-      name: 'Maasai Pastoralist Network',
-      type: 'Community',
-      category: 'Sustainability',
-      location: 'Maasai Mara, Kenya',
-      status: 'active',
-      members: 680,
-      coordinator: 'Joseph Sankale',
-      phone: '+254 710 456 789',
-      projectsCount: 2,
-      impact: {
-        waterAccess: 70,
-        educationReach: 280,
-        economicImprovement: 60
-      },
-      registrationDate: '2023-03-12',
-      lastUpdate: '2024-12-12'
-    }
-  ];
+  const projects = useMemo(()=> listProjects(), []);
+  const rows = useMemo(()=> {
+    // Aggregate beneficiaries per project
+    return projects.map(p => {
+      const sess = listBeneficiaries(p.id);
+      const females = sess.reduce((s,b)=> s + (b.females||0), 0);
+      const males = sess.reduce((s,b)=> s + (b.males||0), 0);
+      const total = females + males;
+      const lastFile = sess.slice().sort((a,b)=> (b.date||'').localeCompare(a.date||'')).find(s=> s.file)?.file || '';
+      return { id: p.id, name: p.name, organisation: p.organisation, location: p.location || '', females, males, total, file: lastFile };
+    });
+  },[projects]);
 
-  const categories = [
-    { value: 'all', label: 'All Categories' },
-    { value: 'Water Access', label: 'Water Access' },
-    { value: 'Education', label: 'Education' },
-    { value: 'Economic Empowerment', label: 'Economic Empowerment' },
-    { value: 'Technology', label: 'Technology' },
-    { value: 'Sustainability', label: 'Sustainability' }
-  ];
+  const filtered = useMemo(()=> rows.filter(r=> {
+    const term = q.toLowerCase().trim();
+    if(!term) return true;
+    return r.id.toLowerCase().includes(term) || r.name.toLowerCase().includes(term) || r.organisation.toLowerCase().includes(term) || r.location.toLowerCase().includes(term);
+  }),[rows,q]);
 
-  const statuses = [
-    { value: 'all', label: 'All Status' },
-    { value: 'active', label: 'Active' },
-    { value: 'review', label: 'Under Review' },
-    { value: 'pending', label: 'Pending' },
-    { value: 'completed', label: 'Completed' }
-  ];
+  const totalPages = Math.max(1, Math.ceil(filtered.length/rowsPerPage));
+  const pageItems = filtered.slice((page-1)*rowsPerPage, page*rowsPerPage);
 
-  const filteredBeneficiaries = beneficiaries.filter(beneficiary => {
-    const matchesSearch = beneficiary.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         beneficiary.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         beneficiary.coordinator.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || beneficiary.category === selectedCategory;
-    const matchesStatus = selectedStatus === 'all' || beneficiary.status === selectedStatus;
-    return matchesSearch && matchesCategory && matchesStatus;
-  });
-
-  const getStatusVariant = (status: string) => {
-    switch (status) {
-      case 'active': return 'success';
-      case 'review': return 'warning';
-      case 'pending': return 'secondary';
-      case 'completed': return 'primary';
-      default: return 'secondary';
-    }
-  };
-
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case 'Community': return <Home className="w-5 h-5 text-success" />;
-      case 'Institution': return <School className="w-5 h-5 text-primary" />;
-  case 'Cooperative': return <Users className="w-5 h-5 text-primary" />;
-      case 'Youth Group': return <Users className="w-5 h-5 text-primary" />;
-      default: return <BarChart3 className="w-5 h-5 text-primary" />;
-    }
-  };
-
-  const totalBeneficiaries = beneficiaries.reduce((sum, b) => sum + b.members, 0);
-  const totalProjects = beneficiaries.reduce((sum, b) => sum + b.projectsCount, 0);
+  const totalBeneficiaries = rows.reduce((sum, r)=> sum + r.total, 0);
+  const totalProjects = rows.length;
+  const totalFemales = rows.reduce((s,r)=> s + r.females, 0);
+  const totalMales = rows.reduce((s,r)=> s + r.males, 0);
 
   return (
     <AdminPage title={t('admin.beneficiaries')}>
-      <div className="mb-6">
-        <div className="flex justify-between items-center">
-          <div>
-            <p className="text-text-secondary text-sm">Manage beneficiary communities and track impact</p>
-          </div>
-          <Button>+ Register New Beneficiary</Button>
+      {/* Toolbar */}
+      <div className="rounded-2xl bg-[var(--color-surface)] border p-3 mb-3 flex flex-wrap gap-2 items-center" style={{borderColor:'var(--color-border)'}}>
+        <Input className="w-full sm:w-[320px]" placeholder={t('common.search','Search...')} value={q} onChange={(e)=> { setQ(e.target.value); setPage(1); }} />
+        <div className="ml-auto flex items-center gap-2">
+          <Button variant="secondary" size="sm" className="rounded-full" onClick={()=> exportCsv(filtered)}>{t('admin.ui.actions.exportCsv','Export CSV')}</Button>
         </div>
       </div>
 
-      {/* Impact Summary */}
+      {/* Summary */}
       <div className="grid md:grid-cols-4 gap-6 mb-6">
         <Card>
           <CardContent className="py-4">
@@ -181,7 +60,7 @@ const BeneficiariesManagement: React.FC = () => {
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">{totalBeneficiaries.toLocaleString()}</div>
-                <div className="text-text-secondary text-sm">Total Beneficiaries</div>
+                <div className="text-text-secondary text-sm">{t('admin.beneficiaries.total','Total beneficiaries')}</div>
               </div>
             </div>
           </CardContent>
@@ -190,24 +69,11 @@ const BeneficiariesManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-success-light rounded-lg">
-                <Home className="text-success w-5 h-5" />
-              </div>
-              <div className="ml-4">
-                <div className="text-2xl font-bold text-text-primary">{beneficiaries.length}</div>
-                <div className="text-text-secondary text-sm">Communities</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="py-4">
-            <div className="flex items-center">
-              <div className="p-2 bg-warning-light rounded-lg">
-                <BarChart3 className="text-warning w-5 h-5" />
+                <Layers className="text-success w-5 h-5" />
               </div>
               <div className="ml-4">
                 <div className="text-2xl font-bold text-text-primary">{totalProjects}</div>
-                <div className="text-text-secondary text-sm">Active Projects</div>
+                <div className="text-text-secondary text-sm">{t('admin.projects','Projects')}</div>
               </div>
             </div>
           </CardContent>
@@ -216,195 +82,106 @@ const BeneficiariesManagement: React.FC = () => {
           <CardContent className="py-4">
             <div className="flex items-center">
               <div className="p-2 bg-primary-light rounded-lg">
-                <Droplet className="text-primary w-5 h-5" />
+                <UserPlus className="text-primary w-5 h-5" />
               </div>
               <div className="ml-4">
-                <div className="text-2xl font-bold text-text-primary">
-                  {Math.round(beneficiaries.reduce((sum, b) => sum + (b.impact.waterAccess * b.members / 100), 0))}
-                </div>
-                <div className="text-text-secondary text-sm">Water Access</div>
+                <div className="text-2xl font-bold text-text-primary">{totalFemales.toLocaleString()}</div>
+                <div className="text-text-secondary text-sm">{t('common.females','Females')}</div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardContent className="py-4">
+            <div className="flex items-center">
+              <div className="p-2 bg-primary-light rounded-lg">
+                <UserMinus className="text-primary w-5 h-5" />
+              </div>
+              <div className="ml-4">
+                <div className="text-2xl font-bold text-text-primary">{totalMales.toLocaleString()}</div>
+                <div className="text-text-secondary text-sm">{t('common.males','Males')}</div>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
 
-      {/* Filters */}
-      <div className="flex gap-4 mb-6">
-        <div className="flex-1">
-          <Input
-            placeholder="Search beneficiaries..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+
+      {/* Aggregated table by project (no individual names) */}
+      <div className="rounded-2xl bg-[var(--color-surface)] border" style={{borderColor:'var(--color-border)'}}>
+        <div className="p-3 border-b" style={{borderColor:'var(--color-border)'}}>
+          <div className="text-[15px] font-semibold text-[var(--text-primary)]">{t('admin.beneficiaries','Beneficiaries')} — {t('common.overview','Overview')}</div>
         </div>
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-        >
-          {categories.map((category) => (
-            <option key={category.value} value={category.value}>
-              {category.label}
-            </option>
-          ))}
-        </select>
-        <select
-          value={selectedStatus}
-          onChange={(e) => setSelectedStatus(e.target.value)}
-          className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-        >
-          {statuses.map((status) => (
-            <option key={status.value} value={status.value}>
-              {status.label}
-            </option>
-          ))}
-        </select>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm text-[var(--text-primary)]">
+            <thead>
+              <tr className="text-left text-[var(--color-text-secondary)]">
+                <th className="py-3 pl-4 pr-4">{t('admin.ui.projects.table.id','ID')}</th>
+                <th className="py-3 pr-4">{t('admin.ui.projects.table.name','Name')}</th>
+                <th className="py-3 pr-4">{t('admin.ui.projects.table.organisation','Organisation')}</th>
+                <th className="py-3 pr-4">{t('common.location','Location')}</th>
+                <th className="py-3 pr-4">♀</th>
+                <th className="py-3 pr-4">♂</th>
+                <th className="py-3 pr-4">{t('common.total','Total')}</th>
+                <th className="py-3 pr-4 text-right">{t('common.file','File')}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pageItems.map(r=> (
+                <tr key={r.id} className="border-t" style={{borderColor:'var(--color-border)'}}>
+                  <td className="py-2 pl-4 pr-4">{r.id}</td>
+                  <td className="py-2 pr-4">{r.name}</td>
+                  <td className="py-2 pr-4">{r.organisation}</td>
+                  <td className="py-2 pr-4">{r.location}</td>
+                  <td className="py-2 pr-4">{r.females.toLocaleString()}</td>
+                  <td className="py-2 pr-4">{r.males.toLocaleString()}</td>
+                  <td className="py-2 pr-4 font-semibold">{r.total.toLocaleString()}</td>
+                  <td className="py-2 pr-4 text-right">{r.file? <button onClick={()=> downloadProjectCsv(r.id)} className="inline-flex items-center gap-1 text-[13px] underline"><FileDown className="w-4 h-4" /> {r.file}</button> : <span className="text-[12px] text-[var(--muted-color)]">—</span>}</td>
+                </tr>
+              ))}
+              {pageItems.length===0 && (
+                <tr><td colSpan={8} className="text-center py-10 text-[13px] text-[var(--muted-color)]">{t('common.noResults','No results')}</td></tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-2 p-3 border-t" style={{borderColor:'var(--color-border)'}}>
+          <div className="text-[12px] text-[var(--muted-color)]">{filtered.length} {t('admin.projects','Projects')} • {t('common.page','Page')} {page} / {totalPages}</div>
+          <div className="flex items-center gap-2">
+            <label className="text-[12px] text-[var(--muted-color)]">Rows:</label>
+            <select className="h-8 px-2 rounded-full border bg-[var(--color-surface)]" style={{borderColor:'var(--color-border)'}} value={rowsPerPage} onChange={e=>{ setRowsPerPage(Number(e.target.value)); setPage(1); }}>
+              {[10,25,50].map(n=> <option key={n} value={n}>{n}</option>)}
+            </select>
+            <button aria-label="Previous page" disabled={page===1} onClick={()=> setPage(p=> Math.max(1,p-1))} className="w-8 h-8 rounded-full border text-[12px] disabled:opacity-40 bg-[var(--color-surface)]" style={{borderColor:'var(--color-border)'}}>‹</button>
+            {Array.from({length: totalPages}).slice(0,7).map((_,i)=> { const n=i+1; const active=n===page; return (
+              <button key={n} aria-current={active? 'page':undefined} onClick={()=> setPage(n)} className={`w-8 h-8 rounded-full text-[12px] border ${active? 'bg-[var(--color-primary)] text-white':'bg-[var(--chip-bg)] text-[var(--text-primary)] hover:brightness-95'}`} style={{borderColor:'var(--color-border)'}}>{n}</button>
+            );})}
+            <button aria-label="Next page" disabled={page===totalPages} onClick={()=> setPage(p=> Math.min(totalPages,p+1))} className="w-8 h-8 rounded-full border text-[12px] disabled:opacity-40 bg-[var(--color-surface)]" style={{borderColor:'var(--color-border)'}}>›</button>
+          </div>
+        </div>
       </div>
 
-      {/* Beneficiaries Grid */}
-      <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-6 mb-6">
-        {filteredBeneficiaries.map((beneficiary) => (
-          <Card key={beneficiary.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="flex justify-between items-start">
-                <div>
-                  <div className="flex items-center space-x-2 mb-2">
-                    <span className="text-2xl">{getTypeIcon(beneficiary.type)}</span>
-                    <Badge variant="secondary" size="sm">{beneficiary.type}</Badge>
-                  </div>
-                  <CardTitle className="text-lg line-clamp-2">{beneficiary.name}</CardTitle>
-                  <div className="text-text-secondary text-sm">{beneficiary.id}</div>
-                </div>
-                <Badge variant={getStatusVariant(beneficiary.status)} size="sm">
-                  {beneficiary.status}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {/* Basic Info */}
-                <div>
-                  <div className="text-sm text-text-secondary mb-2 space-y-1">
-                    <div className="flex items-center space-x-2"><MapPin className="w-4 h-4" /><span>{beneficiary.location}</span></div>
-                    <div className="flex items-center space-x-2"><UserCog className="w-4 h-4" /><span>{beneficiary.coordinator}</span></div>
-                    <div className="flex items-center space-x-2"><Phone className="w-4 h-4" /><span>{beneficiary.phone}</span></div>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-text-secondary">Members:</span>
-                    <span className="font-medium text-text-primary">{beneficiary.members.toLocaleString()}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-text-secondary">Projects:</span>
-                    <span className="font-medium text-text-primary">{beneficiary.projectsCount}</span>
-                  </div>
-                </div>
-
-                {/* Category */}
-                <div>
-                  <Badge variant="primary" size="sm">{beneficiary.category}</Badge>
-                </div>
-
-                {/* Impact Metrics */}
-                <div>
-                  <div className="text-sm font-medium text-text-primary mb-2">Impact Metrics</div>
-                  <div className="space-y-2">
-                    {beneficiary.impact.waterAccess > 0 && (
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-text-secondary">Water Access:</span>
-                        <span className="text-sm font-medium">{beneficiary.impact.waterAccess}%</span>
-                      </div>
-                    )}
-                    {beneficiary.impact.educationReach > 0 && (
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-text-secondary">Education Reach:</span>
-                        <span className="text-sm font-medium">{beneficiary.impact.educationReach} people</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-text-secondary">Economic Improvement:</span>
-                      <span className="text-sm font-medium">{beneficiary.impact.economicImprovement}%</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Timeline */}
-                <div className="text-xs text-text-secondary">
-                  Registered: {new Date(beneficiary.registrationDate).toLocaleDateString()}<br />
-                  Last Update: {new Date(beneficiary.lastUpdate).toLocaleDateString()}
-                </div>
-
-                {/* Actions */}
-                <div className="flex space-x-2">
-                  <Button size="sm" variant="secondary" className="flex-1">View Profile</Button>
-                  <Button size="sm" variant="secondary" className="flex-1">Contact</Button>
-                  <Button size="sm" variant="secondary" className="flex-1">Reports</Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Impact Analytics */}
-      <div className="grid md:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Category Distribution</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {categories.slice(1).map((category) => {
-                const count = beneficiaries.filter(b => b.category === category.value).length;
-                const percentage = beneficiaries.length > 0 ? (count / beneficiaries.length) * 100 : 0;
-                return (
-                  <div key={category.value}>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>{category.label}</span>
-                      <span>{count} communities</span>
-                    </div>
-                    <div className="w-full bg-background-light rounded-full h-2">
-                      <div
-                        className="bg-primary h-2 rounded-full"
-                        style={{ width: `${percentage}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Activities</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {beneficiaries
-                .sort((a, b) => new Date(b.lastUpdate).getTime() - new Date(a.lastUpdate).getTime())
-                .slice(0, 5)
-                .map((beneficiary) => (
-                  <div key={beneficiary.id} className="flex items-center space-x-3">
-                    <span>{getTypeIcon(beneficiary.type)}</span>
-                    <div className="flex-1">
-                      <div className="text-sm font-medium text-text-primary">{beneficiary.name}</div>
-                      <div className="text-xs text-text-secondary">
-                        Updated {new Date(beneficiary.lastUpdate).toLocaleDateString()}
-                      </div>
-                    </div>
-                    <Badge variant={getStatusVariant(beneficiary.status)} size="sm">
-                      {beneficiary.status}
-                    </Badge>
-                  </div>
-                ))}
-            </div>
-          </CardContent>
-        </Card>
+      {/* Summary footer */}
+      <div className="mt-3 text-[12px] text-[var(--muted-color)]">
+        {t('privacy.note','Confidentialité: les noms ne sont pas affichés ici. Les fichiers CSV par projet contiennent la liste détaillée stockée de manière sécurisée.')} 
       </div>
   </AdminPage>
   );
 };
 
 export default BeneficiariesManagement;
+
+function exportCsv(rows: Array<{id:string; name:string; organisation:string; location:string; females:number; males:number; total:number; file:string}>){
+  if(!rows.length) return;
+  const headers = ['project_id','project_name','organisation','location','females','males','total','file'];
+  const csv = [headers.join(','), ...rows.map(r=> [r.id,r.name,r.organisation,r.location,String(r.females),String(r.males),String(r.total),r.file||''].map(s => '"'+String(s).replace(/"/g,'""')+'"').join(','))].join('\n');
+  const blob = new Blob([csv],{type:'text/csv'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='beneficiaries_projects.csv'; a.click(); URL.revokeObjectURL(a.href);
+}
+
+function downloadProjectCsv(projectId: string){
+  const sess = listBeneficiaries(projectId);
+  const headers = ['session_id','date','type','females','males','total'];
+  const csv = [headers.join(','), ...sess.map(s=> [s.id, s.date, s.type, String(s.females), String(s.males), String(s.females + s.males)].map(v => '"'+String(v).replace(/"/g,'""')+'"').join(','))].join('\n');
+  const blob = new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=`beneficiaries_${projectId}.csv`; a.click(); URL.revokeObjectURL(a.href);
+}

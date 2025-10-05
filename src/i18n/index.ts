@@ -15,10 +15,10 @@ const resources = {
         contact: 'Contact',
         donate: 'Donate',
         signin: 'Sign In',
-  signup: 'Sign Up',
-  menuToggle: 'Toggle menu',
-  menu: 'Menu',
-  close: 'Close menu'
+        signup: 'Sign Up',
+        menuToggle: 'Toggle menu',
+        menu: 'Menu',
+        close: 'Close menu'
       },
       nav_mh: {
         projects: 'Menstrual Health Projects',
@@ -149,6 +149,36 @@ const resources = {
             content: 'Content & Learning',
             governance: 'Governance & Administration'
           },
+          distributors: {
+            listTitle: 'Distributors list',
+            total: 'Total distributors',
+            contact: 'Main contact',
+            volume: 'Distributed volume (kits)',
+            satisfaction: 'Average satisfaction',
+            profile: {
+              title: 'Distributor profile',
+              notFound: 'Distributor not found.',
+              users: 'Users',
+              addUser: 'Add user',
+              role: 'Role',
+              lastAccess: 'Last access',
+              deactivate: 'Deactivate',
+              activate: 'Activate',
+              noUsers: 'No users',
+              associatedProjects: 'Associated projects',
+              noProjects: 'No associated projects',
+              notes: 'Notes',
+              agreement: 'Agreement',
+              lastReport: 'Last report',
+              download: 'Download'
+            },
+            create: {
+              title: 'New distributor',
+              placeholders: { name: 'Ex: Ecole Kanyosha' },
+              contract: 'Contract (optional)',
+              selected: 'Selected'
+            }
+          },
           quick: {
             dashboard: 'Dashboard'
           },
@@ -188,7 +218,65 @@ const resources = {
             edit: 'edit',
             validate: 'validate',
             help: 'Help',
-            logout: 'Logout'
+            logout: 'Logout',
+            exportCsv: 'Export CSV',
+            publish: 'Publish',
+            unpublish: 'Unpublish',
+            publishSelected: 'Publish selected',
+            bulk: 'Bulk actions'
+          },
+          resources: {
+            kpis: {
+              total: 'Total documents',
+              pending: 'Pending validation',
+              published: 'Published (public)',
+              retired: 'Retired/archived'
+            },
+            filters: {
+              type: 'Type',
+              year: 'Year',
+              visibility: 'Visibility'
+            },
+            language: 'Language',
+            size: 'Size',
+            visibility: { label: 'Visibility', public: 'Public', internal: 'Internal' },
+            status: { retired: 'Retired' },
+            actions: { retire: 'Retire', confirmDelete: 'Delete this item?' },
+            modal: {
+              title: 'Upload a document (simple)',
+              hint: 'Drop a file (optional). Metadata is enough for the demo.',
+              dropHere: 'Drag & drop a file here',
+              chooseFile: 'Choose a file',
+              file: 'File',
+              change: 'Change',
+              desc: 'Short description',
+              descPlaceholder: 'Displayed on public page',
+              placeholders: { title: 'Document title' }
+            }
+          },
+          donors: {
+            anon: 'Anon.',
+            kpis: { collected: 'Collected', average: 'Average donation', last: 'Last donation' },
+            table: { count: 'Donations' },
+            filters: { dest: { general: 'General fund' } },
+            profile: {
+              title: 'Donor profile',
+              notFound: 'Donor not found.',
+              history: 'Donations history',
+              destination: 'Destination',
+              method: 'Method',
+              amount: 'Amount',
+              requestRefund: 'Request refund',
+              noDonations: 'No donations',
+              projects: 'Projects supported',
+              generalOnly: 'General fund only',
+              refunds: 'Refunds',
+              noRefunds: 'No refund requests.',
+              donation: 'Donation',
+              selectDonation: 'Select donation',
+              reason: 'Reason',
+              since: 'Since'
+            }
           },
           charts: {
             collectePlanDep: 'Collected vs Planned vs Spent (monthly)',
@@ -313,6 +401,8 @@ const resources = {
         search: 'Search...',
         notifications: 'Notifications',
         loading: 'Loading...',
+        error: 'Error',
+        retry: 'Retry',
         save: 'Save',
         cancel: 'Cancel',
         edit: 'Edit',
@@ -326,7 +416,17 @@ const resources = {
         submit: 'Submit',
         learnMore: 'Learn More',
         viewAll: 'View All',
-        progress: 'Progress'
+        progress: 'Progress',
+        // Admin table/common fields
+        title: 'Title',
+        category: 'Category',
+        tags: 'Tags',
+        author: 'Author',
+        updated: 'Updated',
+        level: 'Level',
+        duration: 'Duration',
+        rows: 'Rows',
+        noResults: 'No results'
       },
       
       // Transparency
@@ -563,6 +663,25 @@ const resources = {
           },
           types: {
             project: 'projet',
+          blog: {
+            kpis: {
+              total: 'Total articles',
+              drafts: 'Drafts',
+              published: 'Published',
+              views30: 'Views (30d)'
+            }
+          },
+          donors: {
+            kpis: { total: 'Total donors', collected: 'Collected', average: 'Average donation', top: 'Top donor' },
+            filters: {
+              anon: { all: 'All', yes: 'Anonymous', no: 'Identified' },
+              dest: { all: 'All destinations', general: 'General fund', project: 'Projects' },
+              country: 'Country'
+            },
+            table: { name: 'Name', email: 'Email', count: 'Donations', total: 'Total', last: 'Last' },
+            viewProfile: 'View profile',
+            anon: 'Anon.'
+          },
             donation: 'don',
             report: 'rapport'
           },
@@ -571,12 +690,105 @@ const resources = {
               edit: 'éditer',
               validate: 'valider',
               help: 'Aide',
-              logout: 'Se déconnecter'
+              logout: 'Se déconnecter',
+              exportCsv: 'Exporter CSV',
+              publish: 'Publier',
+              unpublish: 'Dépublier',
+              publishSelected: 'Publier sélection',
+              bulk: 'Actions en masse'
+            },
+            resources: {
+              kpis: {
+                total: 'Total documents',
+                pending: 'En attente de validation',
+                published: 'Publiés (public)',
+                retired: 'Retirés/archivés'
+              },
+              filters: {
+                type: 'Type',
+                year: 'Année',
+                visibility: 'Visibilité'
+              },
+              language: 'Langue',
+              size: 'Taille',
+              visibility: { label: 'Visibilité', public: 'Public', internal: 'Interne' },
+              status: { retired: 'Retiré' },
+              actions: { retire: 'Retirer', confirmDelete: 'Supprimer cet élément ?' },
+              modal: {
+                title: 'Téléverser un document (simple)',
+                hint: 'Déposez un fichier (optionnel). Les métadonnées suffisent pour la démo.',
+                dropHere: 'Glissez-déposez un fichier ici',
+                chooseFile: 'Choisir un fichier',
+                file: 'Fichier',
+                change: 'Changer',
+                desc: 'Description (courte)',
+                descPlaceholder: 'Affichée sur la page publique',
+                placeholders: { title: 'Titre du document' }
+              }
+            },
+            donors: {
+              kpis: { total: 'Total donateurs', collected: 'Collecté', average: 'Don moyen', top: 'Top donateur' },
+              filters: {
+                anon: { all: 'Tous', yes: 'Anonyme', no: 'Identifié' },
+                dest: { all: 'Toutes destinations', general: 'Fonds général', project: 'Projets' },
+                country: 'Pays'
+              },
+              table: { name: 'Nom', email: 'Email', count: 'Dons', total: 'Total', last: 'Dernier' },
+              viewProfile: 'Voir profil',
+              anon: 'Anonyme',
+              profile: {
+                title: 'Profil donateur',
+                notFound: 'Donateur introuvable.',
+                history: 'Historique des dons',
+                destination: 'Destination',
+                method: 'Méthode',
+                amount: 'Montant',
+                requestRefund: 'Demander un remboursement',
+                noDonations: 'Aucun don',
+                projects: 'Projets soutenus',
+                generalOnly: 'Fonds général uniquement',
+                refunds: 'Remboursements',
+                noRefunds: 'Aucune demande de remboursement.',
+                donation: 'Don',
+                selectDonation: 'Sélectionner un don',
+                reason: 'Motif',
+                since: 'Depuis'
+              }
             },
           charts: {
             collectePlanDep: 'Collecte vs Planifié vs Dépensé (mensuel)',
             milestones: 'Jalons complétés (%)',
             spendingSplit: 'Répartition des dépenses'
+          },
+          distributors: {
+            listTitle: 'Liste des distributeurs',
+            total: 'Total distributeurs',
+            contact: 'Contact principal',
+            volume: 'Volume distribué (kits)',
+            satisfaction: 'Satisfaction moyenne',
+            profile: {
+              title: 'Profil distributeur',
+              notFound: 'Distributeur introuvable.',
+              users: 'Utilisateurs',
+              addUser: 'Ajouter utilisateur',
+              role: 'Rôle',
+              lastAccess: 'Dernier accès',
+              deactivate: 'Désactiver',
+              activate: 'Activer',
+              noUsers: 'Aucun utilisateur',
+              associatedProjects: 'Projets associés',
+              noProjects: 'Aucun projet associé',
+              notes: 'Notes',
+              agreement: 'Convention',
+              lastReport: 'Dernier rapport',
+              download: 'Télécharger'
+            },
+            create: {
+              title: 'Nouveau distributeur',
+              placeholders: { name: 'Ex : École Kanyosha' },
+              contract: 'Convention (optionnel)',
+              selected: 'Sélectionné'
+            }
           },
           kpis: {
             activeProjects: 'PROJETS ACTIFS',
@@ -696,6 +908,8 @@ const resources = {
         search: 'Rechercher...',
         notifications: 'Notifications',
         loading: 'Chargement...',
+        error: 'Erreur',
+        retry: 'Réessayer',
         save: 'Enregistrer',
         cancel: 'Annuler',
         edit: 'Modifier',
@@ -709,7 +923,17 @@ const resources = {
         submit: 'Soumettre',
         learnMore: 'En savoir plus',
         viewAll: 'Voir tout',
-        progress: 'Progrès'
+        progress: 'Progrès',
+        // Admin table/common fields
+        title: 'Titre',
+        category: 'Catégorie',
+        tags: 'Tags',
+        author: 'Auteur',
+        updated: 'MAJ',
+        level: 'Niveau',
+        duration: 'Durée',
+        rows: 'Lignes',
+        noResults: 'Aucun résultat'
       },
       
       // Transparency
@@ -728,6 +952,14 @@ const resources = {
           legend: {
             planned: 'Prévu',
             collected: 'Collecté',
+            blog: {
+              kpis: {
+                total: 'Articles totaux',
+                drafts: 'Brouillons',
+                published: 'Publiés',
+                views30: 'Vues (30j)'
+              }
+            },
             spent: 'Dépensé'
           },
           month: 'Mois'
