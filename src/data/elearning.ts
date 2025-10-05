@@ -46,16 +46,38 @@ const lessons: LessonDetail[] = [
     duration_minutes: 8,
     tags: ['MHM', 'Education'],
     topic: 'MHM',
-    cover_image_url: null,
+  cover_image_url: '/photos/course/Generated Image October 03, 2025 - 9_00AM.png',
     published_at: '2025-05-10',
     updated_at: '2025-05-01',
     is_public: true,
     body_sections: [
-      { h2: 'What is MHM?', html: '<p>Menstrual Hygiene Management (MHM) means access to materials, privacy, water & soap, and enough knowledge to manage periods with dignity.</p>' },
-      { h2: 'Materials and safe use', html: '<p>Reusable kits: absorbency, comfort, how to wash and dry in a clean ventilated space.</p>' },
-      { h2: 'Myths and stigma', html: '<p>Debunk myths with age-appropriate explanations. Involve boys & parents.</p>' },
-      { h2: 'Healthy practices', html: '<p>Handwashing, safe disposal, when to seek care, change frequency.</p>' },
-      { h2: 'Download & reference', links: [ { label:'One-pager (PDF)', url:'/files/mhm-onepager.pdf' }, { label:'Facilitator checklist (PDF)', url:'/files/facilitator-checklist.pdf' } ] }
+      { h2: 'What is MHM?', html: `
+        <p>Menstrual Hygiene Management (MHM) means having the information, materials, and privacy to manage your period with dignity at home, at school, and at work.</p>
+        <ul>
+          <li>Reliable materials (for example, reusable pads)</li>
+          <li>Clean water and soap for washing hands and pads</li>
+          <li>A private space for changing and cleaning</li>
+          <li>Simple, age‑appropriate information and support</li>
+        </ul>
+      ` },
+      { h2: 'A real moment from class', html: `
+        <p>“I didn’t come to school yesterday because I was afraid I would stain my dress.” When Amina said this, half the girls nodded. We paused, breathed, and listed three things that make school days easier: a spare pad, a small pouch, and a friendly adult to ask for help. By the end, Amina smiled and said, “I can try tomorrow.”</p>
+      ` },
+      { h2: 'Materials and safe use', html: `
+        <p>Reusable pads feel soft and can be used for many months when cleaned well. Show how to position the pad, how to check absorbency, and where to keep a spare.</p>
+        <p><strong>Cleaning basics:</strong> wash with soap and clean water, rinse until clear, and dry fully in sunlight or a ventilated space. Sunlight helps kill germs.</p>
+      ` },
+      { h2: 'Healthy practices', html: `
+        <p>Change pads every 4–6 hours (or sooner if heavy flow). Wash hands before and after changing. If there is persistent pain, rash, or strong odor, talk to a health worker.</p>
+      ` },
+      { h2: 'Try it together', html: `
+        <ol>
+          <li>Pack a small period pouch: pad, soap, tissue, and bag.</li>
+          <li>Practise how to fold and store a used pad discreetly.</li>
+          <li>Choose three supportive people you can ask for help.</li>
+        </ol>
+      ` },
+      { h2: 'Download & reference', links: [ { label:'One-pager (PDF)', url:'/files/mhm-onepager.pdf' }, { label:'Facilitator checklist (PDF)', url:'/files/facilitator-checklist.pdf' }, { label:'WHO — Menstruation', url:'https://www.who.int/health-topics/menstruation' } ] }
     ],
     quick_tip: 'Teach “wash & dry” with a real kit. Practise once; learners remember.'
   },
@@ -67,16 +89,34 @@ const lessons: LessonDetail[] = [
     duration_minutes: 7,
     tags: ['MHM'],
     topic: 'MHM',
-    cover_image_url: null,
+  cover_image_url: '/photos/course/Generated Image October 03, 2025 - 9_15AM.png',
     published_at: '2025-05-12',
     updated_at: '2025-05-12',
     is_public: true,
     body_sections: [
-      { h2: 'Choosing materials', html: '<p>Select safe, reusable materials with proper absorbency.</p>' },
-      { h2: 'Cleaning process', html: '<p>Rinse, wash with soap, dry in sunlight or ventilated area.</p>' },
-      { h2: 'Safe storage', html: '<p>Store in breathable bag; avoid damp areas.</p>' },
-      { h2: 'Irritants & risks', html: '<p>Avoid harsh detergents and prolonged moisture.</p>' },
-      { h2: 'Download & reference', links: [] }
+      { h2: 'Choosing materials', html: `
+        <p>Look for soft, breathable layers and a comfortable shape. A practical kit includes two or more pads, a leak‑resistant base, and a small pouch.</p>
+      ` },
+      { h2: 'Cleaning process', html: `
+        <ol>
+          <li>Rinse with cool water (this helps release blood without setting stains).</li>
+          <li>Wash with soap; gently rub the fabric—no need to scrub hard.</li>
+          <li>Rinse until water runs clear.</li>
+          <li>Dry fully in the sun or a well‑ventilated space.</li>
+        </ol>
+      ` },
+      { h2: 'Story: first reusable kit', html: `
+        <p>Grace said, “I thought washing would be hard. It took ten minutes, and it dried by afternoon.” She liked that the pad felt soft and didn’t itch.</p>
+      ` },
+      { h2: 'Safe storage', html: `<p>Use a clean, breathable bag. Avoid sealing damp pads in plastic—moisture can cause irritation or odor.</p>` },
+      { h2: 'Troubleshooting', html: `
+        <ul>
+          <li><strong>Itchy skin?</strong> Rinse soap out completely and ensure full drying.</li>
+          <li><strong>Leaks?</strong> Try a thicker pad or change a bit sooner.</li>
+          <li><strong>Stains?</strong> Soak briefly in cool water before washing.</li>
+        </ul>
+      ` },
+      { h2: 'Download & reference', links: [ { label:'Care & washing card (PDF)', url:'/files/care-card.pdf' } ] }
     ]
   },
   {
@@ -87,17 +127,19 @@ const lessons: LessonDetail[] = [
     duration_minutes: 6,
     tags: ['MHM'],
     topic: 'MHM',
-    cover_image_url: null,
+  cover_image_url: '/photos/course/Generated Image October 02, 2025 - 9_21AM.png',
     published_at: '2025-05-14',
     updated_at: '2025-05-14',
     is_public: true,
     body_sections: [
-      { h2: 'Common myths', html: '<p>Identify myths around menstruation.</p>' },
-      { h2: 'Addressing stigma', html: '<p>Use inclusive language & education.</p>' },
-      { h2: 'Engaging boys & parents', html: '<p>Participation reduces stigma.</p>' },
-      { h2: 'Cultural sensitivity', html: '<p>Respect local beliefs while promoting health.</p>' },
-      { h2: 'Download & reference', links: [] }
-    ]
+      { h2: 'Common myths', html: `<p>Examples: “You cannot attend class,” “You should not cook,” or “Periods are dirty.” Replace each with a short fact: periods are healthy, you can study, and you can help at home safely.</p>` },
+      { h2: 'Story: talking with family', html: `<p>Esperance told her brother why she sometimes carried a pouch. He said, “Okay—how can I help?” Small conversations reduce shame and build support.</p>` },
+      { h2: 'Addressing stigma', html: `<p>Use simple, respectful words. Create routines that protect privacy (spare pads in the office, a sign‑out system for bathroom breaks).</p>` },
+      { h2: 'Facilitation prompts', html: `<ul><li>“What helps you feel confident on period days?”</li><li>“Who could be an ally at school?”</li><li>“What myth have you heard that we can replace with a fact?”</li></ul>` },
+      { h2: 'Cultural sensitivity', html: `<p>Listen first. Keep health guidance accurate while adapting examples to local realities. Invite caregivers to ask questions without judgement.</p>` },
+      { h2: 'Download & reference', links: [ { label:'UNICEF — MHH resources', url:'https://www.unicef.org/wash/menstrual-hygiene-management' } ] }
+    ],
+    quick_tip: 'Start with one myth at a time. Replace it with a short, memorable fact.'
   },
   {
     title: 'Healthy practices',
@@ -107,17 +149,59 @@ const lessons: LessonDetail[] = [
     duration_minutes: 7,
     tags: ['MHM'],
     topic: 'MHM',
-    cover_image_url: null,
+  cover_image_url: '/photos/course/Generated Image October 03, 2025 - 9_04AM (1).png',
     published_at: '2025-05-16',
     updated_at: '2025-05-16',
     is_public: true,
     body_sections: [
-      { h2: 'Change frequency', html: '<p>Change every 4–6 hours or as needed.</p>' },
-      { h2: 'Handwashing', html: '<p>Wash before and after handling materials.</p>' },
-      { h2: 'Disposal', html: '<p>Use pit, burn safely, or appropriate waste systems.</p>' },
-      { h2: 'Seeking care', html: '<p>Identify infections or issues early.</p>' },
-      { h2: 'Download & reference', links: [] }
-    ]
+      { h2: 'Change frequency', html: `<p>Change every 4–6 hours or sooner if needed. Keep a spare pad and a small bag for used pads. Plan ahead for long trips or exams.</p>` },
+      { h2: 'Handwashing', html: `<p>Wash with soap and water before and after changing. If water is limited, carry a small soap and use a tippy‑tap or sanitizer as a backup.</p>` },
+      { h2: 'Disposal', html: `<p>Follow local guidance. For disposables: wrap and place in a bin or pit—do not flush. For reusables: wash and reuse; dispose only if damaged.</p>` },
+      { h2: 'Cramps & self‑care', html: `<p>Warmth, gentle movement, and hydration help. If pain is severe or doesn’t improve, seek advice from a health worker.</p>` },
+      { h2: 'Seeking care', html: `<p>Go to a clinic for persistent pain, rash, fever, or unusual bleeding. It’s okay to ask for help.</p>` },
+      { h2: 'Download & reference', links: [ { label:'Classroom quick poster (PDF)', url:'/files/classroom-quick-poster.pdf' } ] }
+    ],
+    quick_tip: 'A small “comfort plan” (water, warm cloth, quiet corner) reassures learners on tough days.'
+  },
+  {
+    title: 'Packing a discreet school kit',
+    slug: 'packing-discreet-school-kit',
+    summary: 'What to pack, where to store, and how to plan handwashing at school.',
+    level: 'Beginner',
+    duration_minutes: 5,
+    tags: ['MHM','School'],
+    topic: 'MHM',
+  cover_image_url: '/photos/Dossier/Generated Image October 02, 2025 - 8_50AM (1).png',
+    published_at: '2025-05-18',
+    updated_at: '2025-05-18',
+    is_public: true,
+    body_sections: [
+      { h2: 'Checklist', html: `<ul><li>Reusable pad (x2)</li><li>Small breathable pouch</li><li>Wipes or tissue</li><li>Small soap bar</li><li>Bag for used pads</li></ul>` },
+      { h2: 'Privacy routine', html: `<p>Agree on a simple signal with a teacher. Use known private spots. Keep one spare pad in a pocket you can reach quickly.</p>` },
+      { h2: 'Handwashing plan', html: `<p>Know where water and soap are available. If none, carry a small soap and use a tippy‑tap or sanitizer as a backup.</p>` },
+      { h2: 'If things go wrong', html: `<p>If a stain happens, wrap a spare cloth around the waist, change into a fresh pad, and take three calm breaths. It happens—and it’s okay.</p>` }
+    ],
+    quick_tip: 'Keep the kit in the same pocket every day—less to think about when you need it fast.'
+  },
+  {
+    title: 'Care guide for caregivers',
+    slug: 'care-guide-caregivers',
+    summary: 'Simple support at home: laundering, drying, and talking about periods.',
+    level: 'Beginner',
+    duration_minutes: 6,
+    tags: ['Caregivers','Home'],
+    topic: 'MHM',
+  cover_image_url: '/photos/Dossier/Generated Image October 02, 2025 - 8_39AM.png',
+    published_at: '2025-05-19',
+    updated_at: '2025-05-19',
+    is_public: true,
+    body_sections: [
+      { h2: 'Laundry routine', html: `<p>Rinse first, wash with soap, rinse clear, and dry fully. Help set up a drying line where air and sunlight can reach.</p>` },
+      { h2: 'Conversation starters', html: `<ul><li>“How did this month go? Anything that felt hard?”</li><li>“Do you have enough pads for next week?”</li><li>“What would make school days easier?”</li></ul>` },
+      { h2: 'Money‑smart view', html: `<p>Reusable pads save money across the year when cleaned well. Plan a small monthly budget for soap and replacements.</p>` },
+      { h2: 'When to seek care', html: `<p>Persistent pain, rash, strong odor, or unusual bleeding warrant a clinic visit. Trust your instincts as a caregiver.</p>` }
+    ],
+    quick_tip: 'Praise small wins (washing well, packing a pouch). Confidence grows from consistency.'
   }
 ];
 
@@ -128,6 +212,8 @@ const moduleRecord: ModuleRecord = {
   level: 'Beginner',
   tags: ['MHM','Education'],
   cover_image_url: null,
+  // Optional module cover can use a generic placeholder
+  // cover_image_url: '/images/placeholder-generic.svg',
   estimated_minutes_total: lessons.reduce((a,l)=> a + l.duration_minutes, 0),
   lessons_count: lessons.length,
   downloads: [

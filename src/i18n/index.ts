@@ -70,10 +70,10 @@ const resources = {
         },
         donors: {
           sectionTitle: 'Your concrete impact',
-          i1: '€15 = 1 menstrual hygiene kit for 6 months',
-          i2: '€50 = Full training for a class of 30 students',
-          i3: '€100 = Equip a school with adapted facilities',
-          transparency: 'Track every euro all the way to the beneficiaries'
+          i1: '$15 = 1 menstrual hygiene kit for 6 months',
+          i2: '$50 = Full training for a class of 30 students',
+          i3: '$100 = Equip a school with adapted facilities',
+          transparency: 'Track every dollar all the way to the beneficiaries'
         },
         partners: {
           sectionTitle: 'Let\'s build together',
@@ -546,9 +546,9 @@ const resources = {
         },
         donors: {
           sectionTitle: 'Votre impact concret',
-          i1: '15€ = 1 kit d\'hygiène menstruelle pour 6 mois',
-          i2: '50€ = Formation complète d\'une classe de 30 élèves',
-          i3: '100€ = Équipement d\'une école avec des infrastructures adaptées',
+          i1: '15$ = 1 kit d\'hygiène menstruelle pour 6 mois',
+          i2: '50$ = Formation complète d\'une classe de 30 élèves',
+          i3: '100$ = Équipement d\'une école avec des infrastructures adaptées',
           transparency: 'Suivez chaque franc jusqu\'aux mains des bénéficiaires'
         },
         partners: {

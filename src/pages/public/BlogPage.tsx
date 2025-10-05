@@ -4,6 +4,7 @@ import PublicPageShell from '../../components/layout/PublicPageShell';
 import { Activity, Lightbulb, FlaskConical, BookOpen, Search } from 'lucide-react';
 import { imageForIndex, courseImageAlt } from '../../data/imagePools';
 import { blogStore } from '../../services/blogStore';
+import { blogArticles } from '../../data/blogArticles';
 
 const BlogPage: React.FC = () => {
   // Filters / pagination state (resource-style)
@@ -128,13 +129,27 @@ const BlogPage: React.FC = () => {
     tags: r.tags || [],
     image: '',
     featured: false
-  })) : basePostData;
+  })) : (blogArticles && blogArticles.length ? blogArticles.map((a,idx)=> ({
+    id: String(idx+1),
+    slug: a.slug,
+    title: a.title,
+    excerpt: a.excerpt || '',
+    author: a.author?.name || 'E4D',
+    authorRole: a.author?.role || '',
+    publishDate: a.published_at,
+    readTime: `${a.read_minutes} min read`,
+    category: (a.category as any) || 'impact',
+    tags: a.tags || [],
+    image: a.cover_image_url || '',
+    featured: false
+  })) : basePostData);
 
   const categoryMeta: Record<string, { name: string; icon: React.ReactNode }> = {
     impact: { name: 'Impact Stories', icon: <Activity className="w-4 h-4" /> },
     insights: { name: 'Insights', icon: <Lightbulb className="w-4 h-4" /> },
     updates: { name: 'Project Updates', icon: <BookOpen className="w-4 h-4" /> },
-    research: { name: 'Research', icon: <FlaskConical className="w-4 h-4" /> }
+    research: { name: 'Research', icon: <FlaskConical className="w-4 h-4" /> },
+    howto: { name: 'How‑to', icon: <BookOpen className="w-4 h-4" /> }
   };
 
   const categories = useMemo(()=>{
@@ -157,6 +172,14 @@ const BlogPage: React.FC = () => {
   }).sort((a,b)=> sort==='newest' ? (new Date(b.publishDate).getTime()-new Date(a.publishDate).getTime()) : (new Date(a.publishDate).getTime()-new Date(b.publishDate).getTime()));
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
   const paginated = filtered.slice((page-1)*pageSize, page*pageSize);
+
+  // Prefer each article's own cover image for the list thumbnail.
+  function getCoverFor(slug: string, idx: number): string {
+    const fromStatic = blogArticles.find(a=> a.slug===slug)?.cover_image_url || '';
+    if (fromStatic) return fromStatic;
+    const fromStore = blogStore.get(slug)?.cover_image_url || '';
+    return fromStore || imageForIndex(idx);
+  }
 
   function resetAll(){ setQ(''); setCategory('all'); setSort('newest'); setYear(''); setTags([]); setPage(1); }
   function toggleTag(tag:string){ setTags(cur=> cur.includes(tag)? cur.filter(t=> t!==tag): [...cur, tag]); }
@@ -228,10 +251,11 @@ const BlogPage: React.FC = () => {
                 <article key={post.id} className="rounded-xl border border-base bg-white flex flex-col overflow-hidden hover:shadow-sm hover:border-primary/40 transition">
                   <div className="w-full aspect-video border-b border-base relative overflow-hidden">
                     <img
-                      src={imageForIndex(idx)}
+                      src={getCoverFor(post.slug, idx)}
                       alt={courseImageAlt('blog', post.title)}
                       loading={idx > 2 ? 'lazy' : 'eager'}
                       className="w-full h-full object-cover"
+                      onError={(e)=> { (e.currentTarget as HTMLImageElement).src = '/photos/banniere.png'; }}
                     />
                   </div>
                   <div className="p-4 flex flex-col flex-1">

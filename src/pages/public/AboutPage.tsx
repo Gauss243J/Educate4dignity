@@ -5,14 +5,14 @@ import PublicPageShell from '../../components/layout/PublicPageShell';
 const AboutPage: React.FC = () => {
   return (
     <PublicPageShell backgroundVariant="plain">
-  <header className="space-y-3 mb-8 max-w-3xl mx-auto">
+  <header className="space-y-3 mb-8 max-w-4xl mx-auto">
     <p className="text-[11px] tracking-wide font-semibold uppercase text-primary/70">Transform menstrual health education</p>
     <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">From taboo to dignity</h1>
     <p className="text-[14px] leading-[20px] text-secondary">We break taboos, educate communities and provide sustainable, reusable solutions so every girl can manage her period with dignity.</p>
     <p className="text-[12px] leading-[18px] text-[var(--rose-700)] font-medium">Because no girl should miss school because of her period.</p>
       </header>
 
-  <article className="max-w-3xl mx-auto">
+  <article className="max-w-4xl mx-auto">
         {/* Narrative */}
         <div className="space-y-4 text-[13px] leading-[20px] text-primary text-justify">
       <p>Across Burundi and the wider East Africa region, too many learners still miss lessons during menstruation— not for lack of motivation, but because of cost, silence, inadequate WASH facilities and limited guidance. Repeated absence chips away at confidence and learning continuity.</p>

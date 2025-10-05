@@ -7,10 +7,21 @@ export function mdToHtml(md: string): string {
     return `<figure><video src="${url}" controls class="w-full rounded-xl"></video>${caption}</figure>`;
   });
 
-  // Images: ![caption](url)
-  safe = safe.replace(/!\[(.*?)\]\((https?:[^\s)]+|\/[\w\-\/\.]+)\)/g, (_m, alt, url)=> {
-    const cap = alt? `<figcaption>${alt}</figcaption>` : '';
+  // Images: ![alt](url "optional title-as-caption")
+  safe = safe.replace(/!\[(.*?)\]\((https?:[^\s)]+|\/[\w\-\/\.]+)(?:\s+"(.*?)")?\)/g, (_m, alt, url, title)=> {
+    const captionText = title || alt;
+    const cap = captionText? `<figcaption>${captionText}</figcaption>` : '';
     return `<figure><img src="${url}" alt="${alt}" class="w-full rounded-xl"/>${cap}</figure>`;
+  });
+
+  // Markdown links: [text](url)
+  safe = safe.replace(/\[([^\]]+)\]\((https?:[^\s)]+|\/[\w\-\/.#?=&%]+)\)/g, (_m, text, url)=> {
+    return `<a href="${url}" target="_blank" rel="noopener">${text}</a>`;
+  });
+
+  // Autolink bare URLs
+  safe = safe.replace(/(^|[\s(])((https?:\/\/[^\s)]+))/g, (_m, lead, url)=> {
+    return `${lead}<a href="${url}" target="_blank" rel="noopener">${url}</a>`;
   });
 
   // Basic lists

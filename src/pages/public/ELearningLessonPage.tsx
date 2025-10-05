@@ -42,7 +42,13 @@ const ELearningLessonPage: React.FC = () => {
                 <div className="mt-1 text-[12px] text-secondary">{lesson.level} • {lesson.duration_minutes} min • Last updated {new Date(lesson.updated_at).toLocaleDateString(undefined,{month:'short', year:'numeric'})}</div>
               </header>
               <div className="rounded-2xl border border-base p-6 bg-white">
-                <div className="w-full aspect-video rounded-md border border-base bg-[var(--color-primary-light)] flex items-center justify-center text-[12px] text-secondary">Lesson cover (image/video placeholder)</div>
+                <div className="w-full aspect-video rounded-md border border-base overflow-hidden bg-[var(--color-primary-light)] flex items-center justify-center text-[12px] text-secondary">
+                  {lesson.cover_image_url ? (
+                    <img src={lesson.cover_image_url} alt={lesson.title} className="w-full h-full object-cover" loading="eager" />
+                  ) : (
+                    <span>Lesson cover</span>
+                  )}
+                </div>
               </div>
               <div className="space-y-10">
                 {lesson.body_sections.map(sec => (
@@ -96,7 +102,11 @@ const ELearningLessonPage: React.FC = () => {
                     {related.map(r=> (
                       <li key={r.slug}>
                         <Link to={`/e-learning/lesson/${r.slug}`} className="block rounded-md border border-base p-3 hover:bg-[var(--color-primary-light)]">
-                          <div className="w-full aspect-video rounded-sm border border-base bg-[var(--color-primary-light)] mb-2 flex items-center justify-center text-[10px] text-secondary" />
+                          <div className="w-full aspect-video rounded-sm border border-base overflow-hidden bg-[var(--color-primary-light)] mb-2 flex items-center justify-center text-[10px] text-secondary">
+                            {r.cover_image_url ? (
+                              <img src={r.cover_image_url} alt={r.title} className="w-full h-full object-cover" loading="lazy" />
+                            ) : null}
+                          </div>
                           <div className="text-[12px] font-medium text-primary line-clamp-2">{r.title} — {r.level}</div>
                           <div className="text-[10px] text-secondary">{r.level} • {r.duration_minutes} min</div>
                         </Link>

@@ -148,15 +148,15 @@ const DonationPage: React.FC = () => {
           <h2 id="impact-tiers-heading" className="sr-only">Donation impact tiers</h2>
           <dl className="flex flex-col md:flex-row md:divide-x md:divide-base">
             <div className="flex-1 text-center py-4 md:py-0 md:px-6">
-              <dt className="text-[22px] leading-[26px] font-extrabold tracking-tight text-primary">€15</dt>
+              <dt className="text-[22px] leading-[26px] font-extrabold tracking-tight text-primary">$15</dt>
               <dd className="mt-1 text-[12px] leading-[18px] text-secondary max-w-[240px] mx-auto">1 menstrual hygiene kit for 6 months</dd>
             </div>
             <div className="flex-1 text-center py-4 md:py-0 md:px-6 border-t md:border-t-0 border-base">
-              <dt className="text-[22px] leading-[26px] font-extrabold tracking-tight text-primary">€50</dt>
+              <dt className="text-[22px] leading-[26px] font-extrabold tracking-tight text-primary">$50</dt>
               <dd className="mt-1 text-[12px] leading-[18px] text-secondary max-w-[240px] mx-auto">Full training for a class of 30 students</dd>
             </div>
             <div className="flex-1 text-center py-4 md:py-0 md:px-6 border-t md:border-t-0 border-base">
-              <dt className="text-[22px] leading-[26px] font-extrabold tracking-tight text-primary">€100</dt>
+              <dt className="text-[22px] leading-[26px] font-extrabold tracking-tight text-primary">$100</dt>
               <dd className="mt-1 text-[12px] leading-[18px] text-secondary max-w-[240px] mx-auto">Equip a school with adapted facilities</dd>
             </div>
           </dl>
