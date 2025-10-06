@@ -119,7 +119,7 @@ const LandingPage: React.FC = () => {
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-14 mt-14" id="education" delay={60}>
           <div className="max-w-7xl mx-auto grid gap-10 items-center md:grid-cols-2">
             <div className="rounded-2xl overflow-hidden border order-1 md:order-none" style={{borderColor:'var(--rose-200)'}}>
-              <ImageWithFallback src="/photos/Project/Generated Image October 05, 2025 - 7_46PM.png" alt={t('education.title','Menstrual health education')} className="w-full h-full object-cover md:h-[420px]" />
+              <ImageWithFallback src="/photos/Project/B6.jpg" alt={t('education.title','Menstrual health education')} className="w-full h-full object-cover md:h-[420px]" />
             </div>
             <div className="order-2 md:order-none">
               <h2 className="font-extrabold mb-4" style={{fontSize:'34px',lineHeight:'1.15',color:'var(--color-text-primary)'}}>{t('education.title','Why menstrual health education matters')}</h2>
