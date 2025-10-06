@@ -5,40 +5,45 @@ import PublicPageShell from '../../components/layout/PublicPageShell';
 const AboutPage: React.FC = () => {
   return (
     <PublicPageShell backgroundVariant="plain">
-  <header className="space-y-3 mb-8 max-w-4xl mx-auto">
-  <p className="text-[11px] tracking-wide font-semibold uppercase text-accent">Transform menstrual health education</p>
-    <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">From taboo to dignity</h1>
-    <p className="text-[14px] leading-[20px] text-secondary">We break taboos, educate communities and provide sustainable, reusable solutions so every girl can manage her period with dignity.</p>
-    <p className="text-[12px] leading-[18px]" style={{color:'var(--rose-700)'}}>Because no girl should miss school because of her period.</p>
-      </header>
+      {/* Top framed card: title, video and intro narrative */}
+  <section className="max-w-5xl mx-auto rounded-xl border border-base bg-white p-6 sm:p-8 mb-8">
+        <header className="space-y-3 mb-5">
+          <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">Transform menstrual health education</h1>
+          <p className="text-[15px] leading-[22px] text-secondary">We break taboos, educate communities and provide sustainable, reusable solutions so every girl can manage her period with dignity.</p>
+        </header>
 
-      {/* Inline video just after the header tagline (no visible title) */}
-      <section className="mb-8 max-w-4xl mx-auto">
-  <div className="w-full max-w-xl rounded-xl border border-base overflow-hidden bg-[var(--color-surface)]">
-          <div className="relative w-full" style={{paddingTop:'56.25%'}}>
-            <video
-              className="absolute inset-0 w-full h-full object-cover"
-              controls
-              preload="metadata"
-              poster="/photos/uploads/founder-video-thumb.jpg"
-              aria-label="Organization overview video"
-            >
-              <source src="/videos/video5985359414595426492.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+        {/* Inline video (kept compact, left-aligned on large via intrinsic width) */}
+        <div className="mb-3">
+          <div className="w-full rounded-xl border border-base overflow-hidden bg-[var(--color-surface)]">
+            <div className="relative w-full h-[220px] sm:h-[280px] md:h-[360px] lg:h-[420px]">
+              <video
+                className="absolute inset-0 w-full h-full object-cover"
+                controls
+                muted
+                playsInline
+                preload="metadata"
+                poster="/photos/uploads/founder-video-thumb.jpg"
+                aria-label="Organization overview video"
+              >
+                <source src="/videos/video5985359414595426492.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>
           </div>
+          <p className="mt-2 text-[13px] leading-[19px] text-secondary">Short clip from a school distribution session, illustrating the energy in the room when girls receive their kits and guidance.</p>
+          <p className="mt-3 text-[16px] leading-[22px] font-semibold text-[var(--slate-900)]">Because no girl should miss school because of her period.</p>
         </div>
-  <p className="mt-2 text-[12px] leading-[18px] text-secondary">Short clip from a school distribution session, illustrating the energy in the room when girls receive their kits and guidance.</p>
+
+        {/* Intro narrative paragraphs */}
+        <div className="space-y-4 text-[14px] leading-[22px] text-primary">
+          <p>Across Burundi and the wider East Africa region, too many learners still miss lessons during menstruation— not for lack of motivation, but because of cost, silence, inadequate WASH facilities and limited guidance. Repeated absence chips away at confidence and learning continuity.</p>
+          <p>Period poverty narrows futures: early absenteeism can become early dropout, reducing lifetime income and community resilience. When classrooms lose the consistent presence of girls, communities lose leadership, creativity and stability.</p>
+          <p>Practical innovation already works: long‑lasting reusable kits, biodegradable fiber pads that create local jobs, and micro‑production enabling women to supply affordable products. These culturally attentive, low‑cost solutions keep girls learning.</p>
+          <p>We call this dignity engineering — applying empathy, feasibility and local intelligence to remove basic health barriers so education remains uninterrupted.</p>
+        </div>
       </section>
 
-  <article className="max-w-4xl mx-auto">
-        {/* Narrative */}
-        <div className="space-y-4 text-[13px] leading-[20px] text-primary text-justify">
-      <p>Across Burundi and the wider East Africa region, too many learners still miss lessons during menstruation— not for lack of motivation, but because of cost, silence, inadequate WASH facilities and limited guidance. Repeated absence chips away at confidence and learning continuity.</p>
-      <p>Period poverty narrows futures: early absenteeism can become early dropout, reducing lifetime income and community resilience. When classrooms lose the consistent presence of girls, communities lose leadership, creativity and stability.</p>
-      <p>Practical innovation already works: long‑lasting reusable kits, biodegradable fiber pads that create local jobs, and micro‑production enabling women to supply affordable products. These culturally attentive, low‑cost solutions keep girls learning.</p>
-      <p>We call this dignity engineering — applying empathy, feasibility and local intelligence to remove basic health barriers so education remains uninterrupted.</p>
-        </div>
+  <article className="max-w-5xl mx-auto">
 
         {/* Founder Statement */}
   <section className="mt-10 rounded-xl border border-base bg-white p-6 flex flex-col sm:flex-row gap-6 items-start">
@@ -50,7 +55,7 @@ const AboutPage: React.FC = () => {
               loading="lazy"
             />
           </div>
-          <div className="space-y-3 text-[13px] leading-[20px] text-primary text-justify">
+          <div className="space-y-3 text-[14px] leading-[22px] text-primary">
             <h2 className="text-[18px] leading-[24px] font-semibold text-primary m-0">Founder’s note</h2>
             <p>I began listening to girls in Bujumbura in 2023. The pattern was simple and painful: curiosity and ambition blocked by a pad that was never there. A basic supply determining academic confidence felt unacceptable.</p>
             <p>Our approach now is to prototype small, evidence‑light solutions, share data, and widen partnerships— always centering the student experience. Biology should not decide who sits in a classroom.</p>
@@ -58,22 +63,23 @@ const AboutPage: React.FC = () => {
           </div>
         </section>
 
-        
+        {/* Focus / Why / How framed card */}
+        <section className="mt-8 rounded-xl border border-base bg-white p-6 sm:p-8">
+          <h2 className="mb-3 text-[18px] leading-[24px] font-semibold text-primary">What we focus on</h2>
+          <ul className="list-disc pl-5 space-y-1 text-[14px] leading-[22px] text-primary">
+            <li>Education: clear, stigma‑free menstrual health learning.</li>
+            <li>Access: sustainable, reusable kits & locally sourced materials.</li>
+            <li>Facilities (WASH): privacy, water & handwashing that match real school contexts.</li>
+            <li>Local capacity: co‑building with cooperatives, teachers & health workers.</li>
+            <li>Transparency: open costs, impact metrics and shared lessons.</li>
+          </ul>
 
-        <h2 className="mt-8 mb-3 text-[18px] leading-[24px] font-semibold text-primary">What we focus on</h2>
-        <ul className="list-disc pl-5 space-y-1 text-[13px] leading-[20px] text-primary">
-          <li>Education: clear, stigma‑free menstrual health learning.</li>
-          <li>Access: sustainable, reusable kits & locally sourced materials.</li>
-          <li>Facilities (WASH): privacy, water & handwashing that match real school contexts.</li>
-          <li>Local capacity: co‑building with cooperatives, teachers & health workers.</li>
-          <li>Transparency: open costs, impact metrics and shared lessons.</li>
-        </ul>
+          <h2 className="mt-8 mb-3 text-[18px] leading-[24px] font-semibold text-primary">Why it matters</h2>
+          <p className="text-[14px] leading-[22px] text-primary">Education delays early marriage, improves health and multiplies community resilience. A pad is not the whole answer—but without one, too many futures shrink.</p>
 
-        <h2 className="mt-8 mb-3 text-[18px] leading-[24px] font-semibold text-primary">Why it matters</h2>
-        <p className="text-[13px] leading-[20px] text-primary">Education delays early marriage, improves health and multiplies community resilience. A pad is not the whole answer—but without one, too many futures shrink.</p>
-
-        <h2 className="mt-8 mb-3 text-[18px] leading-[24px] font-semibold text-primary">How we work</h2>
-        <p className="text-[13px] leading-[20px] text-primary text-justify">We listen first, co‑design with schools and cooperatives, document early, publish openly and iterate. The goal is replicable, low‑friction menstrual health support that any motivated local team can adapt.</p>
+          <h2 className="mt-8 mb-3 text-[18px] leading-[24px] font-semibold text-primary">How we work</h2>
+          <p className="text-[14px] leading-[22px] text-primary">We listen first, co‑design with schools and cooperatives, document early, publish openly and iterate. The goal is replicable, low‑friction menstrual health support that any motivated local team can adapt.</p>
+        </section>
 
         {/* Team */}
         {/* Uses static assets from /public/photos/Team (001.png, 002.png, 16.png) */}
@@ -90,8 +96,8 @@ const AboutPage: React.FC = () => {
                   <img src={m.img} alt={m.alt} className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div>
-                  <h3 className="text-[13px] font-semibold text-primary leading-[18px] m-0">{m.title}</h3>
-                  <p className="text-[12px] leading-[18px] text-secondary m-0">{m.body}</p>
+                  <h3 className="text-[14px] font-semibold text-primary leading-[20px] m-0">{m.title}</h3>
+                  <p className="text-[13px] leading-[19px] text-secondary m-0">{m.body}</p>
                 </div>
               </div>
             ))}
@@ -113,8 +119,8 @@ const AboutPage: React.FC = () => {
                   <img src={m.img} alt={m.alt} className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <div>
-                  <h3 className="text-[13px] font-semibold text-primary leading-[18px] m-0">{m.title}</h3>
-                  <p className="text-[12px] leading-[18px] text-secondary m-0">{m.body}</p>
+                  <h3 className="text-[14px] font-semibold text-primary leading-[20px] m-0">{m.title}</h3>
+                  <p className="text-[13px] leading-[19px] text-secondary m-0">{m.body}</p>
                 </div>
               </div>
             ))}
