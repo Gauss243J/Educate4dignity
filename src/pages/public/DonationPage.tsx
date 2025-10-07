@@ -72,9 +72,14 @@ const DonationPage: React.FC = () => {
   };
 
   const [loading, setLoading] = useState(false);
+  const [showDev, setShowDev] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleDonation = async () => {
+    // Temporary: show under development popup
+    setShowDev(true);
+    return;
+    // --- Existing Stripe checkout flow retained below for future enablement ---
     const amount = getFinalAmount();
     if (amount <= 0) {
       alert('Please select or enter a valid donation amount');
@@ -84,7 +89,7 @@ const DonationPage: React.FC = () => {
     setError(null);
     try {
       // Fallback: if a test checkout URL is provided (no backend yet), just redirect there.
-      const testUrl = import.meta.env.VITE_STRIPE_CHECKOUT_TEST_URL as string | undefined;
+  const testUrl = import.meta.env.VITE_STRIPE_CHECKOUT_TEST_URL as string | undefined;
       if (testUrl) {
         // Demo mode: record a local donor + donation to feed Admin Donors.
         const name = donorInfo.anonymous ? 'Anonyme' : `${donorInfo.firstName} ${donorInfo.lastName}`.trim() || 'Supporter';
@@ -93,7 +98,7 @@ const DonationPage: React.FC = () => {
         const date = new Date().toISOString();
         donorStore.addDonation({ id, donorId, projectId: selectedProject==='general' ? 'GEN' : selectedProject, projectTitle: selectedProject==='general'? 'Fonds général' : projects.find(p=> p.id===selectedProject)?.name, amount, currency: 'USD', method: 'card', status:'succeeded', date });
         trackEvent({ name: 'donation_test_recorded', properties: { amount, donorId, anonymous: donorInfo.anonymous } });
-        window.location.href = testUrl;
+        window.location.href = testUrl as string;
         return;
       }
       trackEvent({ name: 'donation_initiated', properties: { amount, donationType, project: selectedProject } });
@@ -116,7 +121,7 @@ const DonationPage: React.FC = () => {
       if (!stripePk) {
         throw new Error('Missing Stripe publishable key (VITE_STRIPE_PUBLISHABLE_KEY)');
       }
-      const stripe = await loadStripe(stripePk);
+      const stripe = await loadStripe(stripePk as string);
       if (!stripe) throw new Error('Stripe failed to initialize');
       // Prefer redirectToCheckout with session id
   // Type note: Some Stripe type versions may not surface redirectToCheckout; cast as any to avoid TS mismatch.
@@ -404,6 +409,17 @@ const DonationPage: React.FC = () => {
             </CardContent>
           </Card>
         </div>
+
+        {showDev && (
+          <div role="dialog" aria-modal="true" className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/50" onClick={()=> setShowDev(false)} />
+            <div className="relative z-10 w-full max-w-sm rounded-xl border border-base bg-white p-6 text-center shadow-xl">
+              <h3 className="text-[16px] font-semibold text-primary mb-2">Notice</h3>
+              <p className="text-[13px] text-secondary mb-4">It is under development.</p>
+              <button autoFocus onClick={()=> setShowDev(false)} className="px-4 h-9 rounded-full border border-base bg-[var(--color-primary-light)] text-[13px]">Close</button>
+            </div>
+          </div>
+        )}
 
         {/* Other Ways to Help */}
         <div className="mt-12">

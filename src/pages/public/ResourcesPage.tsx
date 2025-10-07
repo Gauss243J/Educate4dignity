@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import PublicPageShell from '../../components/layout/PublicPageShell';
 import { listResources, formatSize, mockResources } from '../../data/resources';
 import { ResourceCategory, ResourceLanguage } from '../../types/resources';
-import { Link } from 'react-router-dom';
 import { Search, Download } from 'lucide-react';
 
 const categoryLabels: Record<string,string> = { report:'Report', audit:'Audit', policy:'Policy', template:'Template', data:'Data', guide:'Guide' };
@@ -22,6 +22,12 @@ const ResourcesPage: React.FC = () => {
   const [page,setPage] = useState(1);
   const [pageSize,setPageSize] = useState(6);
   const [showTags,setShowTags] = useState(false);
+  const [showDev,setShowDev] = useState(false);
+
+  function handleUnderDevelopment(e?: React.MouseEvent) {
+    if (e) e.preventDefault();
+    setShowDev(true);
+  }
 
   useEffect(()=> { setPage(1); },[q,type,year,lang,tags,sort]);
   const data = useMemo(()=> listResources({ q, type, year, lang, tags, sort, page, pageSize }),[q,type,year,lang,tags,sort,page,pageSize]);
@@ -109,13 +115,25 @@ const ResourcesPage: React.FC = () => {
                 </div>
                 <div className="mt-2 text-[11px] leading-[18px] text-secondary">{categoryLabels[r.category]} · {r.year} · {r.language} · {r.file_type} · {formatSize(r.file_size_bytes)}</div>
                 <div className="mt-auto pt-3 flex gap-2 justify-end">
-                  <Link aria-label={`${t('resources.view','View')} ${r.title}`} to={`/resources/${r.slug}`} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">View</Link>
-                  <button aria-label={`${t('resources.download','Download')} ${r.title}`} onClick={()=> console.log('resource_download',{slug:r.slug})} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium flex items-center gap-1 hover:bg-[var(--color-primary-light)]"><Download className="w-4 h-4"/>DL</button>
+                  <Link aria-label={`${t('resources.view','View')} ${r.title}`} to={`/resources/${r.slug}`} onClick={handleUnderDevelopment} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">View</Link>
+                  <button aria-label={`${t('resources.download','Download')} ${r.title}`} onClick={handleUnderDevelopment} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium flex items-center gap-1 hover:bg-[var(--color-primary-light)]"><Download className="w-4 h-4"/>DL</button>
                 </div>
               </article>
             ))}
           </div>
         </section>
+
+      {/* Under development popup */}
+      {showDev && (
+        <div role="dialog" aria-modal="true" className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/50" onClick={()=> setShowDev(false)} />
+          <div className="relative z-10 w-full max-w-sm rounded-xl border border-base bg-white p-6 text-center shadow-xl">
+            <h3 className="text-[16px] font-semibold text-primary mb-2">Notice</h3>
+            <p className="text-[13px] text-secondary mb-4">It is under development.</p>
+            <button autoFocus onClick={()=> setShowDev(false)} className="px-4 h-9 rounded-full border border-base bg-[var(--color-primary-light)] text-[13px]">Close</button>
+          </div>
+        </div>
+      )}
 
         {/* Pagination (always visible when there is data, even if only one page) */}
         {data.total>0 && (
@@ -139,7 +157,7 @@ const ResourcesPage: React.FC = () => {
         <section className="pt-10">
           <div className="rounded-xl border border-base bg-white p-6 space-y-4 text-center">
             <h2 className="text-[18px] leading-[24px] font-semibold text-primary">Help expand open resources & transparency.</h2>
-            <a href="/donate" className="btn-donate inline-flex justify-center">Donate</a>
+            <Link to="/donate" className="btn-donate inline-flex justify-center">Donate</Link>
           </div>
         </section>
     </PublicPageShell>

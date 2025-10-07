@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import PublicPageShell from '../../components/layout/PublicPageShell';
 import { Activity, Lightbulb, FlaskConical, BookOpen, Search } from 'lucide-react';
 import { imageForIndex, courseImageAlt } from '../../data/imagePools';
@@ -20,22 +20,14 @@ const BlogPage: React.FC = () => {
 
   // All narrative & side panels removed for simplified layout
 
+  // Mapping of landing story images by slug for continuity in grid thumbnails
+  const landingImageBySlug = useMemo(() => ({
+    'from-absenteeism-to-attendance': '/photos/Dossier/Generated Image October 02, 2025 - 9_15AM.png',
+    'training-day-mhm-basics': '/photos/Dossier/Generated Image October 02, 2025 - 8_39AM.png',
+    'coops-women-led-production': '/photos/Dossier/Generated Image October 02, 2025 - 8_50AM (1).png'
+  } as Record<string,string>),[]);
+
   const basePostData = [
-    {
-      id: '1',
-      slug: 'from-absenteeism-to-attendance-gitega',
-      title: 'From absenteeism to attendance: what changed with reusable kits',
-      excerpt: 'How our water initiatives have impacted over 10,000 lives across rural communities.',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      author: 'Sarah Johnson',
-      authorRole: 'Program Director',
-      publishDate: '2024-12-15',
-      readTime: '5 min read',
-      category: 'impact',
-      tags: ['water', 'impact', 'communities'],
-      image: '/api/placeholder/400/250',
-      featured: true
-    },
     {
       id: '2',
       slug: 'why-dignity-engineering-matters',
@@ -48,21 +40,6 @@ const BlogPage: React.FC = () => {
       readTime: '7 min read',
       category: 'insights',
       tags: ['education', 'technology', 'digital'],
-      image: '/api/placeholder/400/250',
-      featured: false
-    },
-    {
-      id: '3',
-      slug: 'tracking-beneficiary-offline',
-      title: 'How we track lot → beneficiary in offline settings',
-      excerpt: 'Comprehensive overview of our fourth quarter achievements and impact metrics.',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      author: 'Emma Rodriguez',
-      authorRole: 'Operations Manager',
-      publishDate: '2024-12-08',
-      readTime: '4 min read',
-      category: 'updates',
-      tags: ['progress', 'milestones', 'quarterly'],
       image: '/api/placeholder/400/250',
       featured: false
     },
@@ -82,21 +59,6 @@ const BlogPage: React.FC = () => {
       featured: false
     },
     {
-      id: '5',
-      slug: 'what-counts-as-proof',
-      title: 'What counts as proof? Photos, receipts, attestations',
-      excerpt: 'Inspiring stories from beneficiaries and local partners working on the ground.',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit...',
-      author: 'Maria Santos',
-      authorRole: 'Community Coordinator',
-      publishDate: '2024-12-01',
-      readTime: '6 min read',
-      category: 'impact',
-      tags: ['community', 'stories', 'voices'],
-      image: '/api/placeholder/400/250',
-      featured: true
-    },
-    {
       id: '6',
       slug: 'training-day-mhm-basics',
       title: 'Training day: MHM basics that stick',
@@ -114,22 +76,9 @@ const BlogPage: React.FC = () => {
   ];
 
   // Replace water post titles later to align with menstrual health theme if desired.
-  // Prefer admin-managed posts if any exist; fallback to base mock
+  // Merge admin-managed posts with static articles (union by slug, admin overrides)
   const adminPosts = blogStore.list().filter(r=> r.status==='published');
-  const blogPosts = adminPosts.length ? adminPosts.map((r,i)=> ({
-    id: String(i+1),
-    slug: r.slug,
-    title: r.title,
-    excerpt: r.excerpt || '',
-    author: r.author_name || 'E4D',
-    authorRole: '',
-    publishDate: r.published_at,
-    readTime: `${r.read_minutes||5} min read`,
-    category: r.category,
-    tags: r.tags || [],
-    image: '',
-    featured: false
-  })) : (blogArticles && blogArticles.length ? blogArticles.map((a,idx)=> ({
+  const staticRows = (blogArticles && blogArticles.length ? blogArticles.map((a,idx)=> ({
     id: String(idx+1),
     slug: a.slug,
     title: a.title,
@@ -143,6 +92,28 @@ const BlogPage: React.FC = () => {
     image: a.cover_image_url || '',
     featured: false
   })) : basePostData);
+  const bySlug = new Map(staticRows.map(r=> [r.slug, r] as const));
+  if (adminPosts.length) {
+    adminPosts.forEach((r, i)=> {
+      const existing = bySlug.get(r.slug);
+      const merged = {
+        id: existing?.id || `adm-${i+1}`,
+        slug: r.slug,
+        title: r.title || existing?.title || r.slug,
+        excerpt: r.excerpt || existing?.excerpt || '',
+        author: r.author_name || existing?.author || 'E4D',
+        authorRole: existing?.authorRole || '',
+        publishDate: r.published_at || existing?.publishDate || new Date().toISOString(),
+        readTime: `${r.read_minutes || (existing?.readTime? Number((existing.readTime||'').split(' ')[0]) : 5)} min read`,
+        category: r.category || existing?.category || 'impact',
+        tags: r.tags || existing?.tags || [],
+        image: existing?.image || '', // prefer curated static cover for consistency
+        featured: existing?.featured || false
+      };
+      bySlug.set(r.slug, merged);
+    });
+  }
+  const blogPosts = Array.from(bySlug.values());
 
   const categoryMeta: Record<string, { name: string; icon: React.ReactNode }> = {
     impact: { name: 'Impact Stories', icon: <Activity className="w-4 h-4" /> },
@@ -175,6 +146,8 @@ const BlogPage: React.FC = () => {
 
   // Prefer each article's own cover image for the list thumbnail.
   function getCoverFor(slug: string, idx: number): string {
+    // First, if this slug matches one of the landing stories, use that exact image for visual continuity
+    if (landingImageBySlug[slug]) return landingImageBySlug[slug];
     const fromStatic = blogArticles.find(a=> a.slug===slug)?.cover_image_url || '';
     if (fromStatic) return fromStatic;
     const fromStore = blogStore.get(slug)?.cover_image_url || '';
@@ -191,6 +164,8 @@ const BlogPage: React.FC = () => {
         <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">Blog</h1>
         <p className="text-[14px] leading-[20px] text-secondary">Field notes, impact updates & research logs.</p>
       </header>
+
+      {/* Stories section removed per request */}
 
       {/* Toolbar */}
       <section className="sticky top-[84px] z-30 mb-10">
@@ -263,7 +238,7 @@ const BlogPage: React.FC = () => {
                     <h3 className="mt-2 text-[15px] leading-[20px] font-semibold text-primary line-clamp-3">{post.title}</h3>
                     <div className="mt-1 text-[11px] text-secondary">{new Date(post.publishDate).toLocaleDateString(undefined,{month:'short', year:'numeric'})} • {post.readTime}</div>
                     <div className="mt-3 flex justify-end">
-                      <button onClick={()=>navigate(`/blog/${post.slug}`)} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">Read →</button>
+                      <button onClick={()=>navigate(`/blog/${post.slug}`, { state: { coverOverride: getCoverFor(post.slug, idx) } })} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">Read →</button>
                     </div>
                   </div>
                 </article>
@@ -291,7 +266,7 @@ const BlogPage: React.FC = () => {
       <section className="pt-10">
         <div className="rounded-xl border border-base bg-white p-6 space-y-4 text-center">
           <h2 className="text-[18px] leading-[24px] font-semibold text-primary">Support field innovation & menstrual dignity education.</h2>
-          <a href="/donate" className="btn-donate inline-flex justify-center">Donate</a>
+          <Link to="/donate" className="btn-donate inline-flex justify-center">Donate</Link>
         </div>
       </section>
     </PublicPageShell>

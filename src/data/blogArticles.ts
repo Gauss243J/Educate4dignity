@@ -4,7 +4,7 @@ import { BlogArticle } from '../types/blog';
 export const blogArticles: BlogArticle[] = [
   // Matches admin store seed slug: from-absenteeism-to-attendance
   {
-    title: 'From absenteeism to attendance: reusable kits at work',
+  title: 'From absenteeism to attendance: reusable kits at school',
     slug: 'from-absenteeism-to-attendance',
     category: 'impact',
     tags: ['MHM','Attendance','Case study'],
@@ -15,304 +15,203 @@ export const blogArticles: BlogArticle[] = [
       avatar_url: '',
       bio: 'We partner with local schools and women-led cooperatives to deliver MHM training and reusable kits.'
     },
-  cover_image_url: '/photos/course/variete-de-l-hygiene-menstruelle-feminine-vue-de-dessus.jpg',
+  cover_image_url: '/photos/Dossier/Generated Image October 02, 2025 - 9_15AM.png',
     cover_consent_verified: true,
-    published_at: '2025-05-12',
+  published_at: '2024-10-15',
     read_minutes: 6,
-    excerpt: 'What changes when girls receive practical MHM education and a reusable kit they can trust.',
-  body_md: `## Context
-In many schools, girls miss lessons due to pain, stigma, or lack of safe materials. Practical menstrual hygiene management (MHM) education and access to reliable materials can help reduce absenteeism and improve comfort and confidence.
+    excerpt: 'Amina’s story: a simple reusable kit, practical training, and the missed days stopped.',
+  body_md: `In many rural parts of Africa, hardship shows up in the small details of daily life. Water is sometimes far away, school latrines lack privacy, and a family budget can’t always cover disposable pads. In Burundi, one pad often costs the equivalent of a meal. When market prices rise, priorities shift and girls stay home during their periods.
 
-### Our approach
-We ran short, age-appropriate sessions covering hygiene, safe use, washing, and drying. Each learner received a reusable kit and a breathable storage bag. Teachers and caregivers were involved to reinforce key practices.
+Amina used to miss the first week of every month. She feared stains on her uniform, teasing, and failed quizzes. With each absence, she drifted further to the back of the classroom. Her world was shrinking with the calendar.
 
-> "I didn't have to go home this time. I knew what to do." — Student participant
+The day the school handed out a reusable kit, everything changed. Several washable pads, a breathable pouch, a simple guide for discreet washing and drying. A teacher led a hands‑on session. They talked about hygiene, pain, and planning. Myths gave way to clear, practical steps.
 
-## What changed
-- Fewer reported early departures during menstruation
-- Better preparedness (spare pad packed, washing plan at home)
-- Peer-to-peer support and myth-busting within classes
+The following month, Amina was in class all week. She raised her hand, rejoined the science club, and went home proud of her grades. The kit eased the family budget, reduced waste, and gave learning time back. It’s a small solution that fits the local reality.
 
-![Training session](/photos/Project/92038f75-aeef-42a1-a6f0-a4a014771f14.png "Training session — consent verified")
-
-## Outcomes and notes
-Short-term monitoring suggests improved attendance and comfort in the weeks after training. Longer-term tracking will refine these findings with school registers and anonymized follow-ups.
-
-### What beneficiaries told us
-- “I wasn’t worried, I packed a spare and stayed in class.”
-- “Washing steps were clear; my caregiver helps at home.”
-
-### What schools changed
-- Teachers use 5-minute refreshers weekly
-- Girls can access water and soap near classrooms
-- A private corner for changing is signposted
-
-## References
-- WHO/UNICEF. Menstrual health and hygiene in schools — overview: https://www.who.int/health-topics/menstruation
-- UNICEF. Guidance for MHH in education settings: https://www.unicef.org/wash/menstrual-hygiene-management
+**$25 keeps a girl in school all year.** Your gift funds a durable kit, an education session, and simple follow‑up. You turn a lost week into filled pages, and you support local jobs for the seamstresses who make these kits.
 `,
     callout_transparency: 'Photos are illustrative. Attendance insights are aggregated; we do not publish personally identifiable data.',
     related: [
       { title: 'Training day: MHM basics that stick', slug: 'training-day-mhm-basics' },
-      { title: 'Mobile money receipts for kits', slug: 'mobile-money-receipts-kits' }
+      { title: '“No more stigma. Just dignity.”', slug: 'coops-women-led-production' }
     ],
     seo_title: 'From absenteeism to attendance — impact notes',
     seo_description: 'Practical MHM training and reusable kits can reduce missed lessons and improve comfort.'
   },
 
-  // Matches admin store seed slug: mobile-money-receipts-kits
-  {
-    title: 'Mobile money receipts for dignity kits: a simple flow',
-    slug: 'mobile-money-receipts-kits',
-    category: 'howto',
-    tags: ['Payments','Transparency','How‑to'],
-    author: {
-      id: 'e4d-ops',
-      name: 'E4D Operations',
-      role: 'Field Ops',
-      avatar_url: ''
-    },
-  cover_image_url: '/photos/Dossier/1.png',
-    cover_consent_verified: true,
-    published_at: '2025-04-22',
-    read_minutes: 5,
-    excerpt: 'How to request, collect, and reconcile proofs of payment without adding friction for partners.',
-  body_md: `## Why mobile receipts?
-In places where banking is limited, mobile money is common for reimbursements. Clear steps reduce errors and make later audits painless.
-
-## The five-step flow
-1. Share a one-page guide (what to keep, how to capture screenshots)
-2. Send payment with a short, consistent memo (e.g., "KIT-INV-2025-04-22")
-3. Beneficiary sends a receipt screenshot or SMS export
-4. Store in a dated folder; rename \`<memo>-<amount>-<recipient>.png\`
-5. Reconcile weekly: CSV export + folder check
-
-## Risks & mitigations
-- Number mismatch → verify on first transfer with a small test amount
-- Blurry screenshots → provide an example and acceptable alternatives (USSD text)
-- Privacy → redact phone numbers before publishing any proof
-
-## Templates
-- Simple receipt checklist (PDF)
-- Reconciliation sheet (CSV) — columns: date, memo, amount, payer, recipient, proof link
-
-### Field-tested tips
-- Ask partners to capture the screen immediately after payment confirmation
-- For USSD: show how to export the text message
-- Keep memos short and consistent (e.g., KIT-<date>-<seq>)
-
-## References
-- GSMA. Mobile money principles: https://www.gsma.com/mobilefordevelopment/mobile-money/
-`,
-    callout_transparency: 'Only aggregate amounts and redacted proofs are made public. Phone numbers and IDs are never published.',
-    related: [
-      { title: 'Traceability in practice', slug: 'tracking-beneficiary-offline' },
-      { title: 'From absenteeism to attendance', slug: 'from-absenteeism-to-attendance' }
-    ],
-    seo_title: 'Mobile money receipts — simple, auditable flows',
-    seo_description: 'Request, collect, and reconcile payment proofs while protecting privacy.'
-  },
-
-  // Keep the original Gitega case study (new slug kept as-is for direct navigation if linked elsewhere)
-  {
-    title: 'From absenteeism to attendance: what changed in Gitega',
-    slug: 'from-absenteeism-to-attendance-gitega',
-    category: 'impact',
-    tags: ['MHM','Transparency','Gitega'],
-    author: {
-      id: 'sacode-team',
-      name: 'SaCoDé Team',
-      role: 'Training & Field',
-      avatar_url: '',
-      bio: 'Women-led cooperative delivering training and distribution across Burundi.'
-    },
-  cover_image_url: '/photos/jeune-adulte-deprime-a-la-maison.jpg',
-    cover_consent_verified: true,
-    published_at: '2025-05-12',
-    read_minutes: 6,
-    excerpt: 'After kit distribution and MHM sessions, attendance among senior girls rose measurably…',
-    body_md: `## Context
-Girls in Gitega missed classes due to limited materials, stigma, and pain management challenges. The program combined short, practical lessons with access to reusable kits.
-
-## What changed
-- Reported preparedness improved (spare pad packed, washing plan)
-- Teachers integrated short refreshers on handwashing and drying
-- Peer support groups formed to counter myths
-
-## Outcomes
-Early monitoring shows fewer absences in weeks following sessions. We will continue to triangulate school registers and learner check-ins.
-
-## References
-- UNESCO. Menstrual health in schools: https://www.unesco.org/en/education
-`,
-    callout_transparency: 'Public dashboards show planned vs. collected vs. spent, with anonymized proofs and monthly updates.',
-    related: [
-      { title: 'Co-ops at the center: women-led production', slug: 'coops-women-led-production' },
-      { title: 'What counts as proof?', slug: 'what-counts-as-proof' }
-    ],
-    seo_title: 'Attendance improved in Gitega — Case Study',
-    seo_description: 'How locally-made kits and MHM sessions increased attendance while keeping transparency simple.'
-  },
 
   // New posts (public, original content)
   {
-    title: 'What counts as proof? Photos, receipts, attestations',
-    slug: 'what-counts-as-proof',
-    category: 'howto',
-    tags: ['Transparency','Evidence','Receipts'],
+    title: '“No more stigma. Just dignity.”',
+    slug: 'coops-women-led-production',
+    category: 'impact',
+    tags: ['MHM','Displacement','Hygiene corner'],
     author: {
-      id: 'e4d-ops',
-      name: 'E4D Operations',
-      role: 'Monitoring & Transparency',
-      avatar_url: ''
+      id: 'esperance',
+      name: 'Esperance',
+      role: 'Student (DRC)'
     },
-  cover_image_url: '/photos/tir-isole-de-l-heureuse-jeune-femme-afro-tient-un-tampon-de-coton-menstuation-et-une-serviette-hygienique.jpg',
+  cover_image_url: '/photos/Dossier/Generated Image October 02, 2025 - 8_50AM (1).png',
     cover_consent_verified: true,
-    published_at: '2025-05-05',
+  published_at: '2024-04-12',
     read_minutes: 6,
-    excerpt: 'A practical checklist for collecting and publishing evidence without exposing personal data.',
-    body_md: `## The goal
-Transparency builds trust, but not all documents should be posted publicly. Our approach: collect robust proofs privately; publish redacted, aggregated evidence.
+  excerpt: 'In a displacement site near Goma, a simple hygiene corner and a reusable kit brought school and dignity back.',
+    body_md: `On the outskirts of Goma, Esperance lives in a displacement site where water arrives in rotations and latrines are shared. When her period starts, she often stays under the tent. She fears leaks, smell, and teasing. The school is close, but dignity feels far away.
 
-### Proof types we accept
-- Photos from sessions (with consent)
-- Receipts and mobile money confirmations (redacted)
-- Attestations from school leads or partners (dated + contact)
+One morning, a mobile team sets up a small “hygiene corner” at the school. A bucket with a tap, soap, a line for discreet drying, and above all a reusable kit with a breathable pouch. The session is short and practical. They show how to use, wash, and dry everything discreetly. They also talk about cramps and intimate hygiene without judgment.
 
-## Redaction & consent
-Remove phone numbers, ID codes and faces without consent. Use a consistent watermark for published versions and store originals securely.
+The administration reserves a discreet locker and a sign-in log so students can access the hygiene corner without drawing attention. Two peer mentors explain cycle tracking and a few simple ways to manage pain. On Saturdays, a short Swahili radio segment recaps the guidance for those who missed the session.
 
-## Publishing rhythm
-Post aggregated dashboards monthly: planned vs. delivered, spend vs. budget, and links to selected proofs. Keep a changelog of corrections.
+By the next month, Esperance is back in class all week. She sits closer to the board, joins the debate club, and no longer avoids group work. At home, the household budget eases, there’s less waste, and more peace of mind. She smiles and sums it up in one line: no more shame, just dignity.
 
-## References
-- Open data principles (adapted for safeguarding): https://opendatacharter.net/
-- UNICEF. Digital safeguarding tips: https://www.unicef.org/` ,
-    callout_transparency: 'Personally identifiable information is removed before publication. Originals remain in restricted storage for audits.',
+Help provide reusable kits, set up a hygiene corner, and deliver education sessions. Each action protects a girl’s schooling in fragile settings and strengthens her knowledge and confidence month after month.
+`,
+    callout_transparency: 'Context and names adapted for privacy; photos illustrative with consent where shown.',
     related: [
-      { title: 'Mobile money receipts for dignity kits', slug: 'mobile-money-receipts-kits' },
-      { title: 'Traceability in practice (offline)', slug: 'tracking-beneficiary-offline' }
+      { title: 'From absenteeism to attendance', slug: 'from-absenteeism-to-attendance' },
+      { title: 'Training day: MHM basics that stick', slug: 'training-day-mhm-basics' }
     ],
-    seo_title: 'Proof for transparency — how we publish safely',
-    seo_description: 'Collect evidence, redact safely, and publish aggregates that build trust without harming privacy.'
+    seo_title: 'Dignity restored in a displacement setting — Esperance’s story',
+    seo_description: 'A hygiene corner, clear guidance, and a reusable kit helped Esperance return to class with confidence.'
   },
   {
-    title: 'Traceability in practice: lot → beneficiary in offline settings',
-    slug: 'tracking-beneficiary-offline',
-    category: 'insights',
-    tags: ['Traceability','Offline','Operations'],
+    title: '“My daughter now has confidence.”',
+    slug: 'training-day-mhm-basics',
+    category: 'impact',
+    tags: ['Confidence','Parent voice','MHM'],
+    author: {
+      id: 'grace-parent',
+      name: 'Grace',
+      role: 'Parent (Rwanda)'
+    },
+  cover_image_url: '/photos/Dossier/Generated Image October 02, 2025 - 8_39AM.png',
+    cover_consent_verified: true,
+  published_at: '2023-11-05',
+    read_minutes: 6,
+  excerpt: 'A mother’s perspective on how a reusable kit and teacher talks restored confidence at home and at school.',
+    body_md: `Grace remembers her daughter speaking in a low voice about her period. She avoided sports, asked to go home early, and feared leaks. In the evening, the mother felt powerless. She watched shyness take over and the desire to learn fade.
+
+The reusable kit changed their routine. During a teacher-led session, a nurse explained how to use, wash, and dry everything safely. They covered pain management, how often to change, and how to plan the cycle. Understanding replaced fear.
+
+At home, the pouch now hangs on a discreet hook. Washing fits into the family routine without embarrassment. At school, the girl sits in the front row, takes part in activities, and is back on the sports field. Her look has changed, her back is straight.
+
+Around them, the ripple effect is clear. Neighbors ask questions, classmates share tips, and the teacher reinforces a message of respect. The kit costs less over time and avoids extra waste. Confidence, savings, and the environment advance together.
+
+Your gift funds reusable kits and teacher talks. Give today. Help a mother see her daughter walk with her head held high and stay fully engaged in her studies.
+`,
+    callout_transparency: 'Photos illustrative; quotes paraphrased with consent when applicable.',
+    related: [
+      { title: 'From absenteeism to attendance', slug: 'from-absenteeism-to-attendance' },
+      { title: '“No more stigma. Just dignity.”', slug: 'coops-women-led-production' }
+    ],
+    seo_title: 'Parent voice — confidence returns with clear steps',
+    seo_description: 'A mother’s story: training and a reusable kit turned fear into confidence at home and in class.'
+  }
+  ,
+  {
+    title: 'Local production of reusable kits',
+    slug: 'local-production-reusable-kits',
+    category: 'impact',
+    tags: ['MHM','Kits','Production','Burundi','SaCoDé'],
     author: {
       id: 'e4d-ops',
       name: 'E4D Field Team',
-      role: 'Distribution & Records',
-      avatar_url: ''
+      role: 'Training & Distribution'
     },
-  cover_image_url: '/photos/photo-d-une-femme-afro-americaine-ravie-tient-un-tampon-et-une-serviette-hygienique-vetue-d-un-t-shirt-blanc-isole-sur-un-mur-rose-femmes-pms.jpg',
+    cover_image_url: '/photos/history/JessB2.jpg',
     cover_consent_verified: true,
-    published_at: '2025-05-02',
-    read_minutes: 7,
-    excerpt: 'How we map kit lots to recipients when connectivity is unreliable.',
-    body_md: `## Why traceability matters
-Knowing which lot reached whom helps quality control, recalls, and impact analysis.
-
-### Minimal kit ledger
-- Lot code printed on kit label
-- Distribution sheet: name or alias, class, lot code, date, facilitator
-- Optional: SMS confirmation template
-
-## Offline-first tips
-- Pre-generate sheets; carry spare copies
-- Use short codes (e.g., L24-0512-A) for speed and fewer errors
-- Reconcile at day’s end: photo + upload when signal is available
-
-## Safeguards
-Store named lists securely. Publicly, show counts and anonymized samples only.
-
-## References
-- GSMA. Inclusive tech in low-connectivity contexts: https://www.gsma.com/`,
-    callout_transparency: 'Beneficiary-level lists are never published. We share only anonymized aggregates and redacted samples.',
-    related: [
-      { title: 'What counts as proof?', slug: 'what-counts-as-proof' },
-      { title: 'From absenteeism to attendance', slug: 'from-absenteeism-to-attendance' }
-    ],
-    seo_title: 'Offline traceability — simple, robust practices',
-    seo_description: 'Lot-to-beneficiary mapping with paper-first tools and later digitization.'
-  },
-  {
-    title: 'Co-ops at the center: women-led production',
-    slug: 'coops-women-led-production',
-    category: 'impact',
-    tags: ['Women-led','Cooperatives','Local production'],
-    author: {
-      id: 'sacode-team',
-      name: 'SaCoDé Team',
-      role: 'Production & Training'
-    },
-  cover_image_url: '/photos/course/48e1c9d3-6c82-469f-9b0a-f4fd7875090c (1).jpg',
-    cover_consent_verified: true,
-    published_at: '2025-04-18',
+  published_at: '2025-07-10',
     read_minutes: 5,
-    excerpt: 'Local cooperatives build skills and keep value in the community while meeting quality standards.',
-    body_md: `## Why local matters
-Women-led cooperatives increase resilience and reduce transport cost and delays.
+    excerpt: 'Women’s cooperatives in Burundi produced washable, reusable kits for 500 students at Lycée Buhiga—supporting income, reducing waste, and enabling education.',
+    body_md: `**Partners:** Educate4Dignity (E4D) & SaCoDé • **Location:** Burundi • **Purpose:** Supply for Lycée Buhiga (Commune Karusi, Province Gitega)
 
-### Quality-by-design
-- Fabric selection and absorbency checks
-- Batch records with lot codes
-- Visual inspection and random washing tests
+Educate4Dignity, the non-profit initiative led by Jessica Luiru (Congolese American, Deerfield Academy, CSGC Prize), works with SaCoDé to address three linked challenges: menstrual education, access to products, and the fight against stigma.
 
-## Economic ripple effects
-Income, skills and leadership opportunities stay local. Schools gain reliable supply.
+To prepare for the school activity at Lycée Buhiga, women’s cooperatives produced washable, reusable kits for students. Each kit includes reusable pads and a storage pouch, along with simple care instructions.
 
-## References
-- ILO. Cooperatives & local development: https://www.ilo.org/`,
-    callout_transparency: 'We publish batch sizes, unit costs and acceptance rates monthly; supplier names are disclosed with consent.',
+Production was planned for a target group of 500 students, with batch and crate records to ensure traceability at handover to the school.
+
+This local model fits rural constraints, supports income for seamstresses, offers a more affordable option for families, and reduces waste over time.
+
+Kits were packed and transported to the school in advance of a dedicated education session followed by distribution.`,
+    callout_transparency: 'Production details summarized from field planning notes; photos illustrative with partner consent where shown.',
     related: [
-      { title: 'Training day: MHM basics that stick', slug: 'training-day-mhm-basics' },
-      { title: 'From absenteeism to attendance', slug: 'from-absenteeism-to-attendance-gitega' }
+      { title: 'From absenteeism to attendance', slug: 'from-absenteeism-to-attendance' },
+      { title: '“No more stigma. Just dignity.”', slug: 'coops-women-led-production' }
     ],
-    seo_title: 'Women-led cooperatives — quality and dignity',
-    seo_description: 'How local production meets standards and builds community resilience.'
-  },
+    seo_title: 'Local production of reusable kits — Burundi (E4D & SaCoDé)',
+    seo_description: 'Women’s cooperatives produced washable kits for 500 students at Lycée Buhiga, with traceability and an education‑first distribution.'
+  }
+  ,
   {
-    title: 'Training day: MHM basics that stick',
-    slug: 'training-day-mhm-basics',
-    category: 'insights',
-    tags: ['Training','Facilitation','MHM'],
+    title: 'Menstrual health education at Lycée Buhiga',
+    slug: 'menstrual-health-education-lycee-buhiga',
+    category: 'impact',
+    tags: ['MHM','Education','Burundi','Buhiga'],
+    author: {
+      id: 'jessica-luiru',
+      name: 'Jessica Luiru',
+      role: 'Lead (Deerfield Academy, CSGC Prize)'
+    },
+    cover_image_url: '/photos/history/Generated Image October 06, 2025 - 6_38AM.png',
+    cover_consent_verified: true,
+    published_at: '2025-07-23',
+    read_minutes: 5,
+    excerpt: 'A school-wide session at Lycée Buhiga brought over 700 students together to learn safe period management, reduce stigma, and restore dignity in class.',
+    body_md: `**Lead:** Jessica Luiru (Deerfield Academy, CSGC Prize) • **Date:** 23 July 2025 • **Location:** Commune Karusi, Province Gitega, Burundi
+
+The session gathered more than the 500 invited students, with attendance surpassing 700. It began with a short prayer led by a student, then Jessica introduced herself and the project goals: speak openly about menstruation, explain safe management, and restore dignity for girls at school.
+
+Age-appropriate content covered essentials: what menstruation is, why it matters to talk about it, good hygiene practices, how to use and care for reusable pads, when to change, and basic pain management.
+
+Students listened closely and asked many questions, reflecting a strong need for reliable information in a context where the topic remains taboo.
+
+Teachers and school staff took notes to reinforce messages and practical steps in the weeks that follow.
+
+The aim is clear: pair product access with understanding, reduce period-related absences, and strengthen girls’ confidence in class.`,
+    callout_transparency: 'Session details summarized from field notes; photos illustrative with consent where applicable.',
+    related: [
+      { title: 'From absenteeism to attendance', slug: 'from-absenteeism-to-attendance' },
+      { title: 'Local production of reusable kits', slug: 'local-production-reusable-kits' }
+    ],
+    seo_title: 'MHM education at Lycée Buhiga — field session notes',
+    seo_description: '700+ students joined an MHM session at Lycée Buhiga covering safe use of reusable pads, hygiene, and confidence at school.'
+  }
+  ,
+  {
+    title: 'Kit distribution and next steps',
+    slug: 'kit-distribution-next-steps',
+    category: 'impact',
+    tags: ['MHM','Distribution','Burundi','Buhiga','SaCoDé'],
     author: {
       id: 'e4d-ops',
-      name: 'E4D Trainers',
-      role: 'Facilitation'
+      name: 'E4D Field Team',
+      role: 'Training & Distribution'
     },
-  cover_image_url: '/photos/jeune-adulte-deprime-a-la-maison (1).jpg',
+    cover_image_url: '/photos/kit/B13.jpg',
     cover_consent_verified: true,
-    published_at: '2025-04-10',
-    read_minutes: 6,
-    excerpt: 'Short, hands-on sessions outperform long lectures. Here is our 45‑minute recipe.',
-    body_md: `## Session outline (45 minutes)
-1. Icebreaker and myth check (10')
-2. Kit demo & safe use (15')
-3. Washing & drying practice (10')
-4. Pack a spare & privacy routine (5')
-5. Questions & handover (5')
+    published_at: '2025-07-23',
+    read_minutes: 5,
+    excerpt: 'After the education session at Lycée Buhiga, distribution reached nearly 500 girls, with strong engagement and a clear path for sustained support.',
+    body_md: `Program: Educate4Dignity (E4D) • Partner: SaCoDé
+Site: Lycée Buhiga (Karusi, Gitega) • Date: 23 July 2025
 
-### Tips that help retention
-- Use real kits and role-play
-- Keep language simple; invite questions anonymously
-- Repeat handwashing steps out loud
+Distribution followed the education session. Although 500 students were invited, more than 700 attended, showing high need and interest. The handover took longer than planned to orient each student on use and care.
 
-## Follow-up
-Teachers receive a 1-pager to run 5-minute refreshers weekly.
+During the event, a student expressed sincere gratitude not only for receiving pads but also for the essential education provided. Feedback from the school highlights increased confidence and clearer understanding of safe practices.
 
-## References
-- UNESCO. Health education briefs: https://www.unesco.org/`,
-    callout_transparency: 'Our public reports show planned sessions vs. delivered, with anonymized attendance counts.',
+The intervention brought dignity to nearly 500 girls aged roughly 11 to 21. Beyond access to products, the focus is continued schooling, prevention of early pregnancies, and breaking cycles of poverty that widen gender gaps.
+
+E4D and SaCoDé will build on this momentum to reach more remote villages, working with local leaders and within traditional values so that solutions are owned by the communities they serve.
+
+This is a starting point, not an endpoint: sustain education, maintain a supply of reusable kits, and support schools to push back the taboo month after month.`,
+    callout_transparency: 'Distribution details summarized from partner reports; photos illustrative with consent where applicable.',
     related: [
-      { title: 'Co-ops at the center: women-led production', slug: 'coops-women-led-production' },
-      { title: 'From absenteeism to attendance', slug: 'from-absenteeism-to-attendance' }
+      { title: 'Local production of reusable kits', slug: 'local-production-reusable-kits' },
+      { title: 'Menstrual health education at Lycée Buhiga', slug: 'menstrual-health-education-lycee-buhiga' }
     ],
-    seo_title: 'MHM training that sticks — a 45‑minute flow',
-    seo_description: 'A practical, repeatable session plan that improves retention and comfort.'
+    seo_title: 'Kit distribution and next steps — Lycée Buhiga',
+    seo_description: 'Distribution at Lycée Buhiga followed a school-wide MHM session, reaching nearly 500 girls with guidance and reusable kits.'
   }
 ];
 

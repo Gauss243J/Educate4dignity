@@ -106,6 +106,14 @@ const BlogArticlePage: React.FC = () => {
 
   const htmlBody = mdToHtml(article.body_md);
   const withMediaTransforms = (html: string) => transformArticleHtml(html);
+  // Normalize strings for equality checks (strip quotes, spaces, punctuation nuances)
+  const normalize = (s?: string) => (s || '')
+    .replace(/[“”"'’]/g,'')
+    .replace(/\.+$/,'')
+    .trim()
+    .toLowerCase();
+  const quoteRaw = location.state?.quote;
+  const shouldShowQuote = !!quoteRaw && normalize(quoteRaw) !== normalize(article?.title);
 
   return (
     <div className="min-h-screen bg-[var(--rose-50)] font-[Segoe UI,ui-sans-serif,sans-serif] relative">
@@ -168,8 +176,8 @@ const BlogArticlePage: React.FC = () => {
               <h1 className="text-[32px] leading-[38px] font-extrabold text-[var(--slate-900)]">
                 {article.title}
               </h1>
-              {location.state?.quote && (
-                <blockquote className="text-[18px] leading-[24px] font-extrabold text-[var(--slate-900)]">{location.state.quote}</blockquote>
+              {shouldShowQuote && (
+                <blockquote className="text-[18px] leading-[24px] font-extrabold text-[var(--slate-900)]">{quoteRaw}</blockquote>
               )}
               {location.state?.nameLine && (
                 <div className="text-[14px] text-[var(--slate-800)]">{location.state.nameLine}</div>
@@ -232,16 +240,7 @@ const BlogArticlePage: React.FC = () => {
             {/* Article body */}
             <div className="prose prose-sm max-w-none prose-headings:font-semibold prose-headings:text-[var(--slate-900)] prose-p:text-[14px] prose-p:leading-[22px] prose-p:text-[var(--slate-700)] prose-p:text-justify prose-a:underline prose-a:text-[var(--rose-700)] prose-blockquote:border-l-4 prose-blockquote:border-[var(--rose-300)] prose-blockquote:bg-[var(--rose-50)] prose-blockquote:p-4 prose-blockquote:rounded-xl prose-blockquote:text-[var(--slate-700)] prose-img:rounded-xl bg-white border rounded-2xl p-8" style={{borderColor:'var(--rose-200)'}} dangerouslySetInnerHTML={{__html: withMediaTransforms((storeArticle?.body_html) ? storeArticle.body_html : htmlBody)}} />
 
-            {/* Transparency callout */}
-            {article.callout_transparency && (
-              <div className="rounded-2xl border p-6 bg-white flex gap-4" style={{borderColor:'var(--rose-200)'}}>
-                <div className="w-10 h-10 rounded-lg bg-[var(--rose-100)] flex items-center justify-center text-[var(--rose-700)] font-semibold">i</div>
-                <div className="space-y-1">
-                  <h3 className="text-[14px] font-semibold text-[var(--slate-900)]">Transparency note</h3>
-                  <p className="text-[13px] leading-[19px] text-[var(--slate-700)]">{article.callout_transparency}</p>
-                </div>
-              </div>
-            )}
+            {/* Transparency callout removed by request */}
 
             {/* Author bio */}
             {article.author.bio && (

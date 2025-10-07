@@ -54,9 +54,9 @@ const ELearningLessonPage: React.FC = () => {
                 {lesson.body_sections.map(sec => (
                   <section key={sec.h2} aria-labelledby={sec.h2.replace(/[^a-z0-9]+/gi,'-').toLowerCase()}>
                     <h2 id={sec.h2.replace(/[^a-z0-9]+/gi,'-').toLowerCase()} className="text-[18px] font-bold text-primary mb-2">{sec.h2}</h2>
-                    {sec.html && <div className="prose prose-sm max-w-none text-[13px] leading-[20px] text-primary" dangerouslySetInnerHTML={{__html: transformArticleHtml(sec.html)}} />}
+                    {sec.html && <div className="prose prose-sm max-w-none text-[15px] leading-[22px] text-primary" dangerouslySetInnerHTML={{__html: transformArticleHtml(sec.html)}} />}
                     {sec.links && (
-                      <ul className="list-disc pl-5 space-y-1 text-[13px] leading-[20px] text-primary">
+                      <ul className="list-disc pl-5 space-y-1 text-[15px] leading-[22px] text-primary">
                         {sec.links.map(l=> <li key={l.url}><a href={l.url} className="underline" download>{l.label}</a></li>)}
                       </ul>
                     )}

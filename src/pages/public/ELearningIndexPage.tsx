@@ -145,7 +145,7 @@ const ELearningIndexPage: React.FC = () => {
           {/* Donate banner */}
           <section className="rounded-xl border border-base p-6 bg-white text-center space-y-4">
             <h2 className="text-[18px] leading-[24px] font-semibold text-primary">Support free, open e-learning content.</h2>
-            <a href="/donate" className="btn-donate inline-flex justify-center">Donate</a>
+            <Link to="/donate" className="btn-donate inline-flex justify-center">Donate</Link>
           </section>
 
           {/* Pagination (always visible when there is at least one lesson) */}

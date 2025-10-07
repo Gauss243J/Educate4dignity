@@ -41,7 +41,7 @@ const lessons: LessonDetail[] = [
   {
     title: 'MHM basics: period health 101',
     slug: 'mhm-basics-101',
-    summary: 'Foundations of menstrual health and dignity.',
+    summary: 'Track your cycle, stay prepared with a small pouch, nourish well, and know when to seek care.',
     level: 'Beginner',
     duration_minutes: 8,
     tags: ['MHM', 'Education'],
@@ -51,40 +51,23 @@ const lessons: LessonDetail[] = [
     updated_at: '2025-05-01',
     is_public: true,
     body_sections: [
-      { h2: 'What is MHM?', html: `
-        <p>Menstrual Hygiene Management (MHM) means having the information, materials, and privacy to manage your period with dignity at home, at school, and at work.</p>
-        <ul>
-          <li>Reliable materials (for example, reusable pads)</li>
-          <li>Clean water and soap for washing hands and pads</li>
-          <li>A private space for changing and cleaning</li>
-          <li>Simple, age‑appropriate information and support</li>
-        </ul>
+      { h2: 'Understanding your cycle & preparation', html: `
+        <p>The cycle begins on the first day of bleeding and ends the day before the next period. The length varies from person to person, especially in the first years. Writing your dates in a notebook, a phone calendar, or on a small bead bracelet helps you prepare for classes, exams, and sports. Always keep a discreet pouch with supplies, a wipe, a waterproof bag, and spare underwear.</p>
       ` },
-      { h2: 'A real moment from class', html: `
-        <p>“I didn’t come to school yesterday because I was afraid I would stain my dress.” When Amina said this, half the girls nodded. We paused, breathed, and listed three things that make school days easier: a spare pad, a small pouch, and a friendly adult to ask for help. By the end, Amina smiled and said, “I can try tomorrow.”</p>
+      { h2: 'Nutrition, self‑care & when to seek help', html: `
+        <p>Eating local, varied foods supports your energy: beans, groundnuts, dried or fresh fish (ndakala, dagaa), green vegetables such as cassava leaves or amaranth, whole grains like millet or sorghum, and seasonal fruits like mango or guava. Clean water and regular sleep help as well. Mild cramps are common. Heat from a hot water bottle, walking, and gentle stretches often bring relief. Seek care if bleeding lasts more than seven days, if you need to change a product every hour, if pain stops your normal activities, or if you feel very weak. At school and at home, you have the right to dignity, privacy, and to be listened to.</p>
       ` },
-      { h2: 'Materials and safe use', html: `
-        <p>Reusable pads feel soft and can be used for many months when cleaned well. Show how to position the pad, how to check absorbency, and where to keep a spare.</p>
-        <p><strong>Cleaning basics:</strong> wash with soap and clean water, rinse until clear, and dry fully in sunlight or a ventilated space. Sunlight helps kill germs.</p>
-      ` },
-      { h2: 'Healthy practices', html: `
-        <p>Change pads every 4–6 hours (or sooner if heavy flow). Wash hands before and after changing. If there is persistent pain, rash, or strong odor, talk to a health worker.</p>
-      ` },
-      { h2: 'Try it together', html: `
-        <ol>
-          <li>Pack a small period pouch: pad, soap, tissue, and bag.</li>
-          <li>Practise how to fold and store a used pad discreetly.</li>
-          <li>Choose three supportive people you can ask for help.</li>
-        </ol>
-      ` },
-      { h2: 'Download & reference', links: [ { label:'One-pager (PDF)', url:'/files/mhm-onepager.pdf' }, { label:'Facilitator checklist (PDF)', url:'/files/facilitator-checklist.pdf' }, { label:'WHO — Menstruation', url:'https://www.who.int/health-topics/menstruation' } ] }
+      { h2: 'Download & reference', links: [
+        { label: 'MoH — Menstrual Cycle (PDF)', url: 'https://www.moh.gov.sa/en/awarenessplateform/WomensHealth/Documents/Menstrual-Cycle.pdf' },
+        { label: 'Cornell resource (PDF)', url: 'https://ecommons.cornell.edu/server/api/core/bitstreams/3ee2fed5-bd6d-49cf-8141-4cc02acfd938/content' }
+      ] }
     ],
-    quick_tip: 'Teach “wash & dry” with a real kit. Practise once; learners remember.'
+    quick_tip: 'Note your dates and carry a small pouch (pad, soap, bag, spare underwear). Preparation reduces stress.'
   },
   {
     title: 'Materials & safe use',
     slug: 'materials-safe-use',
-    summary: 'Absorbency, comfort, washing & drying.',
+    summary: 'Options and safety: how to choose, change, wash, and dry with dignity.',
     level: 'Beginner',
     duration_minutes: 7,
     tags: ['MHM'],
@@ -94,35 +77,23 @@ const lessons: LessonDetail[] = [
     updated_at: '2025-05-12',
     is_public: true,
     body_sections: [
-      { h2: 'Choosing materials', html: `
-        <p>Look for soft, breathable layers and a comfortable shape. A practical kit includes two or more pads, a leak‑resistant base, and a small pouch.</p>
+      { h2: 'Choosing what fits you', html: `
+        <p>There are several options depending on budget and access to water: disposable pads, reusable pads sewn by local artisans, period underwear, tampons, and menstrual cups. Choose based on your flow, your activities, and whether you can change discreetly at school or in the market. For sports, some prefer tampons or a cup. For the night, a long pad or period underwear can feel more secure.</p>
       ` },
-      { h2: 'Cleaning process', html: `
-        <ol>
-          <li>Rinse with cool water (this helps release blood without setting stains).</li>
-          <li>Wash with soap; gently rub the fabric—no need to scrub hard.</li>
-          <li>Rinse until water runs clear.</li>
-          <li>Dry fully in the sun or a well‑ventilated space.</li>
-        </ol>
+      { h2: 'Safety and cleaning', html: `
+        <p>Safety starts with washing your hands. Change disposable products every 4–6 hours and throw them in a bin. Do not put them in the latrine if it could cause a blockage. For reusables, rinse first with cold water, wash with soap, rinse until the water runs clear, then dry completely in the sun, which helps kill microbes. If you cannot dry them outside, lightly iron them to finish drying and store them in a clean bag. For a cup, empty it, rinse with clean water, and boil it for a few minutes between cycles when possible. If you notice a strong odor, fever, or severe pain, seek advice from a health worker.</p>
       ` },
-      { h2: 'Story: first reusable kit', html: `
-        <p>Grace said, “I thought washing would be hard. It took ten minutes, and it dried by afternoon.” She liked that the pad felt soft and didn’t itch.</p>
-      ` },
-      { h2: 'Safe storage', html: `<p>Use a clean, breathable bag. Avoid sealing damp pads in plastic—moisture can cause irritation or odor.</p>` },
-      { h2: 'Troubleshooting', html: `
-        <ul>
-          <li><strong>Itchy skin?</strong> Rinse soap out completely and ensure full drying.</li>
-          <li><strong>Leaks?</strong> Try a thicker pad or change a bit sooner.</li>
-          <li><strong>Stains?</strong> Soak briefly in cool water before washing.</li>
-        </ul>
-      ` },
-      { h2: 'Download & reference', links: [ { label:'Care & washing card (PDF)', url:'/files/care-card.pdf' } ] }
-    ]
+      { h2: 'Download & reference', links: [
+        { label: 'Fistula Care — Female reproductive system (PDF)', url: 'https://fistulacare.org/wp-content/uploads/pdf/Training/Module_3_Female_reproductive_system_Fistula_Care.pdf' },
+        { label: 'MoH — Menstrual Cycle (PDF)', url: 'https://www.moh.gov.sa/en/awarenessplateform/WomensHealth/Documents/Menstrual-Cycle.pdf' }
+      ] }
+    ],
+    quick_tip: 'Wash hands first; rinse cold, wash with soap, rinse clear, and dry fully in the sun (or finish with a light iron). Store clean and dry.'
   },
   {
     title: 'Myths & stigma',
     slug: 'myths-stigma',
-    summary: 'Simple explanations to debunk myths.',
+    summary: 'Periods are healthy; myths don’t limit study, sport, or life. Respectful talk reduces stigma.',
     level: 'Beginner',
     duration_minutes: 6,
     tags: ['MHM'],
@@ -132,14 +103,18 @@ const lessons: LessonDetail[] = [
     updated_at: '2025-05-14',
     is_public: true,
     body_sections: [
-      { h2: 'Common myths', html: `<p>Examples: “You cannot attend class,” “You should not cook,” or “Periods are dirty.” Replace each with a short fact: periods are healthy, you can study, and you can help at home safely.</p>` },
-      { h2: 'Story: talking with family', html: `<p>Esperance told her brother why she sometimes carried a pouch. He said, “Okay—how can I help?” Small conversations reduce shame and build support.</p>` },
-      { h2: 'Addressing stigma', html: `<p>Use simple, respectful words. Create routines that protect privacy (spare pads in the office, a sign‑out system for bathroom breaks).</p>` },
-      { h2: 'Facilitation prompts', html: `<ul><li>“What helps you feel confident on period days?”</li><li>“Who could be an ally at school?”</li><li>“What myth have you heard that we can replace with a fact?”</li></ul>` },
-      { h2: 'Cultural sensitivity', html: `<p>Listen first. Keep health guidance accurate while adapting examples to local realities. Invite caregivers to ask questions without judgement.</p>` },
-      { h2: 'Download & reference', links: [ { label:'UNICEF — MHH resources', url:'https://www.unicef.org/wash/menstrual-hygiene-management' } ] }
+      { h2: 'Facts about periods', html: `
+        <p>Periods are not dirty. They show that the body is renewing itself and working well. A girl can go to school, play football, dance, or swim if she feels comfortable and her protection is secure. Each person chooses the product that fits her body, budget, and activities; the priority is hygiene and comfort. The first period does not mean someone is ready for couple life or motherhood; adolescence is a time for study, dreams, and building confidence. Menstrual cycles do not truly synchronize between friends; when dates look similar it is usually coincidence.</p>
+      ` },
+      { h2: 'Reducing stigma, building dignity', html: `
+        <p>Shame grows in silence. In many African families and schools, we move forward by speaking calmly with a big sister, an auntie, a trusted “mama adviser,” a teacher, or a community health worker. Using simple words in the local language helps everyone understand. Keep a small pouch with supplies and spare underwear so you feel safe at school or in the market. If someone makes jokes or spreads a myth, answer gently that it is not correct and continue with your day. Knowledge, respect, and solidarity reduce stigma and protect dignity.</p>
+      ` },
+      { h2: 'Download & reference', links: [
+        { label: 'Cornell resource (PDF)', url: 'https://ecommons.cornell.edu/server/api/core/bitstreams/3ee2fed5-bd6d-49cf-8141-4cc02acfd938/content' },
+        { label: 'ULiège — Thesis (PDF)', url: 'https://matheo.uliege.be/bitstream/2268.2/12225/5/TFE%20final%20-%20Manon%20Beusen.pdf' }
+      ] }
     ],
-    quick_tip: 'Start with one myth at a time. Replace it with a short, memorable fact.'
+    quick_tip: 'Use simple words in your local language. Answer myths calmly and keep going—knowledge and kindness reduce stigma.'
   },
   {
     title: 'Healthy practices',
@@ -152,7 +127,7 @@ const lessons: LessonDetail[] = [
   cover_image_url: '/photos/course/Generated Image October 03, 2025 - 9_04AM (1).png',
     published_at: '2025-05-16',
     updated_at: '2025-05-16',
-    is_public: true,
+    is_public: false,
     body_sections: [
       { h2: 'Change frequency', html: `<p>Change every 4–6 hours or sooner if needed. Keep a spare pad and a small bag for used pads. Plan ahead for long trips or exams.</p>` },
       { h2: 'Handwashing', html: `<p>Wash with soap and water before and after changing. If water is limited, carry a small soap and use a tippy‑tap or sanitizer as a backup.</p>` },
@@ -174,7 +149,7 @@ const lessons: LessonDetail[] = [
   cover_image_url: '/photos/Dossier/Generated Image October 02, 2025 - 8_50AM (1).png',
     published_at: '2025-05-18',
     updated_at: '2025-05-18',
-    is_public: true,
+    is_public: false,
     body_sections: [
       { h2: 'Checklist', html: `<ul><li>Reusable pad (x2)</li><li>Small breathable pouch</li><li>Wipes or tissue</li><li>Small soap bar</li><li>Bag for used pads</li></ul>` },
       { h2: 'Privacy routine', html: `<p>Agree on a simple signal with a teacher. Use known private spots. Keep one spare pad in a pocket you can reach quickly.</p>` },
@@ -194,7 +169,7 @@ const lessons: LessonDetail[] = [
   cover_image_url: '/photos/Dossier/Generated Image October 02, 2025 - 8_39AM.png',
     published_at: '2025-05-19',
     updated_at: '2025-05-19',
-    is_public: true,
+    is_public: false,
     body_sections: [
       { h2: 'Laundry routine', html: `<p>Rinse first, wash with soap, rinse clear, and dry fully. Help set up a drying line where air and sunlight can reach.</p>` },
       { h2: 'Conversation starters', html: `<ul><li>“How did this month go? Anything that felt hard?”</li><li>“Do you have enough pads for next week?”</li><li>“What would make school days easier?”</li></ul>` },
@@ -214,8 +189,8 @@ const moduleRecord: ModuleRecord = {
   cover_image_url: null,
   // Optional module cover can use a generic placeholder
   // cover_image_url: '/images/placeholder-generic.svg',
-  estimated_minutes_total: lessons.reduce((a,l)=> a + l.duration_minutes, 0),
-  lessons_count: lessons.length,
+  estimated_minutes_total: lessons.filter(l=> l.is_public).reduce((a,l)=> a + l.duration_minutes, 0),
+  lessons_count: lessons.filter(l=> l.is_public).length,
   downloads: [
     { label:'One-pager (PDF)', url:'/files/mhm-onepager.pdf' },
     { label:'Facilitator checklist (PDF)', url:'/files/facilitator-checklist.pdf' }

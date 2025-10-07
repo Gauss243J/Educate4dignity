@@ -36,7 +36,12 @@ const LandingPage: React.FC = () => {
     });
     setActiveProjects(mapped);
   } }); return ()=> { mounted=false; }; }, []);
-  const partners = ['Deerfield Academy','UNICEF (local)','Women Coop','Ministry of Edu.','Local NGO A','Local NGO B'];
+  // Partner logos for the partners section
+  const partnerLogos = [
+    { src: '/photos/partener/deerfield_academy_green_black_lock_up_horizontal.jpg', alt: 'Deerfield Academy' },
+    { src: '/photos/partener/LE CRES.png', alt: 'LE CRES' },
+    { src: '/photos/partener/images.png', alt: 'UNICEF' }
+  ];
   // Impact metrics now provided via centralized data module for reuse / future dynamic loading.
   // Staggered card fade-in observer (applies to any grid tagged with data-stagger-group)
   useEffect(()=> {
@@ -119,14 +124,24 @@ const LandingPage: React.FC = () => {
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-14 mt-14" id="education" delay={60}>
           <div className="max-w-7xl mx-auto grid gap-10 items-center md:grid-cols-2">
             <div className="rounded-2xl overflow-hidden border order-1 md:order-none" style={{borderColor:'var(--rose-200)'}}>
-              <ImageWithFallback src="/photos/Project/B6.jpg" alt={t('education.title','Menstrual health education')} className="w-full h-full object-cover md:h-[420px]" />
+              <video
+                className="w-full h-full object-cover md:h-[420px]"
+                poster="/photos/Project/B6.jpg"
+                controls
+                preload="metadata"
+                playsInline
+                onEnded={(e)=>{ const v = e.currentTarget; try { v.pause(); v.currentTime = 0; v.load(); } catch(_) { /* noop */ } }}
+              >
+                <source src="/videos/video5985359414595426492.mp4" type="video/mp4" />
+                {t('education.videoFallback','Your browser does not support the video tag.')}
+              </video>
             </div>
             <div className="order-2 md:order-none">
               <h2 className="font-extrabold mb-4" style={{fontSize:'34px',lineHeight:'1.15',color:'var(--color-text-primary)'}}>{t('education.title','Why menstrual health education matters')}</h2>
-              <p className="text-base font-medium mb-4" style={{color:'var(--color-text-secondary)'}}>{t('education.lead','Knowledge + dignity keeps girls learning consistently.')}</p>
+              <p className="text-base font-medium mb-4" style={{color:'var(--color-text-secondary)'}}>{t('education.lead','Knowledge and dignity keep girls learning consistently.')}</p>
               <p className="text-sm mb-3" style={{color:'var(--color-text-secondary)'}}>{t('education.p1')}</p>
               <p className="text-sm mb-6" style={{color:'var(--color-text-secondary)'}}>{t('education.p2')}</p>
-              <Link to="/blog" className="btn-outline-rose text-sm">{t('education.cta','Read more on our learning approach')}</Link>
+              <Link to="/e-learning" className="btn-outline-rose text-sm">{t('education.cta','See more content about menstruation health')}</Link>
             </div>
           </div>
     </Reveal>
@@ -183,14 +198,14 @@ const LandingPage: React.FC = () => {
         </Reveal>
   {/* Removed the two pedagogy/menstrual health info cards per request. Guard any leftover legacy sections by not rendering them. */}
         {/* STORIES */}
-  <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="stories" delay={80}>
+        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="stories" delay={80}>
           <div className="max-w-7xl mx-auto">
             <h2 className="font-extrabold mb-6" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.storiesTitle','Real voices, real change')}</h2>
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3" data-stagger-group>
               {[
-                { key:'story_amima', n:'Amina — Burundi', q:'“I stopped missing school.”', d:'$25 keeps a girl learning all year.', img: '/photos/Dossier/Generated Image October 02, 2025 - 9_15AM.png', alt:'Impact story 1', slug:'from-absenteeism-to-attendance' },
-                { key:'story_grace', n:'Grace — Rwanda', q:'“My daughter now has confidence.”', d:'Reusable kits + teacher talks.', img: '/photos/Dossier/Generated Image October 02, 2025 - 8_39AM.png', alt:'Impact story 2', slug:'training-day-mhm-basics' },
-                { key:'story_esperance', n:'Esperance — DRC', q:'“No more stigma. Just dignity.”', d:'Parents & boys included in sessions.', img: '/photos/Dossier/Generated Image October 02, 2025 - 8_50AM (1).png', alt:'Impact story 3', slug:'coops-women-led-production' }
+                { key:'story_amima', n:'Amina — Burundi', q:'“I stopped missing school.”', d:'$25 keeps a girl in school all year.', img: '/photos/Dossier/Generated Image October 02, 2025 - 9_15AM.png', alt:'Impact story 1', slug:'from-absenteeism-to-attendance' },
+                { key:'story_grace', n:'Grace — Rwanda', q:'“My daughter now has confidence.”', d:'Reusable kits and teacher talks.', img: '/photos/Dossier/Generated Image October 02, 2025 - 8_39AM.png', alt:'Impact story 2', slug:'training-day-mhm-basics' },
+                { key:'story_esperance', n:'Esperance — DRC', q:'“No more stigma. Just dignity.”', d:'Hygiene corner and a reusable kit.', img: '/photos/Dossier/Generated Image October 02, 2025 - 8_50AM (1).png', alt:'Impact story 3', slug:'coops-women-led-production' }
               ].map((s)=>(
                 <Link
                   key={s.key}
@@ -209,10 +224,12 @@ const LandingPage: React.FC = () => {
                 </Link>
               )) }
             </div>
+            <div className="mt-6 text-right"><Link to="/blog" className="btn-outline-rose text-sm">View all stories</Link></div>
           </div>
-  </Reveal>
+        </Reveal>
+
         {/* PROJECTS */}
-  <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="projects" delay={120}>
+        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="projects" delay={120}>
           <div className="max-w-7xl mx-auto">
             <h2 className="font-extrabold mb-6" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.featuredProjectsTitle','Pick a project and move it forward today')}</h2>
             <div className="grid gap-4 md:grid-cols-3" data-stagger-group>
@@ -225,49 +242,45 @@ const LandingPage: React.FC = () => {
             </div>
             <div className="mt-6 text-right"><Link to="/projects" className="btn-outline-rose text-sm">View all projects</Link></div>
           </div>
-  </Reveal>
-  {/* (Moved) PARTNERS + MAP will appear near the end before donate banner */}
+        </Reveal>
+
         {/* FIELD MOMENTS GALLERY */}
-  <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="field-moments" delay={240}>
+        <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="field-moments" delay={240}>
           <div className="max-w-7xl mx-auto">
-            <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.momentsTitle','Small field moments that show big change')}</h2>
-            <div className="grid gap-4 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" data-stagger-group>
+            <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>
+              {t('landing.momentsTitle','Locally sewn kits, women leading, girls keeping their days.')}
+            </h2>
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3" data-stagger-group>
               {[
-                // Existing first row
-                {src:'/photos/Project/92038f75-aeef-42a1-a6f0-a4a014771f14.png', alt:'Project field photo 1', title:'Teacher-led session', quote:'“I learned to manage my period with dignity.”'},
-                {src:'/photos/Project/Generated Image October 02, 2025 - 8_34AM.png', alt:'Project field photo 2', title:'Kits unpacked', quote:'Reusable pads and guidance for every girl.'},
-                {src:'/photos/Project/Generated Image October 02, 2025 - 9_01AM.png', alt:'Project field photo 3', title:'Confident and ready', quote:'Girls share what they learned with peers.'},
-                {src:'/photos/Project/Generated Image October 02, 2025 - 9_11AM.png', alt:'Project field photo 4', title:'Dignity in a box', quote:'Practical, reusable, locally sewn supplies.'},
-                // New second row from /public/photos/kit
-                {src:'/photos/kit/03.png', alt:'Locally sewn kits in classroom', title:'Women-led production', quote:'Mothers and tailors create jobs and dignity.'},
-                {src:'/photos/kit/04.png', alt:'Girls receiving reusable kits', title:'Distribution day', quote:'“I won’t miss school anymore.”'},
-                {src:'/photos/kit/05.png', alt:'Women-led distribution of kits', title:'Community celebration', quote:'Boys and teachers join to reduce stigma.'},
-                {src:'/photos/kit/Generated Image October 03, 2025 - 9_04AM (1).png', alt:'Education 4 Dignity kits box with students', title:'Simple, sustainable', quote:'One kit supports a year of learning.'}
+                {src:'/photos/history/JessB1.jpg', alt:'Women-led production, classroom context', title:'Sewn here, led by women', text:'Local women sew reusable pads. Skills grow. Income stays where it matters.'},
+                {src:'/photos/history/JessB2.jpg', alt:'Local sewing cooperative at work', title:'Practicing together', text:'The cooperative checks every stitch so kits are comfy and ready to use.'},
+                {src:'/photos/history/JessB4.jpg', alt:'Reusable kits materials and preparation', title:'Simple materials, easy care', text:'Breathable fabrics and clear labels make washing and drying straightforward.'},
+                {src:'/photos/history/B4.jpg', alt:'Girls receiving guidance and kits', title:'How we learn', text:'A short, hands on lesson shows how to use, wash and pack a spare.'},
+                {src:'/photos/history/B8.jpg', alt:'Smiles and confidence after training', title:'Confidence to stay in class', text:'With a plan and a spare in the bag, girls keep their days at school.'},
+                {src:'/photos/history/Generated Image October 06, 2025 - 6_38AM.png', alt:'Community and dignity in focus', title:'Dignity every day', text:'Good kits and clear guidance reduce stigma and make school feel normal.'}
               ].map((g,i)=>(
                 <div
                   key={i}
-                  className="relative group rounded-lg overflow-hidden border card-fade"
+                  className="relative rounded-lg overflow-hidden border card-fade group"
                   style={{borderColor:'var(--color-border)'}}
                   aria-label={g.title}
                 >
-                  <div className="overflow-hidden">
-                    <ImageWithFallback src={g.src} alt={g.alt} className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-[1.03]" />
-                  </div>
-                  {/* Overlay: gradient + subtle blur on hover */}
-                  <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-                    <div className="absolute inset-0 backdrop-blur-[1.5px] opacity-90"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-white">
-                      <div className="text-[13px] sm:text-[14px] font-semibold leading-snug">{g.title}</div>
-                      {g.quote && <p className="mt-1 text-[11px] sm:text-[12px] leading-snug text-white/90">{g.quote}</p>}
+                  <div className="w-full aspect-[4/3] overflow-hidden bg-white relative">
+                    <ImageWithFallback src={g.src} alt={g.alt} className="w-full h-full object-cover transition-all duration-300 group-hover:blur-[2px] group-hover:scale-[1.02]" />
+                    {/* Hover overlay: centered explanatory text */}
+                    <div className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center justify-center text-center p-4">
+                      <div className="absolute inset-0 bg-black/45"></div>
+                      <div className="relative text-white max-w-[90%] transition-transform duration-300 group-hover:scale-[1.06]">
+                        <div className="font-extrabold leading-tight text-[22px] sm:text-[24px] md:text-[28px]">{g.title}</div>
+                        <p className="mt-2 leading-snug text-white/95 text-[15px] sm:text-[16px] md:text-[17px]">{g.text}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="text-[12px] mt-3" style={{color:'var(--slate-500)'}}>{t('landing.imagesDisclaimer','Images shown are illustrative placeholders for the prototype.')}</div>
           </div>
-  </Reveal>
+        </Reveal>
         {/* HOW IT WORKS (Workflow Diagram) */}
   <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="how" delay={280}>
           <div className="max-w-7xl mx-auto">
@@ -282,12 +295,17 @@ const LandingPage: React.FC = () => {
         <Reveal as="section" className="px-4 sm:px-6 lg:px-8 pb-12" id="partners" delay={300}>
           <div className="max-w-7xl mx-auto space-y-8">
             <div>
-              <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>{t('landing.partnersTitle','We go further by working together')}</h2>
-              <div className="flex gap-3 overflow-x-auto py-2">
-                {partners.map((pt,i)=>(<div key={i} className="partner-tile whitespace-nowrap">{pt}</div>))}
-              </div>
-              <div className="flex justify-center gap-2 mt-2">
-                {partners.map((_,i)=>(<span key={i} className={`partner-rotate-dot ${i===0?'active':''}`}></span>))}
+              <h2 className="font-extrabold mb-4" style={{fontSize:'26px',color:'var(--color-text-primary)'}}>
+                {t('landing.partnersTitle','We work hand‑in‑hand with committed local partners')}
+              </h2>
+              <div className="rounded-2xl bg-white border p-4" style={{borderColor:'var(--rose-200)'}}>
+                <div className="partner-marquee" aria-label="Partner logos carousel">
+                  <div className="partner-marquee-track">
+                    {[...partnerLogos, ...partnerLogos].map((p, idx)=> (
+                      <img key={p.src + idx} src={p.src} alt={p.alt} loading="lazy" />
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

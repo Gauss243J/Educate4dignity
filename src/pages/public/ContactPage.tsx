@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PublicPageShell from '../../components/layout/PublicPageShell';
-import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Linkedin, MessageCircle } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Facebook, Twitter, Instagram, Linkedin, MessageCircle, User } from 'lucide-react';
 
 const ContactPage: React.FC = () => {
   const [formData, setFormData] = useState({ name:'', email:'', subject:'', message:'', type:'general' });
@@ -63,24 +64,35 @@ const ContactPage: React.FC = () => {
                   <h2 className="text-[16px] leading-[22px] font-semibold text-primary">Contact details</h2>
                   <div className="space-y-4 text-[13px] leading-[20px] text-secondary">
                     <div className="flex gap-3">
+                      <User className="w-5 h-5 text-primary" />
+                      <div>
+                        <div className="font-medium text-primary">Contact person & role</div>
+                        <div className="text-secondary">Jessica Luiru — Founder & Program Director</div>
+                      </div>
+                    </div>
+                    <div className="flex gap-3">
                       <Mail className="w-5 h-5 text-primary" />
                       <div>
                         <div className="font-medium text-primary">Email</div>
-                        <div className="text-secondary">info@educate4dignity.org</div>
+                        <div className="text-secondary"><a className="underline" href="mailto:luirujessica@gmail.com">luirujessica@gmail.com</a></div>
                       </div>
                     </div>
                     <div className="flex gap-3">
                       <Phone className="w-5 h-5 text-primary" />
                       <div>
                         <div className="font-medium text-primary">Phone</div>
-                        <div className="text-secondary">+1 (555) 123-4567</div>
+                        <div className="text-secondary"><a className="underline" href="tel:+14439751470">+1 443-975-1470</a></div>
                       </div>
                     </div>
                     <div className="flex gap-3">
                       <MapPin className="w-5 h-5 text-primary" />
                       <div>
                         <div className="font-medium text-primary">Address</div>
-                        <div className="text-secondary">123 Impact Street<br/>Development City, DC 12345<br/>United States</div>
+                        <div className="text-secondary">
+                          HQ in Dunkirk, Maryland, USA<br/>
+                          Province/State: Maryland (USA)<br/>
+                          Territory/District: HQ: Dunkirk
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -121,7 +133,7 @@ const ContactPage: React.FC = () => {
       <section className="pt-4">
         <div className="rounded-xl border border-base bg-white p-6 space-y-4 text-center">
           <h2 className="text-[18px] leading-[24px] font-semibold text-primary">Partner with us to advance menstrual dignity and education.</h2>
-          <a href="/donate" className="btn-donate inline-flex justify-center">Donate</a>
+          <Link to="/donate" className="btn-donate inline-flex justify-center">Donate</Link>
         </div>
       </section>
     </PublicPageShell>

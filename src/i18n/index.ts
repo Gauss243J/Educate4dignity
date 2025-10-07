@@ -39,15 +39,15 @@ const resources = {
         featuredProjects: 'Featured Projects',
         featuredDescription: 'Discover the projects making a real difference in communities worldwide',
   // New human-like single line section titles
-  whyTitle: "Education with dignity transforms a girl's future.",
-  storiesTitle: 'Discover real voices and moments from the field.',
-  featuredProjectsTitle: 'Choose a project you believe in and follow its progress.',
-  featuredProjectsTitle_mh: 'Back a menstrual health project and follow real impact.',
-  momentsTitle: 'Locally sewn kits, women leading, girls keeping their days.',
-  imagesDisclaimer: 'Images shown are illustrative placeholders for the prototype.',
-  howTitle: 'See how your support turns into measurable impact.',
-  partnersTitle: 'We work hand‑in‑hand with committed local partners.',
-  countriesTitle: 'Where we are learning, building, and expanding together.',
+  whyTitle: "Education with dignity transforms a girl's future",
+  storiesTitle: 'Discover real voices and moments from the field',
+  featuredProjectsTitle: 'Choose a project you believe in and follow its progress',
+  featuredProjectsTitle_mh: 'Back a menstrual health project and follow real impact',
+  momentsTitle: 'Locally sewn kits, women leading, girls keeping their days',
+  imagesDisclaimer: 'Images shown are illustrative placeholders for the prototype',
+  howTitle: 'See how your support turns into measurable impact',
+  partnersTitle: 'We work hand‑in‑hand with committed local partners',
+  countriesTitle: 'Where we are learning, building, and expanding together',
   ourImpact: 'Why Educate4Dignity',
         impactDescription: 'Together, we\'re creating lasting change',
         projectsCompleted: 'Projects Completed',
@@ -481,8 +481,8 @@ const resources = {
       ,education: {
         title: 'Why menstrual health education matters',
   lead: 'Knowledge and dignity keep girls in school.',
-    p1: 'Without good information many girls miss class, face stigma, or use unsafe materials. Kits help—but training builds confidence.',
-  p2: 'Local facilitators teach hygiene and reuse; online courses and the blog reinforce it. Layered support keeps girls present and equipped.',
+    p1: 'When a girl does not know how to manage her period safely, she stays home. In many African schools, water is scarce and privacy is thin, so confusion turns into fear, and fear becomes missed days. Kits are the start. Training makes them work',
+  p2: '',
   cta: 'See more content about menstruation health'
       }
       
@@ -995,9 +995,9 @@ const resources = {
       }
       ,education: {
         title: 'Pourquoi l\'éducation à la santé menstruelle compte',
-  lead: 'Savoir + dignité gardent les filles à l\'école.',
-    p1: 'Sans infos claires, des filles manquent les cours, subissent la stigmatisation ou utilisent des solutions risquées. Les kits aident — la formation donne confiance.',
-  p2: 'Animatrices locales: hygiène, réutilisation, moins de honte. Cours en ligne + blog renforcent. Cet appui combiné garde les filles présentes et équipées.',
+  lead: 'Savoir et dignité gardent les filles à l\'école.',
+    p1: 'Sans informations claires, des filles manquent des cours, subissent la stigmatisation ou utilisent des solutions risquées. Les kits aident et la formation donne confiance.',
+  p2: 'Animatrices locales : hygiène, réutilisation, moins de honte. Cours en ligne et blog renforcent. Cet appui combiné garde les filles présentes et équipées.',
   cta: 'Voir plus de contenu sur la santé menstruelle'
       }
       ,aboutPage: {

@@ -144,3 +144,15 @@ footer.site-footer { background:var(--rose-100); border-top:1px solid var(--rose
 
 /* Hard-remove the legacy pedagogy/menstrual-health card section from LandingPage */
 section#pedagogy { display: none !important; }
+
+/* Partner logos marquee */
+.partner-marquee { position: relative; overflow: hidden; }
+.partner-marquee-track { display: flex; gap: 32px; align-items: center; width: max-content; animation: marquee-left 18s linear infinite; }
+.partner-marquee:hover .partner-marquee-track { animation-play-state: paused; }
+.partner-marquee-track img { height: 48px; max-height: 64px; width: auto; object-fit: contain; opacity: .9; filter: grayscale(10%); }
+.partner-marquee-track img:hover { opacity: 1; filter: none; }
+
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}

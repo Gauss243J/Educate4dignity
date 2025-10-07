@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PublicPageShell from '../../components/layout/PublicPageShell';
 
 // A much more concise, linear About page for easier reading
@@ -129,7 +130,7 @@ const AboutPage: React.FC = () => {
 
         <div className="mt-12 p-6 rounded-xl border border-base bg-white text-center space-y-4">
           <h2 className="text-[18px] leading-[24px] font-semibold text-primary">Join us in restoring dignity</h2>
-          <a href="/donate" className="btn-donate inline-flex justify-center">Donate</a>
+          <Link to="/donate" className="btn-donate inline-flex justify-center">Donate</Link>
         </div>
       </article>
     </PublicPageShell>
