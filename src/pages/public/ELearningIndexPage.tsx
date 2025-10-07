@@ -4,11 +4,13 @@ import PublicFooter from '../../components/layout/PublicFooter';
 import { listLessons, LessonSummary, logEvent } from '../../data/elearning';
 import { imageForIndex, courseImageAlt } from '../../data/imagePools';
 import { Link, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 // default page size (can be changed by user via selector)
 const DEFAULT_PAGE_SIZE = 6;
 
 const ELearningIndexPage: React.FC = () => {
+  const { t } = useTranslation();
   const [params, setParams] = useSearchParams();
   const [q,setQ] = useState(params.get('q')||'');
   const [topic,setTopic] = useState(params.get('topic')||'');
@@ -50,40 +52,40 @@ const ELearningIndexPage: React.FC = () => {
       <main className="px-4 sm:px-6 lg:px-8 pt-6 pb-24">
         <div className="max-w-[1200px] mx-auto space-y-10">
           <header className="space-y-2">
-            <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">E-learning</h1>
-            <p className="text-[14px] leading-[20px] text-secondary">Free, practical lessons on menstrual health—reusable kits, safe use, and dignity. No login required.</p>
+            <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">{t('elearningIndex.title','E-learning')}</h1>
+            <p className="text-[14px] leading-[20px] text-secondary">{t('elearningIndex.subtitle','Free, practical lessons on menstrual health—reusable kits, safe use, and dignity. No login required.')}</p>
           </header>
           {/* Toolbar */}
           <section className="rounded-2xl bg-white border border-base p-4 flex flex-wrap gap-3 items-center">
-            <input value={q} onChange={e=> { setQ(e.target.value); setPage(1); }} placeholder="Search lessons..." className="h-10 px-4 rounded-full border border-base bg-white text-[13px] flex-1 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
+            <input value={q} onChange={e=> { setQ(e.target.value); setPage(1); }} placeholder={t('elearningIndex.search','Search lessons...')} className="h-10 px-4 rounded-full border border-base bg-white text-[13px] flex-1 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
             {topicHas && (
               <select value={topic} onChange={e=> { setTopic(e.target.value); setPage(1); }} className="h-10 px-3 rounded-full border border-base bg-white text-[13px]">
-                <option value="">Topic</option>
+                <option value="">{t('elearningIndex.topic','Topic')}</option>
                 {topics.map(t=> <option key={t}>{t}</option>)}
               </select>) }
             {levels.length>0 && (
               <select value={level} onChange={e=> { setLevel(e.target.value); setPage(1); }} className="h-10 px-3 rounded-full border border-base bg-white text-[13px]">
-                <option value="">Level</option>
+                <option value="">{t('elearningIndex.level','Level')}</option>
                 {levels.map(l=> <option key={l}>{l}</option>)}
               </select>) }
             <select value={length} onChange={e=> { setLength(e.target.value); setPage(1); }} className="h-10 px-3 rounded-full border border-base bg-white text-[13px]">
-              <option value="">Length</option>
+              <option value="">{t('elearningIndex.length','Length')}</option>
               <option value="<=5">≤5</option>
               <option value="6-10">6–10</option>
               <option value="11-15">11–15</option>
               <option value="15+">15+</option>
             </select>
             <select value={sort} onChange={e=> { setSort(e.target.value); setPage(1); }} className="h-10 px-3 rounded-full border border-base bg-white text-[13px]">
-              <option value="newest">Sort: Newest</option>
-              <option value="oldest">Oldest</option>
-              <option value="shortest">Shortest</option>
-              <option value="longest">Longest</option>
+              <option value="newest">{t('elearningIndex.sort.newest','Sort: Newest')}</option>
+              <option value="oldest">{t('elearningIndex.sort.oldest','Oldest')}</option>
+              <option value="shortest">{t('elearningIndex.sort.shortest','Shortest')}</option>
+              <option value="longest">{t('elearningIndex.sort.longest','Longest')}</option>
             </select>
-            {(q||topic||level||length||sort!=='newest') && <button type="button" onClick={clear} className="h-10 px-4 rounded-full border border-base bg-white text-[12px] font-medium hover:bg-[var(--color-primary-light)]">Reset</button>}
+            {(q||topic||level||length||sort!=='newest') && <button type="button" onClick={clear} className="h-10 px-4 rounded-full border border-base bg-white text-[12px] font-medium hover:bg-[var(--color-primary-light)]">{t('elearningIndex.reset','Reset')}</button>}
           </section>
 
           {/* States */}
-          {error && <div className="rounded-lg border border-base p-3 bg-[var(--color-error-light)] text-[12px] text-[var(--color-error)] flex justify-between"><span>{error}</span><button className="underline" onClick={()=> fire()}>Retry</button></div>}
+          {error && <div className="rounded-lg border border-base p-3 bg-[var(--color-error-light)] text-[12px] text-[var(--color-error)] flex justify-between"><span>{error}</span><button className="underline" onClick={()=> fire()}>{t('elearningIndex.retry','Retry')}</button></div>}
           {loading && (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {Array.from({length:6}).map((_,i)=>(
@@ -97,8 +99,8 @@ const ELearningIndexPage: React.FC = () => {
 
           {!loading && data.items.length===0 && (
             <div className="rounded-xl border border-base p-10 text-center bg-white space-y-4">
-              <p className="text-secondary text-sm">No results. Clear filters.</p>
-              <button onClick={clear} className="px-4 h-10 rounded-full border border-base text-[13px] hover:bg-[var(--color-primary-light)]">Reset</button>
+              <p className="text-secondary text-sm">{t('elearningIndex.noResults','No results. Clear filters.')}</p>
+              <button onClick={clear} className="px-4 h-10 rounded-full border border-base text-[13px] hover:bg-[var(--color-primary-light)]">{t('elearningIndex.reset','Reset')}</button>
             </div>
           )}
 
@@ -126,7 +128,7 @@ const ELearningIndexPage: React.FC = () => {
                     </div>
                   )}
                   <div className="mt-3 flex justify-end">
-                    <Link to={`/e-learning/lesson/${l.slug}`} className="px-3 h-8 inline-flex items-center rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">Start reading →</Link>
+                    <Link to={`/e-learning/lesson/${l.slug}`} className="px-3 h-8 inline-flex items-center rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">{t('elearningIndex.startReading','Start reading →')}</Link>
                   </div>
                 </article>
               ))}
@@ -135,32 +137,32 @@ const ELearningIndexPage: React.FC = () => {
 
           {/* Newsletter */}
           <section className="rounded-xl border border-base p-6 space-y-4 bg-white">
-            <h2 className="font-semibold text-[16px] leading-[22px] text-primary">Stay in the loop — new lessons monthly.</h2>
+            <h2 className="font-semibold text-[16px] leading-[22px] text-primary">{t('elearningIndex.newsletter.title','Stay in the loop — new lessons monthly.')}</h2>
             <div className="flex flex-col sm:flex-row gap-3">
-              <input placeholder="Your email address" className="h-10 px-4 rounded-full border border-base bg-white flex-1 text-[13px] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
-              <button className="h-10 px-6 rounded-full bg-[var(--color-primary)] text-white text-[13px] font-semibold hover:bg-[var(--color-primary-dark)] transition">Subscribe</button>
+              <input placeholder={t('elearningIndex.newsletter.emailPlaceholder','Your email address')} className="h-10 px-4 rounded-full border border-base bg-white flex-1 text-[13px] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
+              <button className="h-10 px-6 rounded-full bg-[var(--color-primary)] text-white text-[13px] font-semibold hover:bg-[var(--color-primary-dark)] transition">{t('elearningIndex.newsletter.subscribe','Subscribe')}</button>
             </div>
           </section>
 
           {/* Donate banner */}
           <section className="rounded-xl border border-base p-6 bg-white text-center space-y-4">
-            <h2 className="text-[18px] leading-[24px] font-semibold text-primary">Support free, open e-learning content.</h2>
-            <Link to="/donate" className="btn-donate inline-flex justify-center">Donate</Link>
+            <h2 className="text-[18px] leading-[24px] font-semibold text-primary">{t('elearningIndex.donateBanner.title','Support free, open e-learning content.')}</h2>
+            <Link to="/donate" className="btn-donate inline-flex justify-center">{t('elearningIndex.donateBanner.donate','Donate')}</Link>
           </section>
 
           {/* Pagination (always visible when there is at least one lesson) */}
           {data.total>0 && (
             <nav className="flex flex-wrap gap-4 items-center justify-between text-[12px]" aria-label="Pagination">
-              <div className="flex items-center gap-2">Rows:
+              <div className="flex items-center gap-2">{t('elearningIndex.pagination.rows','Rows:')}
                 <select value={pageSize} onChange={e=> { setPageSize(Number(e.target.value)); setPage(1); }} className="h-8 px-2 rounded-full border border-base bg-white">
                   {[6,9,12,15].map(sz=> <option key={sz} value={sz}>{sz}</option>)}
                 </select>
-                <span className="ml-2 text-secondary">Page {page} / {totalPages}</span>
+                <span className="ml-2 text-secondary">{t('elearningIndex.pagination.page','Page')} {page} / {totalPages}</span>
               </div>
               <div className="flex items-center gap-2">
-                <button disabled={page===1} onClick={()=> { const next=Math.max(1,page-1); setPage(next); logEvent('elearn_paginate',{page:next}); }} className="h-8 px-3 rounded-full border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40">Prev</button>
+                <button disabled={page===1} onClick={()=> { const next=Math.max(1,page-1); setPage(next); logEvent('elearn_paginate',{page:next}); }} className="h-8 px-3 rounded-full border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40">{t('elearningIndex.pagination.prev','Prev')}</button>
                 {Array.from({length: totalPages}).slice(0,5).map((_,i)=> { const p=i+1; return <button aria-current={p===page? 'page':undefined} key={p} onClick={()=> { setPage(p); logEvent('elearn_paginate',{page:p}); }} className={`w-8 h-8 rounded-full text-[12px] border border-base ${p===page? 'bg-[var(--color-primary)] text-white':'bg-[var(--color-primary-light)] text-primary hover:brightness-95'}`}>{p}</button>; })}
-                <button disabled={page===totalPages} onClick={()=> { const next=Math.min(totalPages,page+1); setPage(next); logEvent('elearn_paginate',{page:next}); }} className="h-8 px-3 rounded-full border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40">Next</button>
+                <button disabled={page===totalPages} onClick={()=> { const next=Math.min(totalPages,page+1); setPage(next); logEvent('elearn_paginate',{page:next}); }} className="h-8 px-3 rounded-full border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40">{t('elearningIndex.pagination.next','Next')}</button>
               </div>
             </nav>
           )}

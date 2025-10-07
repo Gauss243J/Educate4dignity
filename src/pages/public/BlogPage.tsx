@@ -5,8 +5,10 @@ import { Activity, Lightbulb, FlaskConical, BookOpen, Search } from 'lucide-reac
 import { imageForIndex, courseImageAlt } from '../../data/imagePools';
 import { blogStore } from '../../services/blogStore';
 import { blogArticles } from '../../data/blogArticles';
+import { useTranslation } from 'react-i18next';
 
 const BlogPage: React.FC = () => {
+  const { t } = useTranslation();
   // Filters / pagination state (resource-style)
   const [q,setQ] = useState('');
   const [category,setCategory] = useState('all');
@@ -115,19 +117,25 @@ const BlogPage: React.FC = () => {
   }
   const blogPosts = Array.from(bySlug.values());
 
-  const categoryMeta: Record<string, { name: string; icon: React.ReactNode }> = {
-    impact: { name: 'Impact Stories', icon: <Activity className="w-4 h-4" /> },
-    insights: { name: 'Insights', icon: <Lightbulb className="w-4 h-4" /> },
-    updates: { name: 'Project Updates', icon: <BookOpen className="w-4 h-4" /> },
-    research: { name: 'Research', icon: <FlaskConical className="w-4 h-4" /> },
-    howto: { name: 'How‑to', icon: <BookOpen className="w-4 h-4" /> }
+  const categoryMeta: Record<string, { icon: React.ReactNode }> = {
+    impact: { icon: <Activity className="w-4 h-4" /> },
+    insights: { icon: <Lightbulb className="w-4 h-4" /> },
+    updates: { icon: <BookOpen className="w-4 h-4" /> },
+    research: { icon: <FlaskConical className="w-4 h-4" /> },
+    howto: { icon: <BookOpen className="w-4 h-4" /> }
   };
+
+  const getCategoryName = (id: string) =>
+    t(`blog.categories.${id}`, id === 'all' ? t('blog.categories.all', 'All Posts') : id.charAt(0).toUpperCase() + id.slice(1));
 
   const categories = useMemo(()=>{
     const counts: Record<string, number> = {};
     blogPosts.forEach(p=>{ counts[p.category]=(counts[p.category]||0)+1; });
-    return [{id:'all', name:'All Posts', count: blogPosts.length}, ...Object.entries(categoryMeta).map(([id,meta])=>({id, name:meta.name, count: counts[id]||0}))];
-  },[blogPosts]);
+    return [
+      {id:'all', name: t('blog.categories.all','All Posts'), count: blogPosts.length},
+      ...Object.keys(categoryMeta).map((id)=>({id, name:getCategoryName(id), count: counts[id]||0}))
+    ];
+  },[blogPosts, t]);
 
   const years = useMemo(()=> Array.from(new Set(blogPosts.map(p=> new Date(p.publishDate).getFullYear()))).sort((a,b)=> b-a),[blogPosts]);
   const allTags = useMemo(()=> Array.from(new Set(blogPosts.flatMap(p=> p.tags))).sort(),[blogPosts]);
@@ -161,8 +169,8 @@ const BlogPage: React.FC = () => {
     <PublicPageShell>
       {/* Header */}
       <header className="space-y-2 mb-8">
-        <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">Blog</h1>
-        <p className="text-[14px] leading-[20px] text-secondary">Field notes, impact updates & research logs.</p>
+        <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">{t('blog.listTitle','Stories & Insights')}</h1>
+        <p className="text-[14px] leading-[20px] text-secondary">{t('blog.listSubtitle','Field notes, impact updates & research logs.')}</p>
       </header>
 
       {/* Stories section removed per request */}
@@ -172,25 +180,25 @@ const BlogPage: React.FC = () => {
         <div className="rounded-2xl bg-white border border-base p-4 flex flex-wrap gap-3 items-center">
           <div className="relative flex-1 min-w-[240px]">
             <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-primary" />
-            <input value={q} onChange={e=>{setQ(e.target.value); setPage(1);}} placeholder="Search posts..." className="h-10 w-full pl-9 pr-4 rounded-full text-[13px] border border-base bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
+            <input value={q} onChange={e=>{setQ(e.target.value); setPage(1);}} placeholder={t('blog.searchPlaceholder','Search posts...')} className="h-10 w-full pl-9 pr-4 rounded-full text-[13px] border border-base bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
           </div>
           <select value={category} onChange={e=>{setCategory(e.target.value); setPage(1);}} className="h-10 px-3 rounded-full border border-base bg-white text-[13px]">
             {categories.map(c=> <option key={c.id} value={c.id}>{c.name} ({c.count})</option>)}
           </select>
           <select value={year} onChange={e=> {setYear(e.target.value ? Number(e.target.value):''); setPage(1);}} className="h-10 px-3 rounded-full border border-base bg-white text-[13px] w-[110px]">
-            <option value="">Year</option>
+            <option value="">{t('blog.toolbar.year','Year')}</option>
             {years.map(y=> <option key={y} value={y}>{y}</option>)}
           </select>
           <div className="relative" aria-expanded={showTags} aria-haspopup="listbox">
             <button type="button" onClick={()=> setShowTags(s=>!s)} className="h-10 px-3 rounded-full border border-base bg-white flex items-center gap-2 text-[13px]">
-              <span>Tags</span>
+              <span>{t('blog.toolbar.tags','Tags')}</span>
               {tags.length>0 && <span className="text-[11px] rounded-full px-2 py-[2px] bg-[var(--color-primary-light)] border border-base text-primary">{tags.length}</span>}
             </button>
             {showTags && (
               <div className="absolute left-0 mt-2 w-[240px] max-h-[250px] overflow-y-auto rounded-xl border border-base bg-white shadow-lg p-3 z-40 grid gap-2" role="listbox">
                 <div className="flex justify-between items-center mb-1">
-                  <span className="text-[11px] font-medium text-secondary">Select tags</span>
-                  {tags.length>0 && <button type="button" onClick={()=> setTags([])} className="text-[11px] underline text-secondary">Clear</button>}
+                  <span className="text-[11px] font-medium text-secondary">{t('blog.toolbar.selectTags','Select tags')}</span>
+                  {tags.length>0 && <button type="button" onClick={()=> setTags([])} className="text-[11px] underline text-secondary">{t('blog.toolbar.clear','Clear')}</button>}
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {allTags.map(tg=> {
@@ -201,23 +209,25 @@ const BlogPage: React.FC = () => {
                   })}
                 </div>
                 <div className="pt-1 flex justify-end">
-                  <button type="button" onClick={()=> setShowTags(false)} className="text-[11px] underline text-secondary">Done</button>
+                  <button type="button" onClick={()=> setShowTags(false)} className="text-[11px] underline text-secondary">{t('blog.toolbar.done','Done')}</button>
                 </div>
               </div>
             )}
           </div>
           <select value={sort} onChange={e=>{setSort(e.target.value as any); setPage(1);}} className="h-10 px-3 rounded-full border border-base bg-white text-[13px] w-[150px]">
-            <option value="newest">Sort: Newest</option>
-            <option value="oldest">Oldest</option>
+            <option value="newest">{t('blog.toolbar.sortNewest','Sort: Newest')}</option>
+            <option value="oldest">{t('blog.toolbar.sortOldest','Oldest')}</option>
           </select>
-          {(q||category!=='all'||year||tags.length||sort!=='newest') && <button onClick={resetAll} className="h-10 px-4 rounded-full border border-base bg-white text-[12px]">Reset</button>}
+          {(q||category!=='all'||year||tags.length||sort!=='newest') && <button onClick={resetAll} className="h-10 px-4 rounded-full border border-base bg-white text-[12px]">{t('blog.toolbar.reset','Reset')}</button>}
         </div>
       </section>
 
       {/* Grid */}
       <section id="posts" aria-live="polite" className="min-h-[400px] space-y-8">
           {paginated.length===0 && (
-            <div className="text-center py-24 text-[14px]" style={{color:'var(--slate-600)'}}>No posts. <button onClick={resetAll} className="underline">Clear filters</button>.</div>
+            <div className="text-center py-24 text-[14px]" style={{color:'var(--slate-600)'}}>
+              {t('blog.none.empty','No posts.')} <button onClick={resetAll} className="underline">{t('blog.none.clearFilters','Clear filters')}</button>.
+            </div>
           )}
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {paginated.map((post, idx) => {
@@ -234,11 +244,11 @@ const BlogPage: React.FC = () => {
                     />
                   </div>
                   <div className="p-4 flex flex-col flex-1">
-                    <div className="text-[11px] text-secondary">{categoryMeta[post.category]?.name || post.category}</div>
+                    <div className="text-[11px] text-secondary">{String(t(`blog.categories.${post.category}`, post.category))}</div>
                     <h3 className="mt-2 text-[15px] leading-[20px] font-semibold text-primary line-clamp-3">{post.title}</h3>
                     <div className="mt-1 text-[11px] text-secondary">{new Date(post.publishDate).toLocaleDateString(undefined,{month:'short', year:'numeric'})} • {post.readTime}</div>
                     <div className="mt-3 flex justify-end">
-                      <button onClick={()=>navigate(`/blog/${post.slug}`, { state: { coverOverride: getCoverFor(post.slug, idx) } })} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">Read →</button>
+                      <button onClick={()=>navigate(`/blog/${post.slug}`, { state: { coverOverride: getCoverFor(post.slug, idx) } })} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">{t('blog.read','Read →')}</button>
                     </div>
                   </div>
                 </article>
@@ -248,25 +258,25 @@ const BlogPage: React.FC = () => {
         </section>
       {/* Pagination */}
       <nav className="mt-6 flex items-center justify-between text-[12px] flex-wrap gap-4" aria-label="Pagination">
-        <div className="flex items-center gap-2">Rows:
+        <div className="flex items-center gap-2">{t('blog.pagination.rows','Rows:')}
           <select value={pageSize} onChange={e=>{setPageSize(Number(e.target.value)); setPage(1);}} className="h-8 px-2 rounded-full border border-base bg-white">
             {[6,9,12].map(sz=> <option key={sz} value={sz}>{sz}</option>)}
           </select>
         </div>
         <div className="flex items-center gap-2">
-          <button aria-label="Previous page" onClick={()=>setPage(p=> Math.max(1,p-1))} disabled={page===1} className="h-8 px-3 rounded-full transition-colors border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40 disabled:cursor-not-allowed">Prev</button>
+          <button aria-label="Previous page" onClick={()=>setPage(p=> Math.max(1,p-1))} disabled={page===1} className="h-8 px-3 rounded-full transition-colors border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40 disabled:cursor-not-allowed">{t('blog.pagination.prev','Prev')}</button>
           {Array.from({length: totalPages}).slice(0,5).map((_,i)=> { const n=i+1; const active=n===page; return (
             <button key={n} aria-current={active?'page':undefined} onClick={()=>setPage(n)} className={`w-8 h-8 rounded-full text-[12px] border border-base ${active? 'bg-primary text-white':'bg-[var(--color-primary-light)] text-primary hover:brightness-95'}`}>{n}</button>
           );})}
-          <button aria-label="Next page" onClick={()=>setPage(p=> Math.min(totalPages,p+1))} disabled={page===totalPages} className="h-8 px-3 rounded-full transition-colors border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40 disabled:cursor-not-allowed">Next</button>
+          <button aria-label="Next page" onClick={()=>setPage(p=> Math.min(totalPages,p+1))} disabled={page===totalPages} className="h-8 px-3 rounded-full transition-colors border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40 disabled:cursor-not-allowed">{t('blog.pagination.next','Next')}</button>
         </div>
       </nav>
 
       {/* Support banner (minimal) */}
       <section className="pt-10">
         <div className="rounded-xl border border-base bg-white p-6 space-y-4 text-center">
-          <h2 className="text-[18px] leading-[24px] font-semibold text-primary">Support field innovation & menstrual dignity education.</h2>
-          <Link to="/donate" className="btn-donate inline-flex justify-center">Donate</Link>
+          <h2 className="text-[18px] leading-[24px] font-semibold text-primary">{t('blog.supportBanner.title','Support field innovation & menstrual dignity education.')}</h2>
+          <Link to="/donate" className="btn-donate inline-flex justify-center">{t('blog.supportBanner.cta','Donate')}</Link>
         </div>
       </section>
     </PublicPageShell>

@@ -132,8 +132,8 @@ const TransparencyPage: React.FC = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <Button variant="outline" size="sm">Filter by Type</Button>
-          <Button variant="outline" size="sm">Filter by Status</Button>
+          <Button variant="outline" size="sm">{t('transparencyExtras.filterByType','Filter by Type')}</Button>
+          <Button variant="outline" size="sm">{t('transparencyExtras.filterByStatus','Filter by Status')}</Button>
         </div>
 
         {/* Projects */}
@@ -273,7 +273,7 @@ const TransparencyPage: React.FC = () => {
                                   <FileText size={16} className="text-primary" />
                                   <span className="text-text-primary">{doc}</span>
                                 </div>
-                                <Button size="sm" variant="outline">Download</Button>
+                                <Button size="sm" variant="outline">{t('transparencyExtras.downloadAnnual','Download Annual Report')}</Button>
                               </div>
                             ))}
                           </div>
@@ -292,14 +292,14 @@ const TransparencyPage: React.FC = () => {
           <Card className="max-w-2xl mx-auto">
             <CardContent className="py-8">
               <h3 className="text-xl font-bold mb-4">
-                Questions about our transparency?
+                {t('transparencyExtras.questions','Questions about our transparency?')}
               </h3>
               <p className="text-text-secondary mb-6 text-sm md:text-base">
-                We're committed to full transparency. Contact us for detailed financial reports or project updates.
+                {t('transparencyExtras.promise',"We're committed to full transparency. Contact us for detailed financial reports or project updates.")}
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-3">
-                <Button>Contact Us</Button>
-                <Button variant="outline">Download Annual Report</Button>
+                <Button>{t('transparencyExtras.contactUs','Contact Us')}</Button>
+                <Button variant="outline">{t('transparencyExtras.downloadAnnual','Download Annual Report')}</Button>
               </div>
             </CardContent>
           </Card>

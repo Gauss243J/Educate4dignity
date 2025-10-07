@@ -6,13 +6,15 @@ import NewsletterInline from '../../components/ui/NewsletterInline';
 import PublicFooter from '../../components/layout/PublicFooter';
 import { findArticleBySlug } from '../../data/blogArticles';
 import { BlogArticle } from '../../types/blog';
-import { ArrowLeft, Share2, Copy, Check, ShieldCheck, Clock, Tag, BookOpen, ChevronRight } from 'lucide-react';
+import { ArrowLeft, Share2, Copy, Check, ShieldCheck, Clock, Tag, BookOpen } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 import { mdToHtml } from '../../utils/markdown';
 import { blogStore } from '../../services/blogStore';
 import { transformArticleHtml } from '../../utils/mediaTransform';
 
 const BlogArticlePage: React.FC = () => {
+  const { t } = useTranslation();
   const { slug } = useParams();
   const location = useLocation() as unknown as { state?: { coverOverride?: string; quote?: string; nameLine?: string; descLine?: string } };
   const navigate = useNavigate();
@@ -97,8 +99,8 @@ const BlogArticlePage: React.FC = () => {
       <div className="min-h-screen bg-[var(--rose-50)]">
         <PublicNav />
         <div className="max-w-[1200px] mx-auto px-6 pt-28 pb-40 text-center">
-          <h1 className="text-[32px] font-extrabold text-[var(--slate-900)] mb-6">Article not found</h1>
-          <button onClick={()=>navigate('/blog')} className="h-11 px-6 rounded-md bg-[var(--rose-600)] hover:bg-[var(--rose-700)] text-white font-semibold inline-flex items-center gap-2"><ArrowLeft className="w-4 h-4"/>Back to blog</button>
+          <h1 className="text-[32px] font-extrabold text-[var(--slate-900)] mb-6">{t('blog.articleNotFound','Article not found')}</h1>
+          <button onClick={()=>navigate('/blog')} className="h-11 px-6 rounded-md bg-[var(--rose-600)] hover:bg-[var(--rose-700)] text-white font-semibold inline-flex items-center gap-2"><ArrowLeft className="w-4 h-4"/>{t('blog.backToList','Back to blog')}</button>
         </div>
       </div>
     );
@@ -129,9 +131,9 @@ const BlogArticlePage: React.FC = () => {
           <article ref={contentRef} className="space-y-8">
             {/* Breadcrumb */}
             <nav aria-label="Breadcrumb" className="text-[12px] text-[var(--slate-600)] flex flex-wrap gap-1">
-              <Link to="/" className="hover:text-[var(--rose-700)]">Home</Link>
+              <Link to="/" className="hover:text-[var(--rose-700)]">{t('nav.home','Home')}</Link>
               <span>/</span>
-              <Link to="/blog" className="hover:text-[var(--rose-700)]">Blog</Link>
+              <Link to="/blog" className="hover:text-[var(--rose-700)]">{t('nav.blog','Blog')}</Link>
               <span>/</span>
               <span className="text-[var(--slate-700)]">{article.category}</span>
               <span>/</span>
@@ -165,7 +167,7 @@ const BlogArticlePage: React.FC = () => {
                 </div>
                 {article.cover_consent_verified && (
                   <div className="absolute top-3 left-3 h-7 px-3 rounded-full text-[11px] font-medium bg-white/90 backdrop-blur border flex items-center gap-1" style={{borderColor:'var(--rose-200)'}}>
-                    <ShieldCheck className="w-4 h-4 text-[var(--rose-600)]" /> Consent verified
+                    <ShieldCheck className="w-4 h-4 text-[var(--rose-600)]" /> {t('blog.consentVerified','Consent verified')}
                   </div>
                 )}
               </div>
@@ -210,14 +212,14 @@ const BlogArticlePage: React.FC = () => {
                   <Clock className="w-4 h-4" />
                   <span>{new Date(article.published_at).toLocaleDateString()}</span>
                   <span>•</span>
-                  <span>{article.read_minutes} min read</span>
+                  <span>{article.read_minutes} min</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={handleCopyLink} className="h-9 px-3 rounded-md bg-[var(--rose-600)] hover:bg-[var(--rose-700)] text-white text-[12px] font-medium inline-flex items-center gap-1">
-                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />} {copied ? 'Copied' : 'Copy link'}
+                    {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />} {copied ? t('blog.copy.copied','Copied') : t('blog.copy.copy','Copy link')}
                   </button>
                   <button className="h-9 px-3 rounded-md bg-white border text-[12px] font-medium inline-flex items-center gap-1" style={{borderColor:'var(--rose-200)', color:'var(--rose-700)'}}>
-                    <Share2 className="w-4 h-4"/> Share
+                    <Share2 className="w-4 h-4"/> {t('blog.copy.share','Share')}
                   </button>
                 </div>
               </div>
@@ -262,7 +264,7 @@ const BlogArticlePage: React.FC = () => {
             {/* Related */}
             {article.related && article.related.length > 0 && (
               <div className="space-y-4">
-                <h3 className="text-[18px] font-bold text-[var(--slate-900)]">Keep Reading</h3>
+                <h3 className="text-[18px] font-bold text-[var(--slate-900)]">{t('blog.keepReading','Keep Reading')}</h3>
                 <div className="grid sm:grid-cols-2 gap-4">
                   {article.related.slice(0,2).map(r => {
                     const rel = findArticleBySlug(r.slug);
@@ -277,7 +279,7 @@ const BlogArticlePage: React.FC = () => {
                           )}
                         </div>
                         <div className="font-semibold text-[14px] leading-[20px] text-[var(--slate-900)] group-hover:text-[var(--rose-700)] line-clamp-3">{r.title}</div>
-                        <div className="text-[12px] text-[var(--rose-700)] inline-flex items-center gap-1 mt-auto">Read article <ChevronRight className="w-4 h-4"/></div>
+                        <div className="text-[12px] text-[var(--rose-700)] inline-flex items-center gap-1 mt-auto">{t('blog.read','Read →')}</div>
                       </Link>
                     );
                   })}
@@ -290,7 +292,7 @@ const BlogArticlePage: React.FC = () => {
           <aside className="space-y-6 lg:sticky lg:top-28 h-fit">
             {toc.length > 0 && (
               <div className="rounded-2xl border bg-white p-5" style={{borderColor:'var(--rose-200)'}}>
-                <h2 className="text-[14px] font-semibold text-[var(--slate-900)] mb-3">On this page</h2>
+                <h2 className="text-[14px] font-semibold text-[var(--slate-900)] mb-3">{t('blog.onThisPage','On this page')}</h2>
                 <ul className="space-y-2 text-[12px] text-[var(--slate-700)]">
                   {toc.map(item => (
                     <li key={item.id} className={item.level===3 ? 'pl-4 relative before:absolute before:left-0 before:top-2 before:w-1 before:h-1 before:bg-[var(--rose-400)] before:rounded-full':''}>
@@ -301,12 +303,12 @@ const BlogArticlePage: React.FC = () => {
               </div>
             )}
             <div className="rounded-2xl border bg-white p-5 overflow-hidden" style={{borderColor:'var(--rose-200)'}}>
-              <div className="text-[12px] leading-[18px] text-[var(--slate-700)] mb-2">Monthly round‑up of impact stories & transparency updates.</div>
+              <div className="text-[12px] leading-[18px] text-[var(--slate-700)] mb-2">{t('blog.stayLoopDesc','Monthly round-up of impact stories and transparency updates.')}</div>
               <NewsletterInline />
             </div>
             {article.tags && article.tags.length > 0 && (
               <div className="rounded-2xl border bg-white p-5" style={{borderColor:'var(--rose-200)'}}>
-                <h2 className="text-[14px] font-semibold text-[var(--slate-900)] mb-3">Popular topics</h2>
+                <h2 className="text-[14px] font-semibold text-[var(--slate-900)] mb-3">{t('blog.popularTopics','Popular topics')}</h2>
                 <div className="flex flex-wrap gap-2">
                   {article.tags.map(tag => (
                     <span key={tag} className="inline-flex items-center h-7 px-3 rounded-full text-[11px] font-medium bg-[var(--rose-100)] border" style={{borderColor:'var(--rose-200)', color:'var(--rose-700)'}}>{tag}</span>

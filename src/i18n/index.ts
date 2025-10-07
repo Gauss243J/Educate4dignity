@@ -6,6 +6,229 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 const resources = {
   en: {
     translation: {
+      // Not Found (public 404)
+      notFound: {
+        title: 'Page not found',
+        body: "The page you're looking for doesn't exist or was moved. Check the URL or continue browsing.",
+        contactUs: 'Contact us',
+        needHelp: 'Need help?'
+      },
+
+      // Public E-learning
+      elearning: {
+        lessonNotFound: 'Lesson not found',
+        moduleNotFound: 'Module not found',
+        breadcrumbRoot: 'E-learning',
+        backToModule: '← Back to module',
+        lastUpdated: 'Last updated',
+        lessonCover: 'Lesson cover',
+        quickTip: 'Quick tip',
+        prevLesson: 'Prev lesson',
+        nextLesson: 'Next lesson',
+        shortcutsHint: 'Shortcuts: [ = Prev, ] = Next, Esc = Back to module',
+        moduleOutline: 'Module outline',
+        relatedLessons: 'Related lessons',
+        downloads: 'Downloads',
+        relatedModules: 'Related modules',
+        start: 'Start',
+        startModule: 'Start module →',
+        viewModule: 'View module →',
+        whatYouWillLearn: "What you'll learn",
+        moduleCover: 'Module cover'
+      },
+
+      // Public Resources
+      resources: {
+        title: 'Resources',
+        subtitle: 'Reports, audits, policies & templates for full transparency.',
+        searchAria: 'Search resources',
+        searchPlaceholder: 'Search resources...',
+        type: 'Type',
+        year: 'Year',
+        language: 'Language',
+        tags: 'Tags',
+        selectTags: 'Select tags',
+        clear: 'Clear',
+        done: 'Done',
+        sort: 'Sort',
+        sortNewest: 'Sort: Newest',
+        sortOldest: 'Oldest',
+        reset: 'Reset',
+        noResults: 'No results. Clear filters?',
+        clearFilters: 'Clear filters',
+        view: 'View',
+        download: 'Download',
+        rowsLabel: 'Rows:',
+        rows: 'Rows per page',
+        page: 'Page',
+        prev: 'Prev',
+        next: 'Next',
+        donateBannerTitle: 'Help expand open resources & transparency.',
+        devNoticeTitle: 'Notice',
+        devNoticeBody: 'It is under development.',
+        close: 'Close',
+        category: {
+          report: 'Report',
+          audit: 'Audit',
+          policy: 'Policy',
+          template: 'Template',
+          data: 'Data',
+          guide: 'Guide'
+        }
+      },
+
+      // Public Blog
+      blog: {
+        listTitle: 'Stories & Insights',
+        listSubtitle: 'Field notes, impact updates & research logs.',
+        searchPlaceholder: 'Search posts...',
+        categories: {
+          all: 'All Posts',
+          impact: 'Impact Stories',
+          insights: 'Insights',
+          updates: 'Project Updates',
+          research: 'Research',
+          howto: 'How-to'
+        },
+        toolbar: { year: 'Year', tags: 'Tags', selectTags: 'Select tags', clear: 'Clear', done: 'Done', sortNewest: 'Sort: Newest', sortOldest: 'Oldest', reset: 'Reset' },
+        none: { empty: 'No posts.', clearFilters: 'Clear filters' },
+        read: 'Read →',
+        pagination: { rows: 'Rows:', prev: 'Prev', next: 'Next' },
+        supportBanner: { title: 'Support field innovation & menstrual dignity education.', cta: 'Donate' },
+        articleNotFound: 'Article not found',
+        backToList: 'Back to blog',
+        onThisPage: 'On this page',
+        keepReading: 'Keep Reading',
+        popularTopics: 'Popular topics',
+        copy: { copy: 'Copy link', copied: 'Copied', share: 'Share' },
+        consentVerified: 'Consent verified'
+      },
+
+      // Public Projects
+      projectsPage: {
+        headerSubtitle: 'Discover and support our ongoing projects that make a real difference.',
+        filters: { allTypes: 'All Types', distribution: 'Distribution', training: 'Training', research: 'Research', allStatus: 'All Status', active: 'Active', draft: 'Draft', completed: 'Completed', reset: 'Reset' },
+        showing: 'Showing',
+        of: 'of',
+        filteredProjects: 'filtered projects',
+        total: 'total',
+        none: { empty: 'No projects.', reset: 'Reset filters' },
+        pagination: { rows: 'Rows:', prev: 'Prev', next: 'Next' }
+      },
+
+      // Public Contact
+      contact: {
+        title: 'Get in touch with the team',
+        subtitle: 'Questions about projects, partnerships, volunteering, donations, or media? Reach out—we respond to every message.',
+        form: {
+          name: 'Name *',
+          email: 'Email *',
+          inquiryType: 'Inquiry Type',
+          subject: 'Subject *',
+          message: 'Message *',
+          placeholders: { name: 'Your full name', email: 'you@example.com', subject: 'Brief subject', message: 'Your message...' },
+          types: { general: 'General Inquiry', partnership: 'Partnership', volunteer: 'Volunteering', donation: 'Donation', media: 'Media' },
+          send: 'Send Message',
+          sent: 'Message sent!'
+        },
+        details: {
+          title: 'Contact details', personRole: 'Contact person & role', email: 'Email', phone: 'Phone', address: 'Address',
+          addressLines: {
+            line1: 'HQ in Dunkirk, Maryland, USA',
+            line2: 'Province/State: Maryland (USA)',
+            line3: 'Territory/District: HQ: Dunkirk'
+          },
+          officeHours: 'Office Hours',
+          weekday: 'Mon–Fri', saturday: 'Saturday', sunday: 'Sunday', closed: 'Closed'
+        },
+        social: { title: 'Follow & share', facebook: 'Facebook', twitter: 'Twitter / X', whatsapp: 'WhatsApp', instagram: 'Instagram', tiktok: 'TikTok', linkedin: 'LinkedIn' },
+        cta: { title: 'Partner with us to advance menstrual dignity and education.', donate: 'Donate' }
+      },
+
+      // E-learning index
+      elearningIndex: {
+        title: 'E-learning',
+        subtitle: 'Free, practical lessons on menstrual health—reusable kits, safe use, and dignity. No login required.',
+        search: 'Search lessons...',
+        topic: 'Topic',
+        level: 'Level',
+        length: 'Length',
+        sort: { newest: 'Sort: Newest', oldest: 'Oldest', shortest: 'Shortest', longest: 'Longest' },
+        reset: 'Reset',
+        noResults: 'No results. Clear filters.',
+        retry: 'Retry',
+        startReading: 'Start reading →',
+        newsletter: { title: 'Stay in the loop — new lessons monthly.', emailPlaceholder: 'Your email address', subscribe: 'Subscribe' },
+        donateBanner: { title: 'Support free, open e-learning content.', donate: 'Donate' },
+        pagination: { rows: 'Rows:', page: 'Page', prev: 'Prev', next: 'Next' }
+      },
+
+      // Transparency extras
+      transparencyExtras: {
+        filterByType: 'Filter by Type',
+        filterByStatus: 'Filter by Status',
+        questions: 'Questions about our transparency?',
+        promise: "We're committed to full transparency. Contact us for detailed financial reports or project updates.",
+        contactUs: 'Contact Us',
+        downloadAnnual: 'Download Annual Report'
+      },
+
+      // Public Donation
+      donation: {
+        title: 'Keep girls learning every month',
+        subtitle: 'Your gift funds menstrual kits, school sessions and basic WASH improvements so no girl misses class because of her period.',
+        impactTiers: {
+          kit: '1 menstrual hygiene kit for 6 months',
+          training: 'Full training for a class of 30 students',
+          facilities: 'Equip a school with adapted facilities'
+        },
+        yourDonation: 'Your Donation',
+        donationType: 'Donation Type',
+        oneTime: 'One-time',
+        monthly: 'Monthly',
+        mostImpact: 'Most Impact',
+        amountLabel: 'Amount (USD) – supports kits & education',
+        enterCustomAmount: 'Enter custom amount',
+        focusArea: 'Focus Area',
+        donationSummary: '{{type}} donation:',
+        focusPrefix: 'Focus:',
+        donorInformation: 'Donor Information',
+        fields: {
+          firstName: 'First Name *',
+          lastName: 'Last Name *',
+          email: 'Email *',
+          phoneOptional: 'Phone (Optional)',
+          addressOptional: 'Address (Optional)',
+          city: 'City',
+          country: 'Country',
+          anonPlaceholder: 'Anonymous',
+          anonDash: '—',
+          emailOptionalNoReceipt: 'Optional (no receipt will be emailed)',
+          emailForReceipt: 'For donation receipt'
+        },
+        anonymousLabel: 'Make this donation anonymous',
+        anonymousHint: "We won’t store your name or email. If you enter an email, we’ll only use it to send a receipt.",
+        taxTitle: 'Tax Deductible:',
+        taxBody: 'Your donation is tax-deductible to the full extent allowed by law. You will receive a receipt via email for your records.',
+        payButton: 'Donate ${{amount}} with Stripe',
+        preparingCheckout: 'Preparing secure checkout...',
+        secureProcessing: 'Secure payment processing by Stripe',
+        infoSafe: 'Your information is safe and encrypted',
+        otherWaysTitle: 'Other Ways to Support Dignity',
+        volunteerTitle: 'Volunteer',
+        volunteerDesc: 'Assist during distribution days or education sessions.',
+        spreadTitle: 'Spread the Word',
+        spreadDesc: 'Normalize menstrual health conversations in your network.',
+        corporateTitle: 'Corporate Partnership',
+        corporateDesc: 'Sponsor kits or fund a school WASH improvement cluster.',
+        contactUs: 'Contact Us',
+        transparencyTitle: 'Transparency Promise',
+        transparencyDesc: 'We believe in transparency. Track how your donation is used through detailed reports and impact tracking.',
+        viewReports: 'View Reports',
+        devNoticeTitle: 'Notice',
+        devNoticeBody: 'It is under development.',
+        close: 'Close'
+      },
       // Navigation
       nav: {
         projects: 'Projects',
@@ -485,11 +708,297 @@ const resources = {
   p2: '',
   cta: 'See more content about menstruation health'
       }
+      ,aboutPage: {
+        hero: {
+          title: 'About Educate4Dignity',
+          subtitle: 'We break taboos, educate communities, and provide sustainable, reusable solutions so every girl can manage her period with dignity.'
+        },
+        video: {
+          aria: 'Organization overview video',
+          unsupported: 'Your browser does not support the video tag.',
+          caption: 'Clip from a school distribution session, capturing the energy in the room when girls receive their kits and guidance.'
+        },
+        mission: {
+          title: 'Our mission',
+          body: 'Across Burundi and the wider East Africa region, too many learners miss lessons during menstruation, not for lack of motivation, but because of cost, silence, inadequate WASH facilities and limited guidance.',
+          bullets: {
+            education: 'Education: clear, stigma-free menstrual health learning.',
+            access: 'Access: sustainable, reusable kits & locally sourced materials.',
+            facilities: 'Facilities (WASH): privacy, water & handwashing that match real school contexts.',
+            capacity: 'Local capacity: co-building with cooperatives, teachers & health workers.'
+          }
+        },
+        vision: {
+          title: 'Our vision',
+          body: "A region where no learner's education is interrupted by menstruation, where dignity, health, and opportunity are standard in every classroom.",
+          bullets: {
+            schools: 'Every school equipped with practical menstrual health education and WASH facilities.',
+            production: 'Local women-led production sustaining affordable, reusable solutions.',
+            transparency: 'Transparent impact data shared to accelerate what works.'
+          }
+        },
+        approach: {
+          whyTitle: 'Why it matters',
+          whyBody: 'Education delays early marriage, improves health and multiplies community resilience. A pad is not the whole answer, but without one, too many futures shrink.',
+          howTitle: 'How we work',
+          howBody: 'We listen first, co-design with schools and cooperatives, document early, publish openly and iterate to create replicable support.',
+          valueTitle: 'What we value',
+          valueBody: 'Dignity, transparency and local intelligence. We remove basic health barriers so education remains uninterrupted.'
+        },
+        founder: {
+          title: 'Founder\'s note',
+          p1: 'I began listening to girls in Bujumbura in 2023. The pattern was simple and painful: curiosity and ambition blocked by a pad that was never there. A basic supply determining academic confidence felt unacceptable.',
+          p2: 'Our approach now is to prototype small, evidence-light solutions, share data, and widen partnerships, always centering the student experience. Biology should not decide who sits in a classroom.',
+          quote: 'Dignity is not a luxury add-on. It is the quiet infrastructure of learning.'
+        },
+        team: {
+          title: 'Team',
+          roles: {
+            opsTitle: 'Operations Lead',
+            opsBody: 'Program logistics & cooperative coordination.',
+            opsAlt: 'Operations lead overseeing distribution workflows',
+            finTitle: 'Finance & Compliance',
+            finBody: 'Budget discipline, transparent reporting.',
+            finAlt: 'Finance and compliance specialist',
+            eduTitle: 'Education & Research',
+            eduBody: 'MHM content, training design, monitoring.',
+            eduAlt: 'Education & research facilitator'
+          },
+          disclaimer: 'Images are placeholders; replace with consented photos for production.'
+        },
+        cta: {
+          title: 'Join us in restoring dignity',
+          donate: 'Donate'
+        }
+      }
       
     }
   },
   fr: {
     translation: {
+      // Not Found (public 404)
+      notFound: {
+        title: 'Page introuvable',
+        body: 'La page que vous recherchez n’existe pas ou a été déplacée. Vérifiez l’URL ou poursuivez votre navigation.',
+        contactUs: 'Nous contacter',
+        needHelp: 'Besoin d’aide ?'
+      },
+
+      // Public E-learning
+      elearning: {
+        lessonNotFound: 'Leçon introuvable',
+        moduleNotFound: 'Module introuvable',
+        breadcrumbRoot: 'E-learning',
+        backToModule: '← Retour au module',
+        lastUpdated: 'Dernière mise à jour',
+        lessonCover: 'Couverture de la leçon',
+        quickTip: 'Astuce',
+        prevLesson: 'Leçon précédente',
+        nextLesson: 'Leçon suivante',
+        shortcutsHint: 'Raccourcis : [ = Préc, ] = Suiv, Échap = Retour au module',
+        moduleOutline: 'Plan du module',
+        relatedLessons: 'Leçons liées',
+        downloads: 'Téléchargements',
+        relatedModules: 'Modules liés',
+        start: 'Démarrer',
+        startModule: 'Démarrer le module →',
+        viewModule: 'Voir le module →',
+        whatYouWillLearn: 'Ce que vous allez apprendre',
+        moduleCover: 'Couverture du module'
+      },
+
+      // Public Resources
+      resources: {
+        title: 'Ressources',
+        subtitle: 'Rapports, audits, politiques et modèles pour une transparence totale.',
+        searchAria: 'Rechercher des ressources',
+        searchPlaceholder: 'Rechercher des ressources...',
+        type: 'Type',
+        year: 'Année',
+        language: 'Langue',
+        tags: 'Tags',
+        selectTags: 'Sélectionner des tags',
+        clear: 'Effacer',
+        done: 'Terminé',
+        sort: 'Trier',
+        sortNewest: 'Trier : plus récent',
+        sortOldest: 'Plus ancien',
+        reset: 'Réinitialiser',
+        noResults: 'Aucun résultat. Effacer les filtres ?',
+        clearFilters: 'Effacer les filtres',
+        view: 'Voir',
+        download: 'Télécharger',
+        rowsLabel: 'Lignes :',
+        rows: 'Lignes par page',
+        page: 'Page',
+        prev: 'Préc',
+        next: 'Suiv',
+        donateBannerTitle: 'Aidez à élargir les ressources ouvertes et la transparence.',
+        devNoticeTitle: 'Avis',
+        devNoticeBody: 'C’est en cours de développement.',
+        close: 'Fermer',
+        category: {
+          report: 'Rapport',
+          audit: 'Audit',
+          policy: 'Politique',
+          template: 'Modèle',
+          data: 'Données',
+          guide: 'Guide'
+        }
+      },
+
+      // Public Blog
+      blog: {
+        listTitle: 'Histoires & Perspectives',
+        listSubtitle: 'Notes du terrain, mises à jour d’impact et carnets de recherche.',
+        searchPlaceholder: 'Rechercher des articles...',
+        categories: {
+          all: 'Tous les articles',
+          impact: 'Histoires d’impact',
+          insights: 'Perspectives',
+          updates: 'Mises à jour',
+          research: 'Recherche',
+          howto: 'Guide'
+        },
+        toolbar: { year: 'Année', tags: 'Tags', selectTags: 'Sélectionner des tags', clear: 'Effacer', done: 'Terminé', sortNewest: 'Trier : plus récent', sortOldest: 'Plus ancien', reset: 'Réinitialiser' },
+        none: { empty: 'Aucun article.', clearFilters: 'Effacer les filtres' },
+        read: 'Lire →',
+        pagination: { rows: 'Lignes :', prev: 'Préc', next: 'Suiv' },
+        supportBanner: { title: 'Soutenir l’innovation terrain & l’éducation à la dignité menstruelle.', cta: 'Faire un don' },
+        articleNotFound: 'Article introuvable',
+        backToList: 'Retour au blog',
+        onThisPage: 'Sur cette page',
+        keepReading: 'Continuer la lecture',
+        popularTopics: 'Sujets populaires',
+        copy: { copy: 'Copier le lien', copied: 'Copié', share: 'Partager' },
+        consentVerified: 'Consentement vérifié'
+      },
+
+      // Public Projects
+      projectsPage: {
+        headerSubtitle: 'Découvrez et soutenez nos projets en cours qui font une vraie différence.',
+        filters: { allTypes: 'Tous les types', distribution: 'Distribution', training: 'Formation', research: 'Recherche', allStatus: 'Tous les statuts', active: 'Actif', draft: 'Brouillon', completed: 'Terminé', reset: 'Réinitialiser' },
+        showing: 'Affichage',
+        of: 'sur',
+        filteredProjects: 'projets filtrés',
+        total: 'total',
+        none: { empty: 'Aucun projet.', reset: 'Réinitialiser les filtres' },
+        pagination: { rows: 'Lignes :', prev: 'Préc', next: 'Suiv' }
+      },
+
+      // Public Contact
+      contact: {
+        title: "Contactez l'équipe",
+        subtitle: 'Questions sur les projets, partenariats, bénévolat, dons ou médias ? Écrivez-nous — nous répondons à chaque message.',
+        form: {
+          name: 'Nom *',
+          email: 'Email *',
+          inquiryType: 'Type de demande',
+          subject: 'Objet *',
+          message: 'Message *',
+          placeholders: { name: 'Votre nom complet', email: 'vous@exemple.com', subject: 'Sujet bref', message: 'Votre message...' },
+          types: { general: 'Demande générale', partnership: 'Partenariat', volunteer: 'Bénévolat', donation: 'Don', media: 'Médias' },
+          send: 'Envoyer le message',
+          sent: 'Message envoyé !'
+        },
+        details: {
+          title: 'Coordonnées', personRole: 'Personne de contact & rôle', email: 'Email', phone: 'Téléphone', address: 'Adresse',
+          addressLines: {
+            line1: 'Siège à Dunkirk, Maryland, USA',
+            line2: 'Province/État : Maryland (USA)',
+            line3: 'Territoire/District : Siège : Dunkirk'
+          },
+          officeHours: 'Heures de bureau',
+          weekday: 'Lun–Ven', saturday: 'Samedi', sunday: 'Dimanche', closed: 'Fermé'
+        },
+        social: { title: 'Suivre & partager', facebook: 'Facebook', twitter: 'Twitter / X', whatsapp: 'WhatsApp', instagram: 'Instagram', tiktok: 'TikTok', linkedin: 'LinkedIn' },
+        cta: { title: 'Partenariat pour faire avancer la dignité et l’éducation menstruelles.', donate: 'Faire un don' }
+      },
+
+      // E-learning index
+      elearningIndex: {
+        title: 'E-learning',
+        subtitle: 'Leçons pratiques et gratuites sur la santé menstruelle — réutilisable, usage sûr et dignité. Aucun login requis.',
+        search: 'Rechercher des leçons...',
+        topic: 'Sujet',
+        level: 'Niveau',
+        length: 'Durée',
+        sort: { newest: 'Trier : plus récent', oldest: 'Plus ancien', shortest: 'Le plus court', longest: 'Le plus long' },
+        reset: 'Réinitialiser',
+        noResults: 'Aucun résultat. Effacer les filtres.',
+        retry: 'Réessayer',
+        startReading: 'Commencer la lecture →',
+        newsletter: { title: 'Restez informé — nouvelles leçons chaque mois.', emailPlaceholder: 'Votre adresse email', subscribe: 'S’abonner' },
+        donateBanner: { title: 'Soutenir des contenus e-learning libres et ouverts.', donate: 'Faire un don' },
+        pagination: { rows: 'Lignes :', page: 'Page', prev: 'Préc', next: 'Suiv' }
+      },
+
+      // Transparency extras
+      transparencyExtras: {
+        filterByType: 'Filtrer par type',
+        filterByStatus: 'Filtrer par statut',
+        questions: 'Des questions sur notre transparence ?',
+        promise: 'Nous nous engageons à une transparence totale. Contactez-nous pour des rapports financiers détaillés ou des mises à jour de projet.',
+        contactUs: 'Nous contacter',
+        downloadAnnual: 'Télécharger le rapport annuel'
+      },
+
+      // Public Donation
+      donation: {
+        title: 'Gardons les filles en classe chaque mois',
+        subtitle: 'Votre don finance des kits menstruels, des sessions scolaires et des améliorations WASH de base pour qu’aucune fille ne manque les cours à cause de ses règles.',
+        impactTiers: {
+          kit: '1 kit d’hygiène menstruelle pour 6 mois',
+          training: 'Formation complète pour une classe de 30 élèves',
+          facilities: 'Équiper une école avec des installations adaptées'
+        },
+        yourDonation: 'Votre don',
+        donationType: 'Type de don',
+        oneTime: 'Ponctuel',
+        monthly: 'Mensuel',
+        mostImpact: 'Plus d’impact',
+        amountLabel: 'Montant (USD) – soutient kits & éducation',
+        enterCustomAmount: 'Entrer un montant personnalisé',
+        focusArea: 'Domaine de soutien',
+        donationSummary: 'Don {{type}} :',
+        focusPrefix: 'Focus :',
+        donorInformation: 'Informations donateur',
+        fields: {
+          firstName: 'Prénom *',
+          lastName: 'Nom *',
+          email: 'Email *',
+          phoneOptional: 'Téléphone (optionnel)',
+          addressOptional: 'Adresse (optionnel)',
+          city: 'Ville',
+          country: 'Pays',
+          anonPlaceholder: 'Anonyme',
+          anonDash: '—',
+          emailOptionalNoReceipt: 'Optionnel (aucun reçu ne sera envoyé)',
+          emailForReceipt: 'Pour le reçu de don'
+        },
+        anonymousLabel: 'Rendre ce don anonyme',
+        anonymousHint: "Nous ne stockerons pas votre nom ni votre email. Si vous entrez un email, il ne servira qu’à envoyer un reçu.",
+        taxTitle: 'Déductible des impôts :',
+        taxBody: 'Votre don est déductible des impôts dans la limite de la loi. Vous recevrez un reçu par email pour vos dossiers.',
+        payButton: 'Donner ${{amount}} avec Stripe',
+        preparingCheckout: 'Préparation du paiement sécurisé...',
+        secureProcessing: 'Traitement de paiement sécurisé par Stripe',
+        infoSafe: 'Vos informations sont sûres et chiffrées',
+        otherWaysTitle: 'Autres façons de soutenir la dignité',
+        volunteerTitle: 'Bénévolat',
+        volunteerDesc: 'Aider lors des journées de distribution ou des sessions éducatives.',
+        spreadTitle: 'Faire passer le mot',
+        spreadDesc: 'Normaliser les conversations sur la santé menstruelle dans votre réseau.',
+        corporateTitle: 'Partenariat d’entreprise',
+        corporateDesc: 'Sponsoriser des kits ou financer un lot d’améliorations WASH scolaires.',
+        contactUs: 'Nous contacter',
+        transparencyTitle: 'Promesse de transparence',
+        transparencyDesc: 'Nous croyons en la transparence. Suivez l’utilisation de votre don via des rapports détaillés et un suivi d’impact.',
+        viewReports: 'Voir les rapports',
+        devNoticeTitle: 'Avis',
+        devNoticeBody: 'C’est en cours de développement.',
+        close: 'Fermer'
+      },
       // Navigation
       nav: {
         projects: 'Projets',
@@ -521,15 +1030,15 @@ const resources = {
   featuredProjectsTitle: 'Choisissez un projet qui vous parle et suivez son évolution.',
   momentsTitle: 'Des kits cousus localement, des femmes qui mènent, des filles qui gardent leurs journées.',
   imagesDisclaimer: 'Images présentées = illustrations provisoires pour le prototype.',
+        nav_mh: {
+          projects: 'Projets santé menstruelle',
+          resources: 'Ressources santé menstruelle',
+          blog: 'Histoires & Perspectives',
+          elearning: 'E-learning (santé menstruelle)',
+          about: 'Notre mission santé menstruelle'
+        },
   howTitle: 'Voyez comment votre soutien devient un impact mesurable.',
   partnersTitle: 'Nous avançons main dans la main avec des partenaires locaux engagés.',
-  countriesTitle: 'Là où nous apprenons, construisons et avançons ensemble.',
-        ourImpact: 'Notre impact',
-        impactDescription: 'Ensemble, nous créons un changement durable',
-        projectsCompleted: 'Projets terminés',
-        livesImpacted: 'Vies impactées',
-        countriesReached: 'Pays atteints',
-        fundsRaised: 'Fonds collectés'
       },
       audience: {
         labels: {
@@ -1001,29 +1510,67 @@ const resources = {
   cta: 'Voir plus de contenu sur la santé menstruelle'
       }
       ,aboutPage: {
-        heroTitle: 'From Taboo to Dignity: Rethinking Menstrual Health through Innovation and Equity',
-        heroSubtitle: 'An origin story about girls, engineering, and dignity — how communities and simple innovations can remove a monthly barrier to education.',
-        quote: 'Biology should never determine destiny. Menstruation must be met with science, support, and solidarity — not silence.',
-        beginnings: 'Our beginnings',
-        vision: 'Vision & intent',
-        team: 'Team & governance',
-        partners: 'Partners',
-        cta: 'Join us in restoring dignity through engineering with empathy.',
-        donate: 'Donate now'
-      }
-      ,blog: {
-        listTitle: 'Stories & Insights',
-        listSubtitle: 'Field stories, research notes, and product updates from the ground.',
-        searchPlaceholder: 'Search articles...',
-        filters: { topic:'Topic', country:'Country', year:'Year', type:'Type', sortNewest:'Sort: Newest' },
-        stayLoop: 'Stay in the loop',
-        stayLoopDesc: 'Monthly round-up of impact stories and transparency updates.',
-        subscribeCta: 'Subscribe',
-        onThisPage: 'On this page',
-        consentVerified: 'Consent verified',
-        transparencyNote: 'Transparency note',
-        keepReading: 'Keep Reading',
-        popularTopics: 'Popular topics'
+        hero: {
+          title: 'À propos d\'Educate4Dignity',
+          subtitle: 'Nous brisons les tabous, éduquons les communautés et proposons des solutions réutilisables et durables pour que chaque fille vive ses règles avec dignité.'
+        },
+        video: {
+          aria: 'Vidéo de présentation de l\'organisation',
+          unsupported: 'Votre navigateur ne supporte pas la vidéo.',
+          caption: 'Extrait d\'une session de distribution à l\'école, capturant l\'énergie lorsque les filles reçoivent leurs kits et des conseils.'
+        },
+        mission: {
+          title: 'Notre mission',
+          body: 'Au Burundi et dans l\'Afrique de l\'Est, trop d\'élèves manquent des cours pendant leurs règles, non par manque de motivation, mais à cause du coût, du silence, d\'installations WASH insuffisantes et d\'un accompagnement limité.',
+          bullets: {
+            education: 'Éducation : un apprentissage clair et sans stigmatisation sur la santé menstruelle.',
+            access: 'Accès : kits réutilisables et matériaux locaux, durables.',
+            facilities: 'Infrastructures (WASH) : intimité, eau et lavage des mains adaptés aux contextes scolaires réels.',
+            capacity: 'Capacités locales : co‑construire avec coopératives, enseignants et agents de santé.'
+          }
+        },
+        vision: {
+          title: 'Notre vision',
+          body: 'Une région où l\'éducation de chaque élève n\'est jamais interrompue par les règles, où dignité, santé et opportunité sont la norme en classe.',
+          bullets: {
+            schools: 'Chaque école dotée d\'une éducation pratique à la santé menstruelle et d\'infrastructures WASH.',
+            production: 'Une production locale portée par des femmes, rendant les solutions réutilisables abordables.',
+            transparency: 'Des données d\'impact transparentes partagées pour accélérer ce qui fonctionne.'
+          }
+        },
+        approach: {
+          whyTitle: 'Pourquoi c\'est important',
+          whyBody: 'L\'éducation retarde les mariages précoces, améliore la santé et renforce la résilience communautaire. Une serviette n\'est pas toute la réponse, mais sans elle trop d\'avenirs se rétrécissent.',
+          howTitle: 'Notre manière d\'agir',
+          howBody: 'Écouter d\'abord, co‑concevoir avec écoles et coopératives, documenter tôt, publier ouvertement et itérer pour créer un appui réplicable.',
+          valueTitle: 'Ce que nous valorisons',
+          valueBody: 'Dignité, transparence et intelligence locale. Nous levons les barrières de santé de base pour que l\'éducation ne s\'interrompe pas.'
+        },
+        founder: {
+          title: 'Mot de la fondatrice',
+          p1: 'J\'ai commencé à écouter les filles à Bujumbura en 2023. Le constat était simple et douloureux : curiosité et ambition bloquées par une serviette absente. Qu\'une fourniture de base détermine la confiance scolaire est inacceptable.',
+          p2: 'Notre approche : prototyper des solutions modestes mais rapides, partager des données et élargir les partenariats, en centrant toujours l\'expérience de l\'élève. La biologie ne doit pas décider qui s\'assied en classe.',
+          quote: 'La dignité n\'est pas un luxe. C\'est l\'infrastructure discrète de l\'apprentissage.'
+        },
+        team: {
+          title: 'Équipe',
+          roles: {
+            opsTitle: 'Responsable opérations',
+            opsBody: 'Logistique des programmes et coordination des coopératives.',
+            opsAlt: 'Responsable opérations supervisant les distributions',
+            finTitle: 'Finances & conformité',
+            finBody: 'Discipline budgétaire, rapports transparents.',
+            finAlt: 'Spécialiste finances et conformité',
+            eduTitle: 'Éducation & recherche',
+            eduBody: 'Contenus MHM, conception des formations, suivi.',
+            eduAlt: 'Animatrice éducation & recherche'
+          },
+          disclaimer: 'Images provisoires : à remplacer par des photos consenties en production.'
+        },
+        cta: {
+          title: 'Rejoignez-nous pour restaurer la dignité',
+          donate: 'Faire un don'
+        }
       }
     }
   }

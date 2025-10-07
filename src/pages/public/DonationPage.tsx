@@ -31,9 +31,9 @@ const DonationPage: React.FC = () => {
   const predefinedAmounts = [25, 50, 100, 250, 500, 1000];
 
   const projects = [
-    { id: 'kits', name: 'Menstrual Kits Distribution', description: 'Reusable pad + pouch + basic guide for students' },
-    { id: 'education', name: 'School Education Sessions', description: 'Interactive menstrual health & dignity lessons' },
-    { id: 'wash', name: 'WASH & Privacy Upgrades', description: 'Partitions, disposal bins & handwashing access' },
+    { id: 'kits', name: t('projectCard.supportCtaLong','Advance menstrual health & dignity'), description: t('donation.impactTiers.kit','1 menstrual hygiene kit for 6 months') },
+    { id: 'education', name: t('nav_mh.elearning','E-learning (Menstrual Health)'), description: t('donation.impactTiers.training','Full training for a class of 30 students') },
+    { id: 'wash', name: 'WASH & Privacy', description: t('donation.impactTiers.facilities','Equip a school with adapted facilities') },
     { id: 'monitoring', name: 'Monitoring & Data', description: 'Evidence collection to improve impact & scale' }
   ];
 
@@ -143,26 +143,26 @@ const DonationPage: React.FC = () => {
       {/* Header */}
       <header className="mb-8 space-y-2 text-center">
         <h1 className="text-[32px] leading-[40px] font-extrabold text-primary">{t('donation.title','Keep girls learning every month')}</h1>
-        <p className="text-[14px] leading-[20px] text-secondary max-w-prose mx-auto">Your gift funds menstrual kits, school sessions and basic WASH improvements so no girl misses class because of her period.</p>
+        <p className="text-[14px] leading-[20px] text-secondary max-w-prose mx-auto">{t('donation.subtitle','Your gift funds menstrual kits, school sessions and basic WASH improvements so no girl misses class because of her period.')}</p>
       </header>
 
       <div className="max-w-4xl mx-auto w-full space-y-10">
 
         {/* Impact Tiers (updated Euro amounts) */}
         <section className="rounded-xl border border-base bg-white p-6" aria-labelledby="impact-tiers-heading">
-          <h2 id="impact-tiers-heading" className="sr-only">Donation impact tiers</h2>
+          <h2 id="impact-tiers-heading" className="sr-only">{t('donation.yourDonation','Your Donation')}</h2>
           <dl className="flex flex-col md:flex-row md:divide-x md:divide-base">
             <div className="flex-1 text-center py-4 md:py-0 md:px-6">
               <dt className="text-[22px] leading-[26px] font-extrabold tracking-tight text-primary">$15</dt>
-              <dd className="mt-1 text-[12px] leading-[18px] text-secondary max-w-[240px] mx-auto">1 menstrual hygiene kit for 6 months</dd>
+              <dd className="mt-1 text-[12px] leading-[18px] text-secondary max-w-[240px] mx-auto">{t('donation.impactTiers.kit','1 menstrual hygiene kit for 6 months')}</dd>
             </div>
             <div className="flex-1 text-center py-4 md:py-0 md:px-6 border-t md:border-t-0 border-base">
               <dt className="text-[22px] leading-[26px] font-extrabold tracking-tight text-primary">$50</dt>
-              <dd className="mt-1 text-[12px] leading-[18px] text-secondary max-w-[240px] mx-auto">Full training for a class of 30 students</dd>
+              <dd className="mt-1 text-[12px] leading-[18px] text-secondary max-w-[240px] mx-auto">{t('donation.impactTiers.training','Full training for a class of 30 students')}</dd>
             </div>
             <div className="flex-1 text-center py-4 md:py-0 md:px-6 border-t md:border-t-0 border-base">
               <dt className="text-[22px] leading-[26px] font-extrabold tracking-tight text-primary">$100</dt>
-              <dd className="mt-1 text-[12px] leading-[18px] text-secondary max-w-[240px] mx-auto">Equip a school with adapted facilities</dd>
+              <dd className="mt-1 text-[12px] leading-[18px] text-secondary max-w-[240px] mx-auto">{t('donation.impactTiers.facilities','Equip a school with adapted facilities')}</dd>
             </div>
           </dl>
         </section>
@@ -171,28 +171,28 @@ const DonationPage: React.FC = () => {
           {/* Donation Form */}
           <Card className="rounded-xl border border-base bg-white">
             <CardHeader>
-              <CardTitle className="text-[16px] leading-[22px] font-semibold text-primary">Your Donation</CardTitle>
+              <CardTitle className="text-[16px] leading-[22px] font-semibold text-primary">{t('donation.yourDonation','Your Donation')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Donation Type */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">
-                  Donation Type
+                  {t('donation.donationType','Donation Type')}
                 </label>
                 <div className="flex space-x-3">
                   <button
                     onClick={() => setDonationType('one-time')}
                     className={`flex-1 h-10 px-3 rounded-full border text-[13px] transition-colors ${ donationType === 'one-time' ? 'border-primary bg-[var(--color-primary-light)] text-primary' : 'border-base bg-white hover:bg-[var(--color-primary-light)]'}`}
                   >
-                    One-time
+                    {t('donation.oneTime','One-time')}
                   </button>
                   <button
                     onClick={() => setDonationType('recurring')}
                     className={`flex-1 h-10 px-3 rounded-full border text-[13px] transition-colors ${ donationType === 'recurring' ? 'border-primary bg-[var(--color-primary-light)] text-primary' : 'border-base bg-white hover:bg-[var(--color-primary-light)]'}`}
                   >
-                    Monthly
+                    {t('donation.monthly','Monthly')}
                     <Badge variant="primary" size="sm" className="ml-2">
-                      Most Impact
+                      {t('donation.mostImpact','Most Impact')}
                     </Badge>
                   </button>
                 </div>
@@ -201,7 +201,7 @@ const DonationPage: React.FC = () => {
               {/* Amount Selection */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">
-                  Amount (USD) – supports kits & education
+                  {t('donation.amountLabel','Amount (USD) – supports kits & education')}
                 </label>
                 <div className="grid grid-cols-3 gap-3 mb-4">
                   {predefinedAmounts.map((amount) => (
@@ -217,7 +217,7 @@ const DonationPage: React.FC = () => {
                 <div>
                   <Input
                     type="number"
-                    placeholder="Enter custom amount"
+                    placeholder={t('donation.enterCustomAmount','Enter custom amount')}
                     value={customAmount}
                     onChange={handleCustomAmountChange}
                     min="1"
@@ -229,7 +229,7 @@ const DonationPage: React.FC = () => {
               {/* Project Selection */}
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-3">
-                  Focus Area
+                  {t('donation.focusArea','Focus Area')}
                 </label>
                 <div className="space-y-2">
                   {projects.map((project) => (
@@ -249,14 +249,14 @@ const DonationPage: React.FC = () => {
               <div className="p-4 rounded-xl border border-base bg-white">
                 <div className="flex justify-between items-center">
                   <span className="font-medium text-primary text-[13px]">
-                    {donationType === 'recurring' ? 'Monthly' : 'One-time'} donation:
+                    {t('donation.donationSummary', { type: donationType === 'recurring' ? t('donation.monthly','Monthly') : t('donation.oneTime','One-time') })}
                   </span>
                   <span className="text-[20px] font-semibold text-primary">
                     ${getFinalAmount()}
                   </span>
                 </div>
                 <div className="text-secondary text-[11px] leading-[18px] mt-1">
-                  Focus: {projects.find(p => p.id === selectedProject)?.name}
+                  {t('donation.focusPrefix','Focus:')} {projects.find(p => p.id === selectedProject)?.name}
                 </div>
               </div>
             </CardContent>
@@ -265,13 +265,13 @@ const DonationPage: React.FC = () => {
           {/* Donor Information */}
           <Card className="rounded-xl border border-base bg-white">
             <CardHeader>
-              <CardTitle className="text-[16px] leading-[22px] font-semibold text-primary">Donor Information</CardTitle>
+              <CardTitle className="text-[16px] leading-[22px] font-semibold text-primary">{t('donation.donorInformation','Donor Information')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-text-primary mb-1">
-                    First Name *
+                    {t('donation.fields.firstName','First Name *')}
                   </label>
                   <Input
                     name="firstName"
@@ -279,12 +279,12 @@ const DonationPage: React.FC = () => {
                     onChange={handleInputChange}
                     required={!donorInfo.anonymous}
                     disabled={donorInfo.anonymous}
-                    placeholder={donorInfo.anonymous? 'Anonymous':''}
+                    placeholder={donorInfo.anonymous? t('donation.fields.anonPlaceholder','Anonymous'):''}
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-text-primary mb-1">
-                    Last Name *
+                    {t('donation.fields.lastName','Last Name *')}
                   </label>
                   <Input
                     name="lastName"
@@ -292,14 +292,14 @@ const DonationPage: React.FC = () => {
                     onChange={handleInputChange}
                     required={!donorInfo.anonymous}
                     disabled={donorInfo.anonymous}
-                    placeholder={donorInfo.anonymous? '—':''}
+                    placeholder={donorInfo.anonymous? t('donation.fields.anonDash','—'):''}
                   />
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-1">
-                  Email *
+                  {t('donation.fields.email','Email *')}
                 </label>
                 <Input
                   type="email"
@@ -308,13 +308,13 @@ const DonationPage: React.FC = () => {
                   onChange={handleInputChange}
                   required={!donorInfo.anonymous}
                   disabled={donorInfo.anonymous}
-                  placeholder={donorInfo.anonymous? 'Optional (no receipt will be emailed)':'For donation receipt'}
+                  placeholder={donorInfo.anonymous? t('donation.fields.emailOptionalNoReceipt','Optional (no receipt will be emailed)'):t('donation.fields.emailForReceipt','For donation receipt')}
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-1">
-                  Phone (Optional)
+                  {t('donation.fields.phoneOptional','Phone (Optional)')}
                 </label>
                 <Input
                   type="tel"
@@ -326,7 +326,7 @@ const DonationPage: React.FC = () => {
 
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-1">
-                  Address (Optional)
+                  {t('donation.fields.addressOptional','Address (Optional)')}
                 </label>
                 <Input
                   name="address"
@@ -338,7 +338,7 @@ const DonationPage: React.FC = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-text-primary mb-1">
-                    City
+                    {t('donation.fields.city','City')}
                   </label>
                   <Input
                     name="city"
@@ -348,7 +348,7 @@ const DonationPage: React.FC = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-text-primary mb-1">
-                    Country
+                    {t('donation.fields.country','Country')}
                   </label>
                   <Input
                     name="country"
@@ -369,12 +369,12 @@ const DonationPage: React.FC = () => {
                     className="rounded border-border focus:ring-primary"
                   />
                   <label htmlFor="anonymous" className="text-sm text-text-secondary">
-                    Make this donation anonymous
+                    {t('donation.anonymousLabel','Make this donation anonymous')}
                   </label>
                 </div>
                 {donorInfo.anonymous && (
                   <div className="text-[11px] leading-[16px] text-secondary ml-6">
-                    We won’t store your name or email. If you enter an email, we’ll only use it to send a receipt.
+                    {t('donation.anonymousHint','We won’t store your name or email. If you enter an email, we’ll only use it to send a receipt.')}
                   </div>
                 )}
               </div>
@@ -382,8 +382,7 @@ const DonationPage: React.FC = () => {
               {/* Tax Information */}
               <div className="p-4 rounded-xl border border-base bg-white">
                 <div className="text-[12px] leading-[18px] text-secondary">
-                  <strong>Tax Deductible:</strong> Your donation is tax-deductible to the full extent allowed by law. 
-                  You will receive a receipt via email for your records.
+                  <strong>{t('donation.taxTitle','Tax Deductible:')}</strong> {t('donation.taxBody','Your donation is tax-deductible to the full extent allowed by law. You will receive a receipt via email for your records.')}
                 </div>
               </div>
 
@@ -393,7 +392,7 @@ const DonationPage: React.FC = () => {
                 className="w-full text-lg py-3"
                 disabled={getFinalAmount() <= 0 || loading}
               >
-                {loading ? 'Preparing secure checkout...' : `Donate $${getFinalAmount()} with Stripe`}
+                {loading ? t('donation.preparingCheckout','Preparing secure checkout...') : t('donation.payButton','Donate ${{amount}} with Stripe', { amount: getFinalAmount() })}
               </Button>
 
               {error && (
@@ -403,8 +402,8 @@ const DonationPage: React.FC = () => {
               )}
 
               <div className="text-center text-[11px] leading-[18px] text-secondary">
-                Secure payment processing by Stripe<br />
-                <span className="inline-flex items-center gap-1"><Lock size={14} /> Your information is safe and encrypted</span>
+                {t('donation.secureProcessing','Secure payment processing by Stripe')}<br />
+                <span className="inline-flex items-center gap-1"><Lock size={14} /> {t('donation.infoSafe','Your information is safe and encrypted')}</span>
               </div>
             </CardContent>
           </Card>
@@ -414,41 +413,41 @@ const DonationPage: React.FC = () => {
           <div role="dialog" aria-modal="true" className="fixed inset-0 z-[100] flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-black/50" onClick={()=> setShowDev(false)} />
             <div className="relative z-10 w-full max-w-sm rounded-xl border border-base bg-white p-6 text-center shadow-xl">
-              <h3 className="text-[16px] font-semibold text-primary mb-2">Notice</h3>
-              <p className="text-[13px] text-secondary mb-4">It is under development.</p>
-              <button autoFocus onClick={()=> setShowDev(false)} className="px-4 h-9 rounded-full border border-base bg-[var(--color-primary-light)] text-[13px]">Close</button>
+              <h3 className="text-[16px] font-semibold text-primary mb-2">{t('donation.devNoticeTitle','Notice')}</h3>
+              <p className="text-[13px] text-secondary mb-4">{t('donation.devNoticeBody','It is under development.')}</p>
+              <button autoFocus onClick={()=> setShowDev(false)} className="px-4 h-9 rounded-full border border-base bg-[var(--color-primary-light)] text-[13px]">{t('donation.close','Close')}</button>
             </div>
           </div>
         )}
 
         {/* Other Ways to Help */}
         <div className="mt-12">
-          <h2 className="text-[18px] leading-[24px] font-semibold text-primary text-center mb-6">Other Ways to Support Dignity</h2>
+          <h2 className="text-[18px] leading-[24px] font-semibold text-primary text-center mb-6">{t('donation.otherWaysTitle','Other Ways to Support Dignity')}</h2>
           <div className="grid md:grid-cols-3 gap-6">
             <Card className="text-center rounded-xl border border-base bg-white">
               <CardContent className="py-6 px-4 space-y-3">
                 <div className="text-primary/70"><Users className="w-8 h-8 mx-auto" /></div>
-                <h3 className="font-semibold text-[15px] text-primary">Volunteer</h3>
-                <p className="text-secondary text-[12px] leading-[18px]">Assist during distribution days or education sessions.</p>
-                <Button variant="secondary" className="h-8 px-3 text-[12px] rounded-full">Learn More</Button>
+                <h3 className="font-semibold text-[15px] text-primary">{t('donation.volunteerTitle','Volunteer')}</h3>
+                <p className="text-secondary text-[12px] leading-[18px]">{t('donation.volunteerDesc','Assist during distribution days or education sessions.')}</p>
+                <Button variant="secondary" className="h-8 px-3 text-[12px] rounded-full">{t('common.learnMore','Learn More')}</Button>
               </CardContent>
             </Card>
 
             <Card className="text-center rounded-xl border border-base bg-white">
               <CardContent className="py-6 px-4 space-y-3">
                 <div className="text-primary/70"><Megaphone className="w-8 h-8 mx-auto" /></div>
-                <h3 className="font-semibold text-[15px] text-primary">Spread the Word</h3>
-                <p className="text-secondary text-[12px] leading-[18px]">Normalize menstrual health conversations in your network.</p>
-                <Button variant="secondary" className="h-8 px-3 text-[12px] rounded-full">Share</Button>
+                <h3 className="font-semibold text-[15px] text-primary">{t('donation.spreadTitle','Spread the Word')}</h3>
+                <p className="text-secondary text-[12px] leading-[18px]">{t('donation.spreadDesc','Normalize menstrual health conversations in your network.')}</p>
+                <Button variant="secondary" className="h-8 px-3 text-[12px] rounded-full">{t('common.share','Share')}</Button>
               </CardContent>
             </Card>
 
             <Card className="text-center rounded-xl border border-base bg-white">
               <CardContent className="py-6 px-4 space-y-3">
                 <div className="text-primary/70"><Building2 className="w-8 h-8 mx-auto" /></div>
-                <h3 className="font-semibold text-[15px] text-primary">Corporate Partnership</h3>
-                <p className="text-secondary text-[12px] leading-[18px]">Sponsor kits or fund a school WASH improvement cluster.</p>
-                <Button variant="secondary" className="h-8 px-3 text-[12px] rounded-full">Contact Us</Button>
+                <h3 className="font-semibold text-[15px] text-primary">{t('donation.corporateTitle','Corporate Partnership')}</h3>
+                <p className="text-secondary text-[12px] leading-[18px]">{t('donation.corporateDesc','Sponsor kits or fund a school WASH improvement cluster.')}</p>
+                <Button variant="secondary" className="h-8 px-3 text-[12px] rounded-full">{t('donation.contactUs','Contact Us')}</Button>
               </CardContent>
             </Card>
           </div>
@@ -458,11 +457,11 @@ const DonationPage: React.FC = () => {
         <div className="mt-12 text-center">
           <Card className="max-w-2xl mx-auto rounded-xl border border-base bg-white">
             <CardContent className="py-6 px-6 space-y-3">
-              <h3 className="font-semibold text-[15px] text-primary">Transparency Promise</h3>
+              <h3 className="font-semibold text-[15px] text-primary">{t('donation.transparencyTitle','Transparency Promise')}</h3>
               <p className="text-secondary text-[12px] leading-[18px]">
-                We believe in transparency. Track how your donation is used through detailed reports and impact tracking.
+                {t('donation.transparencyDesc','We believe in transparency. Track how your donation is used through detailed reports and impact tracking.')}
               </p>
-              <Button variant="secondary" className="h-8 px-4 text-[12px] rounded-full">View Reports</Button>
+              <Button variant="secondary" className="h-8 px-4 text-[12px] rounded-full">{t('donation.viewReports','View Reports')}</Button>
             </CardContent>
           </Card>
         </div>

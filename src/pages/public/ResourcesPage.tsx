@@ -6,7 +6,14 @@ import { listResources, formatSize, mockResources } from '../../data/resources';
 import { ResourceCategory, ResourceLanguage } from '../../types/resources';
 import { Search, Download } from 'lucide-react';
 
-const categoryLabels: Record<string,string> = { report:'Report', audit:'Audit', policy:'Policy', template:'Template', data:'Data', guide:'Guide' };
+const categoryLabels = (t: ReturnType<typeof useTranslation>['t']): Record<string,string> => ({
+  report: t('resources.category.report','Report'),
+  audit: t('resources.category.audit','Audit'),
+  policy: t('resources.category.policy','Policy'),
+  template: t('resources.category.template','Template'),
+  data: t('resources.category.data','Data'),
+  guide: t('resources.category.guide','Guide')
+});
 
 const ResourcesPage: React.FC = () => {
   const { t } = useTranslation();
@@ -52,22 +59,22 @@ const ResourcesPage: React.FC = () => {
             <input role="searchbox" aria-label={t('resources.searchAria','Search resources')} value={q} onChange={e=> setQ(e.target.value)} placeholder={t('resources.searchPlaceholder','Search resources...')} className="pl-9 pr-4 h-10 w-full rounded-full text-[13px] border border-base bg-white focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]" />
           </div>
           <select aria-label={t('resources.type','Type')} value={type} onChange={e=> setType(e.target.value as any)} className="h-10 px-3 rounded-full border border-base bg-white text-[13px]">
-            <option value="">Type</option>
-            {Object.keys(categoryLabels).map(k=> <option key={k} value={k}>{categoryLabels[k]}</option>)}
+            <option value="">{t('resources.type','Type')}</option>
+            {Object.keys(categoryLabels(t)).map(k=> <option key={k} value={k}>{categoryLabels(t)[k]}</option>)}
           </select>
           <select aria-label={t('resources.year','Year')} value={year} onChange={e=> setYear(e.target.value? Number(e.target.value):'')} className="h-10 px-3 rounded-full border border-base bg-white text-[13px] w-[110px]">
-            <option value="">Year</option>
+            <option value="">{t('resources.year','Year')}</option>
             {years.map(y=> <option key={y} value={y}>{y}</option>)}
           </select>
             <select aria-label={t('resources.language','Language')} value={lang} onChange={e=> setLang(e.target.value as any)} className="h-10 px-3 rounded-full border border-base bg-white text-[13px] w-[120px]">
-              <option value="">Lang</option>
+              <option value="">{t('resources.language','Language')}</option>
               <option value="EN">EN</option>
               <option value="FR">FR</option>
               <option value="EN/FR">EN/FR</option>
             </select>
           <div className="relative" aria-expanded={showTags} aria-haspopup="listbox">
             <button type="button" onClick={()=> setShowTags(s=>!s)} className="h-10 px-3 rounded-full border border-base bg-white flex items-center gap-2 text-[13px]">
-              <span>Tags</span>
+              <span>{t('resources.tags','Tags')}</span>
               {tags.length>0 && <span className="text-[11px] rounded-full px-2 py-[2px] bg-[var(--color-primary-light)] border border-base text-primary">{tags.length}</span>}
             </button>
             {showTags && (
@@ -91,8 +98,8 @@ const ResourcesPage: React.FC = () => {
             )}
           </div>
           <select aria-label={t('resources.sort','Sort')} value={sort} onChange={e=> setSort(e.target.value as any)} className="h-10 px-3 rounded-full border border-base bg-white text-[13px] w-[150px]">
-            <option value="newest">Sort: Newest</option>
-            <option value="oldest">Oldest</option>
+            <option value="newest">{t('resources.sortNewest','Sort: Newest')}</option>
+            <option value="oldest">{t('resources.sortOldest','Oldest')}</option>
           </select>
           {(q||type||year||lang||tags.length||sort!=='newest') && <button onClick={clearAll} className="h-10 px-4 rounded-full border border-base bg-white text-[12px]">{t('resources.reset','Reset')}</button>}
         </div>
@@ -113,10 +120,10 @@ const ResourcesPage: React.FC = () => {
                     <p className="mt-1 text-[12px] leading-[18px] line-clamp-3 text-secondary">{r.summary}</p>
                   </div>
                 </div>
-                <div className="mt-2 text-[11px] leading-[18px] text-secondary">{categoryLabels[r.category]} · {r.year} · {r.language} · {r.file_type} · {formatSize(r.file_size_bytes)}</div>
+                <div className="mt-2 text-[11px] leading-[18px] text-secondary">{categoryLabels(t)[r.category]} · {r.year} · {r.language} · {r.file_type} · {formatSize(r.file_size_bytes)}</div>
                 <div className="mt-auto pt-3 flex gap-2 justify-end">
-                  <Link aria-label={`${t('resources.view','View')} ${r.title}`} to={`/resources/${r.slug}`} onClick={handleUnderDevelopment} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">View</Link>
-                  <button aria-label={`${t('resources.download','Download')} ${r.title}`} onClick={handleUnderDevelopment} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium flex items-center gap-1 hover:bg-[var(--color-primary-light)]"><Download className="w-4 h-4"/>DL</button>
+                  <Link aria-label={`${t('resources.view','View')} ${r.title}`} to={`/resources/${r.slug}`} onClick={handleUnderDevelopment} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium hover:bg-[var(--color-primary-light)]">{t('resources.view','View')}</Link>
+                  <button aria-label={`${t('resources.download','Download')} ${r.title}`} onClick={handleUnderDevelopment} className="px-3 h-8 rounded-full border border-base text-[12px] font-medium flex items-center gap-1 hover:bg-[var(--color-primary-light)]"><Download className="w-4 h-4"/>{t('resources.download','Download')}</button>
                 </div>
               </article>
             ))}
@@ -128,9 +135,9 @@ const ResourcesPage: React.FC = () => {
         <div role="dialog" aria-modal="true" className="fixed inset-0 z-[100] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-black/50" onClick={()=> setShowDev(false)} />
           <div className="relative z-10 w-full max-w-sm rounded-xl border border-base bg-white p-6 text-center shadow-xl">
-            <h3 className="text-[16px] font-semibold text-primary mb-2">Notice</h3>
-            <p className="text-[13px] text-secondary mb-4">It is under development.</p>
-            <button autoFocus onClick={()=> setShowDev(false)} className="px-4 h-9 rounded-full border border-base bg-[var(--color-primary-light)] text-[13px]">Close</button>
+            <h3 className="text-[16px] font-semibold text-primary mb-2">{t('resources.devNoticeTitle','Notice')}</h3>
+            <p className="text-[13px] text-secondary mb-4">{t('resources.devNoticeBody','It is under development.')}</p>
+            <button autoFocus onClick={()=> setShowDev(false)} className="px-4 h-9 rounded-full border border-base bg-[var(--color-primary-light)] text-[13px]">{t('resources.close','Close')}</button>
           </div>
         </div>
       )}
@@ -138,26 +145,26 @@ const ResourcesPage: React.FC = () => {
         {/* Pagination (always visible when there is data, even if only one page) */}
         {data.total>0 && (
           <nav id="pagination" className="mt-8 flex items-center justify-between text-[12px] flex-wrap gap-4" aria-label="Pagination">
-            <div className="flex items-center gap-2">Rows:
+            <div className="flex items-center gap-2">{t('resources.rowsLabel','Rows:')}
               <select value={pageSize} onChange={e=> { setPageSize(Number(e.target.value)); setPage(1); }} className="h-8 px-2 rounded-full border border-base bg-white" aria-label={t('resources.rows','Rows per page')}>
                 {[6,9,12,15].map(sz=> <option key={sz} value={sz}>{sz}</option>)}
               </select>
               <span className="ml-2 text-secondary">{t('resources.page','Page')} {page} / {totalPages}</span>
             </div>
             <div className="flex items-center gap-2">
-              <button aria-label={t('resources.prev','Previous page')} onClick={()=> setPage(p=> Math.max(1,p-1))} disabled={page===1} className="h-8 px-3 rounded-full transition-colors border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40 disabled:cursor-not-allowed">Prev</button>
+              <button aria-label={t('resources.prev','Previous page')} onClick={()=> setPage(p=> Math.max(1,p-1))} disabled={page===1} className="h-8 px-3 rounded-full transition-colors border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40 disabled:cursor-not-allowed">{t('resources.prev','Prev')}</button>
               {Array.from({length: totalPages}).slice(0,5).map((_,i)=> { const pageNum=i+1; const active=pageNum===page; return (
                 <button aria-current={active? 'page':undefined} key={pageNum} onClick={()=> setPage(pageNum)} className={`w-8 h-8 rounded-full text-[12px] border border-base ${active?'bg-primary text-white':'bg-[var(--color-primary-light)] text-primary hover:brightness-95'}`}>{pageNum}</button>
               );})}
-              <button aria-label={t('resources.next','Next page')} onClick={()=> setPage(p=> Math.min(totalPages,p+1))} disabled={page===totalPages} className="h-8 px-3 rounded-full transition-colors border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40 disabled:cursor-not-allowed">Next</button>
+              <button aria-label={t('resources.next','Next page')} onClick={()=> setPage(p=> Math.min(totalPages,p+1))} disabled={page===totalPages} className="h-8 px-3 rounded-full transition-colors border border-base bg-[var(--color-primary-light)] text-primary disabled:opacity-40 disabled:cursor-not-allowed">{t('resources.next','Next')}</button>
             </div>
           </nav>
         )}
         {/* Donate banner */}
         <section className="pt-10">
           <div className="rounded-xl border border-base bg-white p-6 space-y-4 text-center">
-            <h2 className="text-[18px] leading-[24px] font-semibold text-primary">Help expand open resources & transparency.</h2>
-            <Link to="/donate" className="btn-donate inline-flex justify-center">Donate</Link>
+            <h2 className="text-[18px] leading-[24px] font-semibold text-primary">{t('resources.donateBannerTitle','Help expand open resources & transparency.')}</h2>
+            <Link to="/donate" className="btn-donate inline-flex justify-center">{t('nav.donate','Donate')}</Link>
           </div>
         </section>
     </PublicPageShell>
